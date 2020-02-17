@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 using MyForum.Web.Models;
 
 namespace MyForum.Web.Controllers
-{
+{    
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

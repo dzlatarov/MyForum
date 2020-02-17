@@ -3,14 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyForum.Web</title>
+    <title>@ViewData["Title"] - MyForum</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-
     <div class="container-fluid">
-        <header class="bg-forumColor">
+        <header class="bg-forum">
             <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyForum</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -59,8 +58,8 @@
                 @RenderBody()
             </main>
         </main>
-        <footer class="w-75 mt-3 mx-auto bg-forum rounded">
-            <div class="container-fluid bg-forumColor">
+        <footer class="w-75 mt-3 mx-auto rounded bg-forum">
+            <div class="container-fluid">
                 <div class="p-1 text-center text-dark">
                     <h5>&copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></h5>
                 </div>
@@ -68,26 +67,6 @@
         </footer>
     </div>
 
-
-    @*<header class="bg-forum">
-            <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
-                <div class="container-fluid">
-
-
-                </div>
-            </nav>
-        </header>*@
-    @*<div class="container">
-            <main role="main" class="pb-3">
-                @RenderBody()
-            </main>
-        </div>*@
-
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

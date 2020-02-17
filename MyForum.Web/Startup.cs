@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +31,25 @@ namespace MyForum.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-XSRF-TOKEN";
+                options.SuppressXFrameOptionsHeader = false;
+            });
+
+            services.AddMvc(options =>
+            {
+                options.EnableEndpointRouting = false;
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+            })
+               .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
             services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(GlobalConstants.ConnectionName)));
 
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -54,15 +75,12 @@ namespace MyForum.Web
 
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-            services.AddMvc(options => options.EnableEndpointRouting = false)
-                .SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-
+           
             services.AddTransient<MyForumDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiForgery)
         {
             if (env.IsDevelopment())
             {
@@ -84,8 +102,26 @@ namespace MyForum.Web
             app.UseMvc(endpoints =>
             {
                 endpoints.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    name: GlobalConstants.RouteName,
+                    template: GlobalConstants.template);
+            });
+
+            app.Use(next => httpContext =>
+            {
+                string path = httpContext.Request.Path.Value;
+
+                if (
+                    string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+                {
+                // The request token can be sent as a JavaScript-readable cookie, 
+                // and Angular uses it by default.
+                var tokens = antiForgery.GetAndStoreTokens(httpContext);
+                    httpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                        new CookieOptions() { HttpOnly = false });
+                }
+
+                return next(httpContext);
             });
         }
     }

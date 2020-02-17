@@ -28,5 +28,9 @@ namespace MyForum.Infrastructure
 
         //Connection configure
         public const string ConnectionName = "DefaultConnection";
+
+        //MVC routing config
+        public const string RouteName = "default";
+        public const string template = "{controller=Home}/{action=Index}/{id?}";
     }
 }
