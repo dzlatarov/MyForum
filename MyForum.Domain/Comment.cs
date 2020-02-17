@@ -14,8 +14,8 @@ namespace MyForum.Domain
 
         public Post Post { get; set; }
 
-        public string UserId { get; set; }
+        public string CommentCreatorId { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser CommentCreator { get; set; }
     }
 }

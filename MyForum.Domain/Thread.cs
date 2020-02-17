@@ -14,9 +14,9 @@ namespace MyForum.Domain
 
         public string Name { get; set; }
 
-        public string UserId { get; set; }
+        public string ThreadCreatorId { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser ThreadCreator { get; set; }
 
         public ICollection<Post> Posts { get; set; }
     }
