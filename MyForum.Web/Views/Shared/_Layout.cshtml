@@ -10,7 +10,7 @@
 <body>
 
     <div class="container-fluid">
-        <header class="bg-forum">
+        <header class="bg-forumColor">
             <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">MyForum</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -18,25 +18,39 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-flex justify-content-between">
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
-                        </li>
-                    </ul>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                            </li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                        </ul>
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            </li>
+                        </ul>
+                    }
                 </div>
             </nav>
         </header>
@@ -46,34 +60,34 @@
             </main>
         </main>
         <footer class="w-75 mt-3 mx-auto bg-forum rounded">
-            <div class="container-fluid bg-forum">
+            <div class="container-fluid bg-forumColor">
                 <div class="p-1 text-center text-dark">
                     <h5>&copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></h5>
                 </div>
-            </div>           
+            </div>
         </footer>
     </div>
 
 
     @*<header class="bg-forum">
-        <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
-            <div class="container-fluid">
-               
-                               
-            </div>
-        </nav>
-    </header>*@
+            <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
+                <div class="container-fluid">
+
+
+                </div>
+            </nav>
+        </header>*@
     @*<div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>*@
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>*@
 
     @*<footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>*@
+            <div class="container">
+                &copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+        </footer>*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

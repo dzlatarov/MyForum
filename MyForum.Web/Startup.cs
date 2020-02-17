@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using MyForum.Domain;
+using MyForum.Infrastructure;
 using MyForum.Persistence;
 
 namespace MyForum.Web
@@ -27,9 +29,27 @@ namespace MyForum.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<ApplicationUser>()
-                .AddEntityFrameworkStores<MyForumDbContext>();
+            services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(GlobalConstants.ConnectionName)));
+
+            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = GlobalConstants.PasswordMinLength;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredUniqueChars = GlobalConstants.UniqueChars;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+
+                options.SignIn.RequireConfirmedEmail = false;
+
+                options.User.AllowedUserNameCharacters = GlobalConstants.AllowedChars;
+                options.User.RequireUniqueEmail = true;
+            })
+            .AddDefaultUI()
+            .AddRoles<IdentityRole>()
+            .AddRoleManager<RoleManager<IdentityRole>>()
+            .AddDefaultTokenProviders()
+            .AddEntityFrameworkStores<MyForumDbContext>();
 
 
             services.AddControllersWithViews();

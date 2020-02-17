@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyForum.Infrastructure\MyForum.Infrastructure.csproj" />
     <ProjectReference Include="..\MyForum.Persistence\MyForum.Persistence.csproj" />
   </ItemGroup>
 

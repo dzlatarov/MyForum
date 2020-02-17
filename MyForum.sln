@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29411.108
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Web", "MyForum.Web\MyForum.Web.csproj", "{63D7BFAA-C88B-4B1E-A190-76E8D27FD9A9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Web", "MyForum.Web\MyForum.Web.csproj", "{63D7BFAA-C88B-4B1E-A190-76E8D27FD9A9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Domain", "MyForum.Domain\MyForum.Domain.csproj", "{45AE4764-B2F8-41DF-9AF0-3D5BC15AF68D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Domain", "MyForum.Domain\MyForum.Domain.csproj", "{45AE4764-B2F8-41DF-9AF0-3D5BC15AF68D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Persistence", "MyForum.Persistence\MyForum.Persistence.csproj", "{4719B8E5-809A-400E-93B5-B79EC353FEDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Persistence", "MyForum.Persistence\MyForum.Persistence.csproj", "{4719B8E5-809A-400E-93B5-B79EC353FEDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Infrastructure", "MyForum.Infrastructure\MyForum.Infrastructure.csproj", "{7F565EA1-9108-4ADB-AEF9-AC7159669A65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{4719B8E5-809A-400E-93B5-B79EC353FEDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4719B8E5-809A-400E-93B5-B79EC353FEDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4719B8E5-809A-400E-93B5-B79EC353FEDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
