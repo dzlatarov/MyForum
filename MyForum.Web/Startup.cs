@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -12,10 +11,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using MyForum.Domain;
 using MyForum.Infrastructure;
 using MyForum.Persistence;
+using MyForum.Persistence.Seeds;
+using Microsoft.AspNetCore.Hosting;
 
 namespace MyForum.Web
 {
@@ -80,8 +80,11 @@ namespace MyForum.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAntiforgery antiForgery)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiForgery, MyForumDbContext context)
         {
+            MyForumSeedData seeder = new MyForumSeedData(context, app, env);
+            seeder.SeedAllData().Wait();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyForum.Domain\MyForum.Domain.csproj" />
+    <ProjectReference Include="..\MyForum.Infrastructure\MyForum.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
