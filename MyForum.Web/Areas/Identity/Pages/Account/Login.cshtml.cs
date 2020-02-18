@@ -17,20 +17,14 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
     public class LoginModel : PageModel
-    {
-        private readonly UserManager<ApplicationUser> _userManager;
+    {        
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly ILogger<LoginModel> _logger;
-        private readonly IEmailSender _emailSender;
+        private readonly ILogger<LoginModel> _logger;        
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
-            ILogger<LoginModel> logger,
-            UserManager<ApplicationUser> userManager,
-            IEmailSender emailSender)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _emailSender = emailSender;
+            ILogger<LoginModel> logger)
+        {           
+            _signInManager = signInManager;           
             _logger = logger;
         }
 
@@ -68,9 +62,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
 
             // Clear the existing external cookie to ensure a clean login process
-            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
-
-            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);            
 
             ReturnUrl = returnUrl;
         }
@@ -88,12 +80,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
-                }               
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return Page();
-                }
+                }                              
             }
 
             // If we got this far, something failed, redisplay form
