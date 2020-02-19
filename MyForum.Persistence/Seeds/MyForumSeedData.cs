@@ -24,6 +24,7 @@ namespace MyForum.Persistence.Seeds
             this.env = env;
         }
 
+        // Seed Roles
         private async void SeedRoles()
         {
             if(this.context.Roles.Any())

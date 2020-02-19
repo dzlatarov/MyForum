@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using MyForum.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,6 +20,8 @@ namespace MyForum.Domain
         public string MiddleName { get; set; }
 
         public string LastName { get; set; }
+
+        public Gender Gender { get; set; }
 
         public ICollection<Thread> Threads { get; set; }
 

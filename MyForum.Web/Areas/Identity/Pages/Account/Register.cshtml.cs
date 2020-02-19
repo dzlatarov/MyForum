@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using MyForum.Domain;
+using MyForum.Domain.Enums;
 using MyForum.Infrastructure;
 
 namespace MyForum.Web.Areas.Identity.Pages.Account
@@ -43,19 +44,39 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
+            [StringLength(20, ErrorMessage = GlobalConstants.LengthError, 
+                MinimumLength = 3)]
+            public string Username { get; set; }
+
+            [Required]
+            [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
+                MinimumLength = 3)]
+            [Display(Name ="First Name")]
+            public string FirstName { get; set; }
+
+            [Required]
+            [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
+                MinimumLength = 3)]
+            [Display(Name = "Last Name")]
+            public string LastName { get; set; }
+
+            [Required]
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            public Gender Gender { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = GlobalConstants.LengthError, MinimumLength = 6)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessage = GlobalConstants.ConfirmPasswordEr)]
             public string ConfirmPassword { get; set; }
         }
 
@@ -73,7 +94,10 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                 var user = new ApplicationUser
                 {
                     UserName = Input.Email,
-                    Email = Input.Email                    
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    Gender = Input.Gender,
+                    Email = Input.Email             
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
