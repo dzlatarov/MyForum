@@ -7,7 +7,7 @@ namespace MyForum.Infrastructure
     public class GlobalConstants
     {
         // Project info
-        public const string ProjectName = "MyForum";
+        public const string ProjectName = "Game Zone";
         public const string ProjectAuthor = "Danail Zlatarov";
         public const string ProjectDescription = "Problem solving forum";
 
@@ -32,5 +32,8 @@ namespace MyForum.Infrastructure
         //MVC routing config
         public const string RouteName = "default";
         public const string template = "{controller=Home}/{action=Index}/{id?}";
+
+        //Exeptions
+        public const string ExeptionHandlerErr = "/Home/Error";
     }
 }

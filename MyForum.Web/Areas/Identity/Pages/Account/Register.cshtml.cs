@@ -45,7 +45,8 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
         {
             [Required]
             [StringLength(20, ErrorMessage = GlobalConstants.LengthError, 
-                MinimumLength = 3)]
+                MinimumLength = 5)]
+            [Display(Name = "Username")]
             public string Username { get; set; }
 
             [Required]
