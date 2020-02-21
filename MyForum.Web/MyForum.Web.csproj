@@ -31,6 +31,15 @@
     <ProjectReference Include="..\MyForum.Services\MyForum.Services.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Category\" />
+    <Folder Include="Views\Comment\" />
+    <Folder Include="Views\Post\" />
+    <Folder Include="Views\News\" />
+    <Folder Include="Views\Thread\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
 
 
 </Project>

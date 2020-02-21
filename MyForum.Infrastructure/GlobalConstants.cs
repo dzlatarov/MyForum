@@ -38,6 +38,6 @@ namespace MyForum.Infrastructure
 
         //Coockie paths
         public const string LoginPath = "/Identity/Account/Login";
-        public const string LogoutPath = "/Identity/Account/Logout";
+        public const string LogoutPath = "/Identity/Account/Logout";        
     }
 }

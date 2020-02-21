@@ -12,5 +12,10 @@ namespace MyForum.Web.Controllers
         {
 
         }
+
+        public async Task<IActionResult> All()
+        {
+           return this.Redirect("/");
+        }
     }
 }
