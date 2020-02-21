@@ -46,8 +46,8 @@ namespace MyForum.Web
 
             services.ConfigureApplicationCookie(options =>
             {
-                options.LoginPath = $"/Identity/Account/Login";
-                options.LogoutPath = $"/Identity/Account/Logout";
+                options.LoginPath = GlobalConstants.LoginPath;
+                options.LogoutPath = GlobalConstants.LogoutPath;
             });
 
             services.Configure<CookiePolicyOptions>(options =>

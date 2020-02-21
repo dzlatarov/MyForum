@@ -35,5 +35,9 @@ namespace MyForum.Infrastructure
 
         //Exeptions
         public const string ExeptionHandlerErr = "/Home/Error";
+
+        //Coockie paths
+        public const string LoginPath = "/Identity/Account/Login";
+        public const string LogoutPath = "/Identity/Account/Logout";
     }
 }

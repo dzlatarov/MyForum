@@ -3,56 +3,60 @@
 @{
     ViewData["Title"] = "Register";
 }
-<div class="jumbotron w-50 mt-5 mr-5 mx-auto">
-    <form class="mx-auto w-75 justify-content-center text-center" method="post">
-        <h2 class="form-title text-center">Create account</h2>
-        <div asp-validation-summary="All" class="text-danger"></div>
-        <div class="form-group">
-            <label asp-for="Input.Username"></label>
-            <input asp-for="Input.Username" type="text" class="form-control" placeholder="Username..." />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.FirstName"></label>
-            <input asp-for="Input.FirstName" type="text" class="form-control" placeholder="First Name..." />
-            <span asp-validation-for="Input.FirstName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.LastName"></label>
-            <input asp-for="Input.LastName" type="text" class="form-control" placeholder="Last Name..." />
-            <span asp-validation-for="Input.LastName" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Email"></label>
-            <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email..." />
-            <span asp-validation-for="Input.Email" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Gender"></label>
-            <br />
-            <select class="form-group" asp-for="Input.Gender" placeholder="Gender...">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.Password"></label>
-            <input asp-for="Input.Password" type="text" class="form-control" placeholder="Password..." />
-            <span asp-validation-for="Input.Password" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Input.ConfirmPassword"></label>
-            <input asp-for="Input.ConfirmPassword" type="text" class="form-control" placeholder="Confirt Password..." />
-            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-danger">Register</button>
-        </div>
-    </form>
-    <p class="loginhere text-center">
-        Have already an account ? <a asp-area="Identity" asp-page="/Account/Login" class="loginhere-link text-danger">Sign up</a>
-    </p>
-</div>
+
+
+<header class="bg-white text-center text-dark">
+    <div class="jumbotron w-75 mt-5 mr-5 mx-auto">
+        <h1 class="form-title text-center text-uppercase mb-5">Register</h1>
+        <form class="container-fluid w-50 mx-auto justify-content-center text-center" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group text-center">
+                <label asp-for="Input.Username"></label>
+                <input asp-for="Input.Username" type="text" class="form-control" placeholder="Username..." />
+                <span asp-validation-for="Input.Username" class="text-danger"></span>
+            </div>            
+                <div class="form-group">
+                    <label asp-for="Input.FirstName"></label>
+                    <input asp-for="Input.FirstName" type="text" class="form-control" placeholder="First Name..." />
+                    <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Input.LastName"></label>
+                    <input asp-for="Input.LastName" type="text" class="form-control" placeholder="Last Name..." />
+                    <span asp-validation-for="Input.LastName" class="text-danger"></span>
+                </div>            
+            <div class="form-group">
+                <label asp-for="Input.Email"></label>
+                <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email..." />
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Gender"></label>
+                <br />
+                <select class="form-group" asp-for="Input.Gender" placeholder="Gender...">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.Password"></label>
+                <input asp-for="Input.Password" type="text" class="form-control" placeholder="Password..." />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Input.ConfirmPassword"></label>
+                <input asp-for="Input.ConfirmPassword" type="text" class="form-control" placeholder="Confirt Password..." />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-danger">Register</button>
+            </div>
+        </form>
+        <p class="loginhere text-center">
+            Have already an account ? <a asp-area="Identity" asp-page="/Account/Login" class="loginhere-link text-danger">Sign up</a>
+        </p>
+    </div>
+</header>
 @*<div class="row">
         <div class="col-md-4">
             <form asp-route-returnUrl="@Model.ReturnUrl" method="post">

@@ -94,7 +94,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
             {
                 var user = new ApplicationUser
                 {
-                    UserName = Input.Email,
+                    UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     Gender = Input.Gender,
