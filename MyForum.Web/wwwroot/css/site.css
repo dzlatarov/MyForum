@@ -5,3 +5,24 @@
 .input-width {
     width: 90%;
 }
+
+#adminNav {
+    margin-right: 10px;
+}
+
+.profile {
+    background-position: 0 0;
+}
+
+.home {
+    background-position: 0 -20px;
+}
+
+.thread {
+    background-position: 0 -40px;
+}
+
+.category {
+    background-position: 0 -60px;
+}
+

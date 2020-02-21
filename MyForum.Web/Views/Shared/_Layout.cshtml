@@ -12,52 +12,125 @@
 <body>
     <div class="container-fluid">
         <header class="navbar-color">
-            <nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-danger dropdown-toggle text-light" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         @GlobalConstants.ProjectName
                     </button>
                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <a class="dropdown-item text-danger" asp-controller="Users" asp-action="All">Members</a>
-                        @*<a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>*@
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            if (this.User.IsInRole(GlobalConstants.AdminRole))
+                            {
+                                <a class="dropdown-item text-danger" asp-controller="Users" asp-action="All">Members</a>
+                                <a class="dropdown-item text-danger" asp-controller="Threads" asp-action="Create">Create Thread</a>
+                                <a class="dropdown-item text-danger" asp-controller="News" asp-action="Create">Create News</a>
+                            }
+                            else
+                            {
+                                <a class="dropdown-item text-danger" asp-controller="Users" asp-action="All">Members</a>
+                                <a class="dropdown-item text-danger" asp-controller="Threads" asp-action="Create">Create Thread</a>
+                            }
+
+                        }
+                        else
+                        {
+                            <a class="dropdown-item text-danger" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            <a class="dropdown-item text-danger" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            <a class="dropdown-item text-danger" asp-controller="Users" asp-action="All">Members</a>
+                        }
                     </div>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-flex justify-content-end">
-                    @if (!this.User.Identity.IsAuthenticated)
-                    {
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+
+                <div class="collapse navbar-collapse" id="navbarColor02">
+                    <ul class="navbar-nav mr-auto">
+                        @if (!this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                        </ul>
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
                             </li>
-                            <li class="nav-item active">
-                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                            <li class="nav-item">
+                                <span class="nav-link active">Hello there, Guest!</span>
                             </li>
-                        </ul>
-                    }
-                    else
-                    {
-                        <ul class="navbar-nav">
-                            <li class="nav-item active">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.ProjectName</a>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Users" asp-action="Profile">Hello there, @User.Identity.Name!</a>
                             </li>
-                            <li class="nav-item active">
-                                <a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                        </ul>
-                    }
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                            </li>
+                        }
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search by Username">
+                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    </form>
                 </div>
             </nav>
-        </header>        
+            @*<nav class="navbar navbar-expand-lg navbar-light w-75 px-0 mx-auto font-weight-bold">
+
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="navbar-collapse collapse d-flex justify-content-end">
+                        @if (!this.User.Identity.IsAuthenticated)
+                        {
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+
+                                </li>
+                            </ul>
+                            <ul class="navbar-nav">
+                                <li class="nav-item active">
+
+                                </li>
+
+                            </ul>
+                        }
+                        else
+                        {
+                            if (this.User.IsInRole(GlobalConstants.AdminRole))
+                            {
+                                <ul class="navbar-nav" id="adminNav">
+                                    <li class="nav-item active">
+                                        <a class="nav-link text-light profile" asp-area="" asp-controller="Users" asp-action="Profile">Hello there, @this.User.Identity.Name</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link text-light home" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link text-light thread" asp-area="" asp-controller="Threads" asp-action="Create">Create Thread</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link text-light category" asp-area="" asp-controller="Categories" asp-action="Create">Create Category</a>
+                                    </li>
+                                    <li class="nav-item active">
+                                        <a class="nav-link text-light" asp-area="" asp-controller="News" asp-action="Create">Create News</a>
+                                    </li>
+                                    <li class="nav-item active">
+
+                                    </li>
+                                </ul>
+                            }
+                        }
+                    </div>
+                </nav>*@
+        </header>
         <main class="my-4">
             <main role="main" class="pb-3">
                 @RenderBody()
@@ -66,7 +139,7 @@
         <footer class="text-center w-100 mt-3 mx-auto navbar-color">
             <div class="container-fluid">
                 <div class="p-1 text-center text-light">
-                    <h5>&copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Index">Privacy</a></h5>
+                    <h5>&copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.ProjectName</a></h5>
                 </div>
             </div>
         </footer>

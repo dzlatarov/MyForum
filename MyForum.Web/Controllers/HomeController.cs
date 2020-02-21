@@ -19,5 +19,10 @@ namespace MyForum.Web.Controllers
         {
             return this.View();
         }
+
+        public async Task<IActionResult> About()
+        {
+            return this.View();
+        }
     }
 }
