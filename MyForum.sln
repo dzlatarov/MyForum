@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Domain", "MyForum.D
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Persistence", "MyForum.Persistence\MyForum.Persistence.csproj", "{4719B8E5-809A-400E-93B5-B79EC353FEDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Infrastructure", "MyForum.Infrastructure\MyForum.Infrastructure.csproj", "{7F565EA1-9108-4ADB-AEF9-AC7159669A65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Infrastructure", "MyForum.Infrastructure\MyForum.Infrastructure.csproj", "{7F565EA1-9108-4ADB-AEF9-AC7159669A65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Services", "MyForum.Services\MyForum.Services.csproj", "{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F565EA1-9108-4ADB-AEF9-AC7159669A65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

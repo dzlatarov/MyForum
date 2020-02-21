@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MyForum.Domain\MyForum.Domain.csproj" />
+    <ProjectReference Include="..\MyForum.Persistence\MyForum.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
