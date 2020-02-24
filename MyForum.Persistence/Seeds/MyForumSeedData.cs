@@ -21,7 +21,7 @@ namespace MyForum.Persistence.Seeds
         {
             this.context = context;
             this.app = app;
-            this.env = env;
+            this.env = env;            
         }
 
         // Seed Roles
@@ -50,7 +50,7 @@ namespace MyForum.Persistence.Seeds
 
         public async Task SeedAllData()
         {
-            Task.Run(SeedRoles).Wait();
+             Task.Run(SeedRoles).Wait();
         }
     }
 }

@@ -4,4 +4,36 @@
 @{
 }
 
-    <p>All Members</p>
+@{ 
+    ViewData["Title"] = "All Members";
+}
+
+<div class="container-fluid text-dark text-center">
+    <h1>ALL Members</h1>
+</div>
+<br />
+<br />
+<br />
+<div class="text-center">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Username</th>
+                <th scope="col">Threads Count</th>
+                <th scope="col">Posts Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Members.Count; i++)
+            {
+                <tr>
+                    <th scope="row">@(i + 1)</th>
+                    <th><a class="btn-link active" asp-controller="Users" asp-action="Profile" asp-route-id="@Model.Members[i].Id">@Model.Members[i].Username</a></th>
+                    <th>@Model.Members[i].ThreadsCount</th>
+                    <th>@Model.Members[i].PostsCount</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

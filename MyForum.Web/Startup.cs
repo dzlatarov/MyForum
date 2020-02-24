@@ -16,6 +16,7 @@ using MyForum.Infrastructure;
 using MyForum.Persistence;
 using MyForum.Persistence.Seeds;
 using Microsoft.AspNetCore.Hosting;
+using MyForum.Services;
 
 namespace MyForum.Web
 {
@@ -83,6 +84,7 @@ namespace MyForum.Web
             services.AddRazorPages();
            
             services.AddTransient<MyForumDbContext>();
+            services.AddTransient<IUsersService, UsersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

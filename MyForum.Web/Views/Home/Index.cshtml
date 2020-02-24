@@ -1,8 +1,71 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using MyForum.Infrastructure
+@using MyForum.Domain;
+@using MyForum.Domain.Enums;
+@{
+    ViewData["Title"] = @GlobalConstants.ProjectName;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    
-</div>
+@{
+    var user = (ApplicationUser)ViewData["CurrentUser"];
+}
+
+@if (!this.User.Identity.IsAuthenticated)
+{
+    <div class="container-fluid text-center mb-5">
+        <img src="/images/AdminAvatar.jpg" alt="" class="img-fluid" width="120" height="120" />
+        <h1 class="display-4">
+            Welcome
+            <br />
+            Please <a class="btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register">register</a> if you don`t have an account !
+        </h1>
+    </div>
+
+    <div class="text-center mb-5">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Threads Count</th>
+                    <th scope="col">Posts Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Members.Count; i++)
+                {
+                    <tr>
+                        <th scope="row">@(i + 1)</th>
+                        <th><a class="btn-link active" asp-controller="Users" asp-action="Profile">@Model.Members[i].Username</a></th>
+                        <th>@Model.Members[i].ThreadsCount</th>
+                        <th>@Model.Members[i].PostsCount</th>
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    if (this.User.IsInRole(GlobalConstants.AdminRole))
+    {
+        <div class="container-fluid text-center">
+            <img src="~/images/AdminAvatar.jpg" class="img-fluid" width="100" height="100" />
+            <h1 class="text-dark">Welcome, @this.User.Identity.Name - Administrator</h1>
+        </div>
+    }
+    else
+    {
+        <div class="container-fluid text-center">
+            @if (user.Gender == Gender.Male)
+            {
+                <img src="~/images/UserAvatar.jpg" class="img-fluid" width="100" height="100" />
+            }
+            else
+            {
+                <img src="~/images/UserFemaleAvatar.png" class="img-fluid" width="100" height="100" />
+            }
+            <h1 class="text-dark">Welcome to the Game Zone!</h1>
+        </div>
+    }
+}
