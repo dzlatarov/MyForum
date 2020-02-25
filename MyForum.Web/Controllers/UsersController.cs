@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyForum.Services;
 using MyForum.Web.Models;
 using MyForum.Web.Models.Users;
@@ -18,6 +19,7 @@ namespace MyForum.Web.Controllers
             this.usersService = usersService;
         }
 
+        [Authorize]
         public IActionResult All()
         {
             var allUsers = this.usersService.All()
@@ -32,10 +34,12 @@ namespace MyForum.Web.Controllers
             return this.View(new AllUserListViewModel { Members = allUsers });
         }
 
+        [Authorize]
+        [Route("/Users/Profile/{username}")]
         public IActionResult Profile(string username)
         {
             var user = this.usersService.GetUserByUsername(username);
-            var viewModel = new UsersProfileViewModel
+            var viewModel = new UsersProfileViewModel()
             {
                 Id = user.Id,
                 Username = user.UserName,
@@ -44,7 +48,9 @@ namespace MyForum.Web.Controllers
                 LastName = user.LastName,
                 Gender = user.Gender.ToString(),
                 PhoneNumber = string.IsNullOrEmpty(user.PhoneNumber) ? " " : user.PhoneNumber,
-                Email = user.Email
+                Email = user.Email,
+                ThreadsCount = user.Threads.Count,
+                PostsCount = user.Posts.Count
             };
             return this.View(viewModel);
         }

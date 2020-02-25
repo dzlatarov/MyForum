@@ -7,6 +7,11 @@ namespace MyForum.Web.Models.Users
 {
     public class UsersProfileViewModel
     {
+        public UsersProfileViewModel()
+        {
+                
+        }
+
         public string Id { get; set; }
         public string Username { get; set; }
 
@@ -19,5 +24,9 @@ namespace MyForum.Web.Models.Users
         public string Gender { get; set; }
 
         public string PhoneNumber { get; set; }
+
+        public int ThreadsCount { get; set; }
+
+        public int PostsCount { get; set; }
     }
 }
