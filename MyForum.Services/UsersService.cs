@@ -23,6 +23,25 @@ namespace MyForum.Services
             return allUsers;
         }
 
+        public void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber)
+        {
+            var userFromDb = this.GetUserById(id);
+            userFromDb.UserName = username;
+            userFromDb.FirstName = firstName;
+            userFromDb.MiddleName = middleName;
+            userFromDb.LastName = lastName;
+            userFromDb.Email = email;
+            userFromDb.PhoneNumber = phoneNumber;
+
+            this.db.Update(userFromDb);
+            this.db.SaveChanges();
+        }
+
+        public ApplicationUser GetUserById(string id)
+        {
+            return this.db.Users.FirstOrDefault(u => u.Id == id);
+        }
+
         public ApplicationUser GetUserByUsername(string username)
         {
             return this.db.Users.FirstOrDefault(u => u.UserName == username);

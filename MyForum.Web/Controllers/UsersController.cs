@@ -19,7 +19,6 @@ namespace MyForum.Web.Controllers
             this.usersService = usersService;
         }
 
-        [Authorize]
         public IActionResult All()
         {
             var allUsers = this.usersService.All()
@@ -53,6 +52,40 @@ namespace MyForum.Web.Controllers
                 PostsCount = user.Posts.Count
             };
             return this.View(viewModel);
+        }
+
+        [Authorize]
+        [Route("/Users/Profile/Edit/{id}")]
+        public IActionResult EditProfile(string id)
+        {
+            var user = this.usersService.GetUserById(id);
+            var viewModel = new UsersEditViewModel
+            {
+                Id = id,
+                Username = user.UserName,
+                FirstName = user.FirstName,
+                MiddleName = user.MiddleName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            return this.View(viewModel);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("/Users/Profile/Edit/{id}")]
+        public IActionResult EditProfile(string id, UsersEditedViewModel input)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.Redirect($"/Users/Profile/Edit/{id}");
+            }
+
+            this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber);
+
+            return this.Redirect($"/Users/Profile/{this.User.Identity.Name}");
         }
     }
 }

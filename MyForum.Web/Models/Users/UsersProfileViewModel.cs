@@ -6,12 +6,7 @@ using System.Threading.Tasks;
 namespace MyForum.Web.Models.Users
 {
     public class UsersProfileViewModel
-    {
-        public UsersProfileViewModel()
-        {
-                
-        }
-
+    {        
         public string Id { get; set; }
         public string Username { get; set; }
 
