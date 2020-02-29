@@ -6,6 +6,7 @@ using MyForum.Web.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MyForum.Web.Controllers
@@ -29,6 +30,7 @@ namespace MyForum.Web.Controllers
                     ThreadsCount = u.Threads.Count,
                     PostsCount = u.Posts.Count
                 }).ToList();
+
 
             return this.View(new AllUserListViewModel { Members = allUsers });
         }

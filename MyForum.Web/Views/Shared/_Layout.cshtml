@@ -64,7 +64,7 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.Identity.Name">Hello there, @User.Identity.Name!</a>
+                                <a class="nav-link" asp-controller="Users" asp-action="Profile" asp-route-username="@this.User.Identity.Name">Hello there, @User.Identity.Name!</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
