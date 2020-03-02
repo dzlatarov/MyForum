@@ -105,14 +105,15 @@ namespace MyForum.Web
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseCookiePolicy();
 
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMvc(endpoints =>
+            app.UseMvc(options =>
             {
-                endpoints.MapRoute(
+                options.MapRoute(
                     name: GlobalConstants.RouteName,
                     template: GlobalConstants.template);
             });

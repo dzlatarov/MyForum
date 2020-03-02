@@ -78,16 +78,16 @@ namespace MyForum.Web.Controllers
         [HttpPost]
         [Authorize]
         [Route("/Users/Profile/Edit/{id}")]
-        public IActionResult EditProfile(string id, UsersEditedViewModel input)
+        public IActionResult EditProfile(string id, UsersEditViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
-                return this.Redirect($"/Users/Profile/Edit/{id}");
+                return this.View(input);
             }
 
             this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber);
 
-            return this.Redirect($"/Users/Profile/{this.User.Identity.Name}");
+            return this.RedirectToAction(nameof(Profile), new { username = this.User.Identity.Name });
         }
     }
 }
