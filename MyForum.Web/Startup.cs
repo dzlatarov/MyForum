@@ -94,8 +94,8 @@ namespace MyForum.Web
             seeder.SeedAllData().Wait();
 
             if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
+            {                
+                app.UseDeveloperExceptionPage();                   
             }
             else
             {
@@ -111,11 +111,12 @@ namespace MyForum.Web
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseMvc(options =>
+            app.UseEndpoints(endpoints =>
             {
-                options.MapRoute(
+                endpoints.MapControllerRoute(
                     name: GlobalConstants.RouteName,
-                    template: GlobalConstants.template);
+                    pattern: GlobalConstants.template);
+                endpoints.MapRazorPages();
             });
 
             app.Use(next => httpContext =>

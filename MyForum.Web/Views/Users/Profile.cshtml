@@ -1,5 +1,6 @@
 ﻿@using MyForum.Web.Models.Users
 @using System.Security.Claims
+@using MyForum.Infrastructure
 @model UsersProfileViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -37,10 +38,19 @@
                                 </div>*@
                         </div>
                         @if (Model.Id == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
-                        {                            
+                        {
                             <div class="d-flex justify-content-end">
                                 <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id">Edit</a>
                             </div>
+                        }
+                        else
+                        {
+                            if (this.User.IsInRole(GlobalConstants.AdminRole))
+                            {
+                                <div class="d-flex justify-content-end">
+                                    <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id">Edit</a>
+                                </div>
+                            }
                         }
                     </div>
 

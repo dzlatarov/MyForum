@@ -13,6 +13,7 @@ namespace MyForum.Domain
 
         public string Id { get; set; }
 
+        //Content
         public string Name { get; set; }
 
         public string ThreadId { get; set; }

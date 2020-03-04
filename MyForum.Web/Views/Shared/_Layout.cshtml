@@ -2,7 +2,6 @@
 @using Microsoft.AspNetCore.Identity
 @using MyForum.Domain;
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,22 +76,22 @@
                             </li>
                         }
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search by Username">
-                        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+                    <form class="form-inline my-2 my-lg-0" asp-controller="Users" asp-action="Search" method="get">
+                        <input  class="form-control mr-sm-2" type="text" name="username" placeholder="Search by Username">
+                        <input class="btn btn-danger my-2 my-sm-0" type="submit" value="Search" />
                     </form>
                 </div>
-            </nav>           
-        </header>
+            </nav>
+        </header> 
         <main class="my-4">
             <partial name="_CookieConsentPartial" />
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
         </main>
-        <footer class="text-center w-100 mt-3 mx-auto navbar-color">
+        <footer class="footer navbar-color">
             <div class="container-fluid">
-                <div class="p-1 text-center text-light">
+                <div class="p-1 text-light text-center">
                     <h5>&copy; 2020 - MyForum.Web - <a asp-area="" asp-controller="Home" asp-action="Index">@GlobalConstants.ProjectName</a></h5>
                 </div>
             </div>

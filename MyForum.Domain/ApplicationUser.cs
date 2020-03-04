@@ -24,7 +24,7 @@ namespace MyForum.Domain
         public Gender Gender { get; set; }
 
         //Day of Birth
-
+       
         public ICollection<Thread> Threads { get; set; }
 
         public ICollection<Post> Posts { get; set; }

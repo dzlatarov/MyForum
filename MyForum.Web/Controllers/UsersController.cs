@@ -40,6 +40,7 @@ namespace MyForum.Web.Controllers
         public IActionResult Profile(string username)
         {
             var user = this.usersService.GetUserByUsername(username);
+           
             var viewModel = new UsersProfileViewModel()
             {
                 Id = user.Id,
@@ -88,6 +89,25 @@ namespace MyForum.Web.Controllers
             this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber);
 
             return this.RedirectToAction(nameof(Profile), new { username = this.User.Identity.Name });
+        }
+
+        [Authorize]
+        [Route("/Users/Search")]
+        public IActionResult Search(UsersSearchViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View();
+            }
+
+            var user = this.usersService.GetUserByUsername(model.Username);
+
+            if(user == null)
+            {
+                return this.View();
+            }
+
+            return this.RedirectToAction(nameof(Profile), new { username = model.Username });            
         }
     }
 }
