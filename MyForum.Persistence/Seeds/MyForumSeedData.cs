@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MyForum.Infrastructure;
 using System;
@@ -21,27 +22,42 @@ namespace MyForum.Persistence.Seeds
         {
             this.context = context;
             this.app = app;
-            this.env = env;            
+            this.env = env;
         }
+
+        //Migrations
+        private void ApplyMigration()
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<MyForumDbContext>();
+
+                if (env.IsDevelopment())
+                {
+                    dbContext.Database.Migrate();
+                }
+            }
+        }
+
 
         // Seed Roles
         private async void SeedRoles()
         {
-            if(this.context.Roles.Any())
+            if (this.context.Roles.Any())
             {
-                return;                
+                return;
             }
 
-            using(var serviceScope = app.ApplicationServices.CreateScope())
+            using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var roleManger = serviceScope.ServiceProvider.GetService<RoleManager<IdentityRole>>();
 
-                if(!roleManger.RoleExistsAsync(GlobalConstants.AdminRole).Result)
+                if (!roleManger.RoleExistsAsync(GlobalConstants.AdminRole).Result)
                 {
                     await roleManger.CreateAsync(new IdentityRole(GlobalConstants.AdminRole));
                 }
 
-                if(!roleManger.RoleExistsAsync(GlobalConstants.UserRole).Result)
+                if (!roleManger.RoleExistsAsync(GlobalConstants.UserRole).Result)
                 {
                     await roleManger.CreateAsync(new IdentityRole(GlobalConstants.UserRole));
                 }
@@ -50,7 +66,8 @@ namespace MyForum.Persistence.Seeds
 
         public async Task SeedAllData()
         {
-             Task.Run(SeedRoles).Wait();
+            Task.Run(SeedRoles).Wait();
+            Task.Run(ApplyMigration).Wait();
         }
     }
 }
