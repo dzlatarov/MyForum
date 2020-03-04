@@ -17,6 +17,7 @@ using MyForum.Persistence;
 using MyForum.Persistence.Seeds;
 using Microsoft.AspNetCore.Hosting;
 using MyForum.Services;
+using MyForum.Services.Contracts;
 
 namespace MyForum.Web
 {
@@ -85,6 +86,7 @@ namespace MyForum.Web
            
             services.AddTransient<MyForumDbContext>();
             services.AddTransient<IUsersService, UsersService>();
+            services.AddTransient<IThreadsServices, ThreadsServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

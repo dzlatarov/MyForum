@@ -6,22 +6,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MyForum.Services;
+using MyForum.Services.Contracts;
 using MyForum.Web.Models;
+using MyForum.Web.Models.Threads;
 
 namespace MyForum.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly IUsersService usersService;
+        private readonly IThreadsServices threadsServices;
 
-        public HomeController(IUsersService usersService)
+        public HomeController(IUsersService usersService, IThreadsServices threadsServices)
         {
             this.usersService = usersService;
+            this.threadsServices = threadsServices;
         }
 
         public IActionResult Index()
         {
             ViewData["Currentuser"] = this.usersService.GetUserByUsername(this.User.Identity.Name);
+            var allThreads = this.threadsServices.All()
+                .Select(t => new ThreadsAllViewModel
+                {
+                    Name = t.Name,
+                    Username = t.ThreadCreator.UserName,
+                    PostsCount = t.Posts.Count()
+                }).ToList();
+
+           
+            ViewData["AllThreads"] = allThreads;
 
             var allUsers = this.usersService.All()
                 .Select(u => new AllUsersViewModel

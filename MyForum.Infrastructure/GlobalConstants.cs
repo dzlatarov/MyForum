@@ -38,6 +38,12 @@ namespace MyForum.Infrastructure
 
         //Coockie paths
         public const string LoginPath = "/Identity/Account/Login";
-        public const string LogoutPath = "/Identity/Account/Logout";        
+        public const string LogoutPath = "/Identity/Account/Logout";
+
+        //Threads create model constraints
+
+        public const int NameMaxLength = 50;
+        public const int NameMinLength = 20;
+        public const string NameErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
     }
 }
