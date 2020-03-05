@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MyForum.Services;
 using MyForum.Web.Models;
 using MyForum.Web.Models.Users;
@@ -39,7 +40,10 @@ namespace MyForum.Web.Controllers
         [Route("/Users/Profile/{id}")]
         public IActionResult Profile(string id)
         {
-            var user = this.usersService.GetUserById(id);
+            var user = this.usersService.All()
+                .Include(u => u.Threads)
+                .Include(u => u.Posts)
+                .FirstOrDefault(u => u.Id == id);            
 
             var viewModel = new UsersProfileViewModel()
             {
