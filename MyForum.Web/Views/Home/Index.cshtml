@@ -55,6 +55,31 @@ else
             <img src="~/images/AdminAvatar.jpg" class="img-fluid" width="100" height="100" />
             <h1 class="text-dark">Welcome, @this.User.Identity.Name - Administrator</h1>
         </div>
+
+
+        <div class="text-center mt-10 bg-primary">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col" class="w-25">User/Author</th>
+                        <th scope="col" class="w-25">Thread</th>
+                        <th scope="col" class="w-25">Posts Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < allThreads.Count; i++)
+                    {
+                        <tr>
+                            <th scope="row">@(i + 1)</th>
+                            <th scope="row">@allThreads[i].Username</th>
+                            <th scope="row">@allThreads[i].Name</th>
+                            <th scope="row">@allThreads[i].PostsCount</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
     else
     {
@@ -75,7 +100,7 @@ else
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col" class="w-25">User</th>
+                        <th scope="col" class="w-25">User/Author</th>
                         <th scope="col" class="w-25">Thread</th>
                         <th scope="col" class="w-25">Posts Count</th>
                     </tr>
@@ -84,7 +109,7 @@ else
                     @for (int i = 0; i < allThreads.Count; i++)
                     {
                         <tr>
-                            <th scope="row">@(i+1)</th>
+                            <th scope="row">@(i + 1)</th>
                             <th scope="row">@allThreads[i].Username</th>
                             <th scope="row">@allThreads[i].Name</th>
                             <th scope="row">@allThreads[i].PostsCount</th>

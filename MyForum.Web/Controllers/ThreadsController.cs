@@ -16,6 +16,9 @@ namespace MyForum.Web.Controllers
             this.threadsService = threadsService;
         }
 
-
+        public IActionResult Create()
+        {
+            return this.View();
+        }
     }
 }

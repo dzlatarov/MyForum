@@ -14,13 +14,25 @@ namespace MyForum.Services
 
         public ThreadsServices(MyForumDbContext db)
         {
-            this.db = db;
+            this.db = db;           
         }
 
         public IQueryable<Thread> All()
         {
             var allTreads = this.db.Threads;
             return allTreads;
+        }
+
+        public void Create(string name, string authorId)
+        {
+            var thread = new Thread
+            {
+                Name = name,
+                ThreadCreatorId = authorId
+            };
+
+            this.db.Threads.Add(thread);
+            this.db.SaveChanges();
         }
     }
 }

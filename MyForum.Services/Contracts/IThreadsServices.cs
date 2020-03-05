@@ -10,5 +10,7 @@ namespace MyForum.Services.Contracts
     public interface IThreadsServices
     {
         IQueryable<Thread> All();
+
+        void Create(string name, string authorId);
     }
 }
