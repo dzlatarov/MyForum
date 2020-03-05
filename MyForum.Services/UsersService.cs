@@ -17,9 +17,9 @@ namespace MyForum.Services
             this.db = db;
         }
 
-        public IEnumerable<ApplicationUser> All()
+        public IQueryable<ApplicationUser> All()
         {
-            var allUsers = this.db.Users.ToList();                
+            var allUsers = this.db.Users;                
             return allUsers;
         }
 

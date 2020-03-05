@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MyForum.Services;
 using MyForum.Services.Contracts;
@@ -37,7 +38,9 @@ namespace MyForum.Web.Controllers
            
             ViewData["AllThreads"] = allThreads;
 
-            var allUsers = this.usersService.All()
+            var allUsers = this.usersService.All()   
+                .Include(u => u.Threads)
+                .Include(u => u.Posts)
                 .Select(u => new AllUsersViewModel
                 {
                     Id = u.Id,
