@@ -36,11 +36,11 @@ namespace MyForum.Web.Controllers
         }
 
         [Authorize]
-        [Route("/Users/Profile/{username}")]
-        public IActionResult Profile(string username)
+        [Route("/Users/Profile/{id}")]
+        public IActionResult Profile(string id)
         {
-            var user = this.usersService.GetUserByUsername(username);
-           
+            var user = this.usersService.GetUserById(id);
+
             var viewModel = new UsersProfileViewModel()
             {
                 Id = user.Id,
@@ -88,7 +88,7 @@ namespace MyForum.Web.Controllers
 
             this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber);
 
-            return this.RedirectToAction(nameof(Profile), new { username = this.User.Identity.Name });
+            return this.RedirectToAction(nameof(Profile), new { id = this.User.FindFirstValue(ClaimTypes.NameIdentifier) });
         }
 
         [Authorize]
@@ -102,12 +102,12 @@ namespace MyForum.Web.Controllers
 
             var user = this.usersService.GetUserByUsername(model.Username);
 
-            if(user == null)
+            if (user == null)
             {
                 return this.View();
             }
 
-            return this.RedirectToAction(nameof(Profile), new { username = model.Username });            
+            return this.RedirectToAction(nameof(Profile), new { id = user.Id });
         }
     }
 }

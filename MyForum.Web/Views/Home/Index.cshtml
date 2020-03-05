@@ -2,6 +2,7 @@
 @using MyForum.Domain;
 @using MyForum.Domain.Enums;
 @using MyForum.Web.Models.Threads
+@using System.Security.Claims
 @{
     ViewData["Title"] = @GlobalConstants.ProjectName;
 }
@@ -37,7 +38,7 @@
                 {
                     <tr>
                         <th scope="row">@(i + 1)</th>
-                        <th><a class="btn-link active" asp-controller="Users" asp-action="Profile" asp-route-username="@Model.Members[i].Username">@Model.Members[i].Username</a></th>
+                        <th><a class="btn-link active" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)">@Model.Members[i].Username</a></th>
                         <th>@Model.Members[i].ThreadsCount</th>
                         <th>@Model.Members[i].PostsCount</th>
                     </tr>
