@@ -17,9 +17,9 @@ namespace MyForum.Services
             this.db = db;
         }
 
-        public IEnumerable<Category> GetAll()
+        public IQueryable<Category> GetAll()
         {
-            var categories = this.db.Categories.ToList();
+            var categories = this.db.Categories;
             return categories;
         }
     }

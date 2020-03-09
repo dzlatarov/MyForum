@@ -10,40 +10,44 @@ using MyForum.Persistence;
 using MyForum.Services;
 using MyForum.Services.Contracts;
 using MyForum.Web.Models;
+using MyForum.Web.Models.Categories;
 using MyForum.Web.Models.Threads;
 
 namespace MyForum.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ICategoriesService categoriesService;
         private readonly IUsersService usersService;
-        private readonly IThreadsService threadsServices;      
 
-        public HomeController(IUsersService usersService, IThreadsService threadsServices)
+        public HomeController(ICategoriesService categoriesService, IUsersService usersService)
         {
+            this.categoriesService = categoriesService;
             this.usersService = usersService;
-            this.threadsServices = threadsServices;
         }
 
         public IActionResult Index()
         {
             ViewData["Currentuser"] = this.usersService.GetUserByUsername(this.User.Identity.Name);
-            var allThreads = this.threadsServices.All()
-                .Select(ThreadsAllViewModel.AllThreads)
+            //var allThreads = this.threadsServices.All()
+            //    .Select(ThreadsAllViewModel.AllThreads)
+            //    .ToList();
+
+            //ViewData["AllThreads"] = allThreads;
+
+            //var allUsers = this.usersService.All()                
+            //    .Select(u => new AllUsersViewModel
+            //    {
+            //        Id = u.Id,
+            //        Username = u.UserName,
+            //        ThreadsCount = u.Threads.Count,                   
+            //    }).ToList();
+            var allCategories = this.categoriesService.GetAll()
+                .Select(CategoriesAllViewModel.AllCategories)
                 .ToList();
 
-            ViewData["AllThreads"] = allThreads;
 
-            var allUsers = this.usersService.All()                
-                .Select(u => new AllUsersViewModel
-                {
-                    Id = u.Id,
-                    Username = u.UserName,
-                    ThreadsCount = u.Threads.Count,                   
-                }).ToList();
-
-
-            return this.View(new AllUserListViewModel { Members = allUsers });
+            return this.View(new CategoriesListAllViewModel { Categories = allCategories });
         }
 
         public async Task<IActionResult> About()

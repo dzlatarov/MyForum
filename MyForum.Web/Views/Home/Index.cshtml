@@ -9,27 +9,31 @@
 
 @{
     var user = (ApplicationUser)ViewData["CurrentUser"];
-    var allThreads = (List<ThreadsAllViewModel>)ViewData["AllThreads"];
 }
 
 @if (!this.User.Identity.IsAuthenticated)
 {
-    <div class="container-fluid text-center mb-5">
-        <img src="/images/AdminAvatar.jpg" alt="" class="img-fluid" width="120" height="120" />
-        <h1 class="display-4">
-            Welcome
-            <br />
-            Please <a class="btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register">register</a> if you don`t have an account !
-        </h1>
-    </div>
-    <div class="row">
+    @*<div class="container-fluid text-center mb-5">
+            <img src="/images/AdminAvatar.jpg" alt="" class="img-fluid" width="120" height="120" />
+            <h1 class="display-4">
+                Welcome
+                <br />
+                Please <a class="btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register">register</a> if you don`t have an account !
+            </h1>
+        </div>*@
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="row d-flex justify-content-center">
         @foreach (var category in Model.Categories)
         {
-            <div class="media">
-                <img src="..." class="mr-3" alt="...">
+            <div class="col-md-3 media">
+                <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="64" height="64">
                 <div class="media-body">
-                    <h5 class="mt-0">Media heading</h5>
-                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                    <h5 class="mt-0">@category.Name</h5>
+                    @category.Description
                 </div>
             </div>
         }
@@ -64,33 +68,25 @@ else
     if (this.User.IsInRole(GlobalConstants.AdminRole))
     {
         <div class="container-fluid text-center">
-            <img src="~/images/AdminAvatar.jpg" class="img-fluid" width="100" height="100" />
+            <img src="~/images/AdminAvatar.jpg" class="img-fluid" width="50" height="50" />
             <h1 class="text-dark">Welcome, @this.User.Identity.Name - Administrator</h1>
         </div>
+        <br />
+        <br />
+        <br />
+        <br />
 
-
-        <div class="text-center mt-10 bg-primary">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" class="w-25">User/Author</th>
-                        <th scope="col" class="w-25">Thread</th>
-                        <th scope="col" class="w-25">Posts Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < allThreads.Count; i++)
-                    {
-                        <tr>
-                            <th scope="row">@(i + 1)</th>
-                            <th scope="row">@allThreads[i].Username</th>
-                            <th scope="row">@allThreads[i].Content</th>
-                            <th scope="row">@allThreads[i].CommentsPost</th>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="row d-flex justify-content-center">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-md-3 media">
+                    <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="64" height="64">
+                    <div class="media-body">
+                        <h5 class="mt-0">@category.Name</h5>
+                        @category.Description
+                    </div>
+                </div>
+            }
         </div>
     }
     else
@@ -107,28 +103,17 @@ else
             <h1 class="text-dark">Welcome to the Game Zone!</h1>
         </div>
 
-        <div class="text-center mt-10 bg-primary">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col" class="w-25">User/Author</th>
-                        <th scope="col" class="w-25">Thread</th>
-                        <th scope="col" class="w-25">Posts Count</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @for (int i = 0; i < allThreads.Count; i++)
-                    {
-                        <tr>
-                            <th scope="row">@(i + 1)</th>
-                            <th scope="row">@allThreads[i].Username</th>
-                            <th scope="row">@allThreads[i].Content</th>
-                            <th scope="row">@allThreads[i].CommentsPost</th>
-                        </tr>
-                    }
-                </tbody>
-            </table>
+        <div class="row d-flex justify-content-center">
+            @foreach (var category in Model.Categories)
+            {
+                <div class="col-md-3 media">
+                    <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="64" height="64">
+                    <div class="media-body">
+                        <h5 class="mt-0">@category.Name</h5>
+                        @category.Description
+                    </div>
+                </div>
+            }
         </div>
     }
 }
