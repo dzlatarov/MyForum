@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using MyForum.Services.Contracts;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,10 @@ namespace MyForum.Web.Controllers
             this.service = service;
         }
 
-        //public IActionResult GetByName(string name)
-        //{
-
-        //}
+        [Route("/Categories/AllThreads/{id}")]
+        public IActionResult All(string id)
+        {
+            return this.View();
+        }
     }
 }
