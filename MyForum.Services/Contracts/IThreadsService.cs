@@ -7,7 +7,7 @@ using System.Text;
 
 namespace MyForum.Services.Contracts
 {
-    public interface IThreadsServices
+    public interface IThreadsService
     {
         IQueryable<Thread> All();
 

@@ -12,9 +12,9 @@ namespace MyForum.Web.Controllers
 {
     public class ThreadsController : Controller
     {
-        private readonly IThreadsServices threadsService;
+        private readonly IThreadsService threadsService;
 
-        public ThreadsController(IThreadsServices threadsService)
+        public ThreadsController(IThreadsService threadsService)
         {
             this.threadsService = threadsService;
         }
@@ -25,7 +25,7 @@ namespace MyForum.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize]        
         [Route("/Threads/Create")]
         public IActionResult Create(ThreadsCreateViewModel model)
         {
@@ -36,7 +36,7 @@ namespace MyForum.Web.Controllers
 
             var authorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            this.threadsService.Create(model.Name, authorId);
+            this.threadsService.Create(model.Content, authorId);
 
             return this.Redirect("/Home");
         }

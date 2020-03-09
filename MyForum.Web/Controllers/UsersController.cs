@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyForum.Services;
@@ -18,20 +19,14 @@ namespace MyForum.Web.Controllers
 
         public UsersController(IUsersService usersService)
         {
-            this.usersService = usersService;
+            this.usersService = usersService;           
         }
 
         public IActionResult All()
         {
             var allUsers = this.usersService.All()
-                .Select(u => new AllUsersViewModel
-                {
-                    Id = u.Id,
-                    Username = u.UserName,
-                    ThreadsCount = u.Threads.Count,
-                    PostsCount = u.Posts.Count
-                }).ToList();
-
+                .Select(AllUsersViewModel.AllUser)
+                .ToList();                
 
             return this.View(new AllUserListViewModel { Members = allUsers });
         }
@@ -41,31 +36,18 @@ namespace MyForum.Web.Controllers
         public IActionResult Profile(string id)
         {
             var user = this.usersService.All()
-                .Include(u => u.Threads)
-                .Include(u => u.Posts)
-                .FirstOrDefault(u => u.Id == id);            
+                .Where(u => u.Id == id)
+                .Select(UsersProfileViewModel.FromUser)
+               .FirstOrDefault();
 
-            var viewModel = new UsersProfileViewModel()
-            {
-                Id = user.Id,
-                Username = user.UserName,
-                FirstName = user.FirstName,
-                MiddleName = user.MiddleName,
-                LastName = user.LastName,
-                Gender = user.Gender.ToString(),
-                PhoneNumber = string.IsNullOrEmpty(user.PhoneNumber) ? " " : user.PhoneNumber,
-                Email = user.Email,
-                ThreadsCount = user.Threads.Count,
-                PostsCount = user.Posts.Count
-            };
-            return this.View(viewModel);
+            return this.View(user);
         }
 
         [Authorize]
         [Route("/Users/Profile/Edit/{id}")]
         public IActionResult EditProfile(string id)
         {
-            var user = this.usersService.GetUserById(id);
+            var user = this.usersService.GetUserById(id);            
             var viewModel = new UsersEditViewModel
             {
                 Id = id,
@@ -74,7 +56,8 @@ namespace MyForum.Web.Controllers
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
                 Email = user.Email,
-                PhoneNumber = user.PhoneNumber
+                PhoneNumber = user.PhoneNumber,
+                DateOfBirth = user.DateOfBirth
             };
 
             return this.View(viewModel);
@@ -90,7 +73,7 @@ namespace MyForum.Web.Controllers
                 return this.View(input);
             }
 
-            this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber);
+            this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber, input.DateOfBirth);
 
             return this.RedirectToAction(nameof(Profile), new { id = this.User.FindFirstValue(ClaimTypes.NameIdentifier) });
         }

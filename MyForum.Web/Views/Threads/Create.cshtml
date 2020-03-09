@@ -11,9 +11,9 @@
     <hr /> 
     <form asp-controller="Threads" asp-action="Create" method="post">
         <div class="form-group">
-            <label asp-for="@Model.Name"></label>
-            <input asp-for="@Model.Name" type="text" class="form-control" placeholder="Name..." />
-            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+            <label asp-for="@Model.Content"></label>
+            <input asp-for="@Model.Content" type="text" class="form-control" placeholder="Content..." />
+            <span asp-validation-for="@Model.Content" class="text-danger"></span>
         </div>
         <br />
         <hr />        

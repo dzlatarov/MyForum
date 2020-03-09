@@ -8,22 +8,22 @@ namespace MyForum.Domain
     {
         public Post()
         {
-            this.Comments = new HashSet<Comment>();
+            this.Id = Guid.NewGuid().ToString();
+            //this.Comments = new HashSet<Comment>();
         }
 
         public string Id { get; set; }
+        
+        public string Content { get; set; }
 
-        //Content
-        public string Name { get; set; }
+        //public string ThreadId { get; set; }
 
-        public string ThreadId { get; set; }
+        //public Thread Thread { get; set; }
 
-        public Thread Thread { get; set; }
+        //public string PostCreatorId { get; set; }
 
-        public string PostCreatorId { get; set; }
+        //public ApplicationUser PostCreator { get; set; }
 
-        public ApplicationUser PostCreator { get; set; }
-
-        public ICollection<Comment> Comments { get; set; }
+        //public ICollection<Comment> Comments { get; set; }
     }
 }

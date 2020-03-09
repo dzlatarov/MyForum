@@ -30,8 +30,7 @@
                             </div>
                             <div class="userData ml-3">
                                 <h2 class="d-block" style="font-size: 1.5rem; font-weight: bold"><a href="javascript:void(0);">@Model.Username</a></h2>
-                                <h6 class="d-block"><a >@Model.ThreadsCount</a> Threads Count</h6>
-                                <h6 class="d-block"><a >@Model.PostsCount</a> Posts Count</h6>
+                                <h6 class="d-block"><a>@Model.ThreadsCount</a> Threads Count</h6>
                             </div>
                             @*<div class="ml-auto">
                                     <input type="button" class="btn btn-primary d-none" id="btnDiscard" value="Discard Changes" />
@@ -100,25 +99,24 @@
 
                                     <div class="row">
                                         <div class="col-sm-3 col-md-2 col-5">
+                                            <label style="font-weight:bold;">Day of birth</label>
+                                        </div>
+                                        <div class="col-md-8 col-6">
+                                            @Model.DateOfBirth
+                                        </div>
+                                    </div>
+                                    <hr />
+
+                                    <div class="row">
+                                        <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Email</label>
                                         </div>
                                         <div class="col-md-8 col-6">
                                             @Model.Email
                                         </div>
                                     </div>
-                                    <hr />
-
-                                    @*<div class="row">
-                                            <div class="col-sm-3 col-md-2 col-5">
-                                                <label style="font-weight:bold;">Birth Date</label>
-                                            </div>
-                                            <div class="col-md-8 col-6">
-                                                March 22, 1994.
-                                            </div>
-                                        </div>
-                                        <hr />*@
-
-
+                                    <hr />   
+                                    
                                     <div class="row">
                                         <div class="col-sm-3 col-md-2 col-5">
                                             <label style="font-weight:bold;">Gender</label>

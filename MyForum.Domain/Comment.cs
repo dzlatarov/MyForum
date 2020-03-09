@@ -6,14 +6,18 @@ namespace MyForum.Domain
 {
     public class Comment
     {
+        public Comment()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
+        
+        public string Content { get; set; }       
 
-        //Description
-        public string Name { get; set; }       
+        public string ThreadId { get; set; }
 
-        public string PostId { get; set; }
-
-        public Post Post { get; set; }
+        public Thread Thread { get; set; }
 
         public string CommentCreatorId { get; set; }
 

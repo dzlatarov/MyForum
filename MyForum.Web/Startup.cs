@@ -82,11 +82,11 @@ namespace MyForum.Web
 
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddRazorPages();            
            
             services.AddTransient<MyForumDbContext>();
             services.AddTransient<IUsersService, UsersService>();
-            services.AddTransient<IThreadsServices, ThreadsServices>();
+            services.AddTransient<IThreadsService, ThreadsService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -94,6 +94,7 @@ namespace MyForum.Web
         {
             MyForumSeedData seeder = new MyForumSeedData(context, app, env);
             seeder.SeedAllData().Wait();
+            
 
             if (env.IsDevelopment())
             {                

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyForum.Persistence;
 
 namespace MyForum.Persistence.Migrations
 {
     [DbContext(typeof(MyForumDbContext))]
-    partial class MyForumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200309123005_ApplyNewChangesToThreadCategoryComment")]
+    partial class ApplyNewChangesToThreadCategoryComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,9 +240,6 @@ namespace MyForum.Persistence.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageUrl")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -309,10 +308,15 @@ namespace MyForum.Persistence.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.ToTable("Posts");
                 });
@@ -400,6 +404,13 @@ namespace MyForum.Persistence.Migrations
                     b.HasOne("MyForum.Domain.Thread", "Thread")
                         .WithMany("Comments")
                         .HasForeignKey("ThreadId");
+                });
+
+            modelBuilder.Entity("MyForum.Domain.Post", b =>
+                {
+                    b.HasOne("MyForum.Domain.ApplicationUser", null)
+                        .WithMany("Posts")
+                        .HasForeignKey("ApplicationUserId");
                 });
 
             modelBuilder.Entity("MyForum.Domain.Thread", b =>

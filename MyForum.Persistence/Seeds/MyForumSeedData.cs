@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MyForum.Domain;
 using MyForum.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,44 @@ namespace MyForum.Persistence.Seeds
         {
             Task.Run(SeedRoles).Wait();
             Task.Run(ApplyMigration).Wait();
+            Task.Run(SeedCategories).Wait();
+            Task.Run(SeedCategories).Wait();
+        }
+
+        private async void SeedCategories()
+        {
+            if (this.context.Categories.Any())
+            {
+                return;
+            }
+
+            var allCategories = new List<Category>()
+            {
+                new Category
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Sports",
+                    Description = "Here you can find and discuss problems linked to all sports.",
+                    ImageUrl = "https://code.org/images/sports/all_sports.png"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Action",
+                    Description = "Here you can find interesting action games problems and you can find the answer to your need.",
+                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn"
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Adventure",
+                    Description = "Adventure games bugs and fixes",
+                    ImageUrl = "https://i.ytimg.com/vi/YGy32f86fbI/maxresdefault.jpg"
+                }
+            };
+
+            await this.context.Categories.AddRangeAsync(allCategories);
+            await this.context.SaveChangesAsync();
         }
     }
 }

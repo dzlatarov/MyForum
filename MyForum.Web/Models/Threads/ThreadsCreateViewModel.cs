@@ -12,7 +12,7 @@ namespace MyForum.Web.Models.Threads
         [Required]
         [StringLength(GlobalConstants.NameMaxLength, ErrorMessage = GlobalConstants.NameErrorMessage,
            MinimumLength = GlobalConstants.NameMinLength)]
-        [Display(Name= "Thread name")]
-        public string Name { get; set; }
+        [Display(Name= "Thread Content")]
+        public string Content { get; set; }       
     }
 }

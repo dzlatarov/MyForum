@@ -15,6 +15,6 @@ namespace MyForum.Services
 
         ApplicationUser GetUserById(string id);
 
-        void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber);
+        void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber, DateTime dayOfBirth);
     }
 }

@@ -8,16 +8,20 @@ namespace MyForum.Domain
     {
         public Thread()
         {
-            this.Posts = new HashSet<Post>();
+            this.Comments = new HashSet<Comment>();
         }
         public string Id { get; set; }
 
-        public string Name { get; set; }
+        public string Content { get; set; }
 
         public string ThreadCreatorId { get; set; }
 
         public ApplicationUser ThreadCreator { get; set; }
 
-        public ICollection<Post> Posts { get; set; }
+        public string CategoryId { get; set; }
+
+        public Category Category { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
     }
 }

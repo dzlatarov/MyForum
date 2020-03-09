@@ -23,7 +23,7 @@ namespace MyForum.Services
             return allUsers;
         }
 
-        public void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber)
+        public void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber, DateTime dayOfBirth)
         {
             var userFromDb = this.GetUserById(id);
             userFromDb.UserName = username;
@@ -32,6 +32,7 @@ namespace MyForum.Services
             userFromDb.LastName = lastName;
             userFromDb.Email = email;
             userFromDb.PhoneNumber = phoneNumber;
+            userFromDb.DateOfBirth = dayOfBirth;
 
             this.db.Update(userFromDb);
             this.db.SaveChanges();

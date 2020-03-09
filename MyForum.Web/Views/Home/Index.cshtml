@@ -22,30 +22,42 @@
             Please <a class="btn-outline-secondary" asp-area="Identity" asp-page="/Account/Register">register</a> if you don`t have an account !
         </h1>
     </div>
-
-    <div class="text-center mb-5">
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Threads Count</th>
-                    <th scope="col">Posts Count</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (int i = 0; i < Model.Members.Count; i++)
-                {
-                    <tr>
-                        <th scope="row">@(i + 1)</th>
-                        <th><a class="btn-link active" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)">@Model.Members[i].Username</a></th>
-                        <th>@Model.Members[i].ThreadsCount</th>
-                        <th>@Model.Members[i].PostsCount</th>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <div class="row">
+        @foreach (var category in Model.Categories)
+        {
+            <div class="media">
+                <img src="..." class="mr-3" alt="...">
+                <div class="media-body">
+                    <h5 class="mt-0">Media heading</h5>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                </div>
+            </div>
+        }
     </div>
+
+    @*<div class="text-center mb-5">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Threads Count</th>
+                        <th scope="col">Posts Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Members.Count; i++)
+                    {
+                        <tr>
+                            <th scope="row">@(i + 1)</th>
+                            <th><a class="btn-link active" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)">@Model.Members[i].Username</a></th>
+                            <th>@Model.Members[i].ThreadsCount</th>
+                            <th>@Model.Members[i].PostsCount</th>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>*@
 }
 else
 {
@@ -73,8 +85,8 @@ else
                         <tr>
                             <th scope="row">@(i + 1)</th>
                             <th scope="row">@allThreads[i].Username</th>
-                            <th scope="row">@allThreads[i].Name</th>
-                            <th scope="row">@allThreads[i].PostsCount</th>
+                            <th scope="row">@allThreads[i].Content</th>
+                            <th scope="row">@allThreads[i].CommentsPost</th>
                         </tr>
                     }
                 </tbody>
@@ -111,8 +123,8 @@ else
                         <tr>
                             <th scope="row">@(i + 1)</th>
                             <th scope="row">@allThreads[i].Username</th>
-                            <th scope="row">@allThreads[i].Name</th>
-                            <th scope="row">@allThreads[i].PostsCount</th>
+                            <th scope="row">@allThreads[i].Content</th>
+                            <th scope="row">@allThreads[i].CommentsPost</th>
                         </tr>
                     }
                 </tbody>

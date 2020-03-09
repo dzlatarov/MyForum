@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using MyForum.Persistence;
 using MyForum.Services;
 using MyForum.Services.Contracts;
 using MyForum.Web.Models;
@@ -16,9 +17,9 @@ namespace MyForum.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IUsersService usersService;
-        private readonly IThreadsServices threadsServices;
+        private readonly IThreadsService threadsServices;      
 
-        public HomeController(IUsersService usersService, IThreadsServices threadsServices)
+        public HomeController(IUsersService usersService, IThreadsService threadsServices)
         {
             this.usersService = usersService;
             this.threadsServices = threadsServices;
@@ -28,25 +29,17 @@ namespace MyForum.Web.Controllers
         {
             ViewData["Currentuser"] = this.usersService.GetUserByUsername(this.User.Identity.Name);
             var allThreads = this.threadsServices.All()
-                .Select(t => new ThreadsAllViewModel
-                {
-                    Name = t.Name,
-                    Username = t.ThreadCreator.UserName,
-                    PostsCount = t.Posts.Count()
-                }).ToList();
+                .Select(ThreadsAllViewModel.AllThreads)
+                .ToList();
 
-           
             ViewData["AllThreads"] = allThreads;
 
-            var allUsers = this.usersService.All()   
-                .Include(u => u.Threads)
-                .Include(u => u.Posts)
+            var allUsers = this.usersService.All()                
                 .Select(u => new AllUsersViewModel
                 {
                     Id = u.Id,
                     Username = u.UserName,
-                    ThreadsCount = u.Threads.Count,
-                    PostsCount = u.Posts.Count
+                    ThreadsCount = u.Threads.Count,                   
                 }).ToList();
 
 

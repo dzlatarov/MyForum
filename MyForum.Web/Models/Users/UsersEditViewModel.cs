@@ -1,9 +1,11 @@
-﻿using MyForum.Domain.Enums;
+﻿using MyForum.Domain;
+using MyForum.Domain.Enums;
 using MyForum.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace MyForum.Web.Models.Users
@@ -35,5 +37,7 @@ namespace MyForum.Web.Models.Users
         [StringLength(15, ErrorMessage = GlobalConstants.LengthError,
                 MinimumLength = 3)]
         public string PhoneNumber { get; set; }
-    }
+
+        public DateTime DateOfBirth { get; set; }
+    }    
 }

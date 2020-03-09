@@ -12,7 +12,7 @@ namespace MyForum.Domain
         {
             this.Threads = new HashSet<Thread>();
             this.Comments = new HashSet<Comment>();
-            this.Posts = new HashSet<Post>();
+            //this.Posts = new HashSet<Post>();
         }
        
         public string FirstName { get; set; }
@@ -23,11 +23,11 @@ namespace MyForum.Domain
 
         public Gender Gender { get; set; }
 
-        //Day of Birth
+        public DateTime DateOfBirth { get; set; }
        
         public ICollection<Thread> Threads { get; set; }
 
-        public ICollection<Post> Posts { get; set; }
+        //public ICollection<Post> Posts { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }
