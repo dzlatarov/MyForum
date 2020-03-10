@@ -1,7 +1,35 @@
-﻿@*
+﻿@using MyForum.Web.Models.Threads
+@model ThreadsInCategoryListViewModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "All Threads";
 }
 
-    <p>Nothing yet!</p>
+<div class="text-center">
+    <h1>@Model.Name</h1>
+</div>
+<br />
+<br />
+<div class="container-fluid text-center">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Thread Content</th>
+                <th scope="col">Thread Author</th>
+                <th scope="col">Comments Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var thread in Model.Threads)
+            {
+                <tr>
+                    <th>@thread.Content</th>
+                    <th>@thread.Username</th>
+                    <th>@thread.CommentsCount</th>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

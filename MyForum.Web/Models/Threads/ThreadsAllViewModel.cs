@@ -13,7 +13,7 @@ namespace MyForum.Web.Models.Threads
 
         public string Content { get; set; }
 
-        public int CommentsPost { get; set; }
+        public int CommentsCount { get; set; }
 
         public static Expression<Func<Thread, ThreadsAllViewModel>> AllThreads
         {
@@ -21,7 +21,7 @@ namespace MyForum.Web.Models.Threads
             {
                 Username = t.ThreadCreator.UserName,
                 Content = t.Content,
-                CommentsPost = t.Comments.Count()
+                CommentsCount = t.Comments.Count()
             };
         }
     }

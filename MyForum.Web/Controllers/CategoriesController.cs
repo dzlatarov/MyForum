@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyForum.Services.Contracts;
+using MyForum.Web.Models.Threads;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,25 @@ namespace MyForum.Web.Controllers
 {
     public class CategoriesController : Controller
     {
-        private readonly ICategoriesService service;
+        private readonly ICategoriesService categoriesService;
+        private readonly IThreadsService threadsService;
 
-        public CategoriesController(ICategoriesService service)
+        public CategoriesController(ICategoriesService categoriesService, IThreadsService threadsService)
         {
-            this.service = service;
+            this.categoriesService = categoriesService;
+            this.threadsService = threadsService;
         }
 
         [Route("/Categories/AllThreads/{id}")]
         public IActionResult All(string id)
         {
-            return this.View();
+            var category = this.categoriesService.GetCategoryById(id);
+
+            var allThreadsInCategory = this.threadsService.All()
+                .Where(t => t.CategoryId == id)
+                .Select(ThreadsAllViewModel.AllThreads)                
+                .ToList();
+            return this.View(new ThreadsInCategoryListViewModel { Name = category.Name, Threads = allThreadsInCategory });
         }
     }
 }

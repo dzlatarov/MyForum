@@ -23,14 +23,13 @@
         </div>*@
     <br />
     <br />
-    <br />
-    <br />
+    <br />    
 
     <div class="row d-flex justify-content-center">
         @foreach (var category in Model.Categories)
         {
             <div class="col-md-3 media">
-                <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="64" height="64">
+                <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="75" height="75">
                 <div class="media-body">
                     <h5 class="mt-0">
                         <a asp-controller="Categories"
@@ -77,14 +76,13 @@ else
         </div>
         <br />
         <br />
-        <br />
-        <br />
+        <br />        
 
         <div class="row d-flex justify-content-center">
             @foreach (var category in Model.Categories)
             {
                 <div class="col-md-3 media">
-                    <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="64" height="64">
+                    <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="75" height="75">
                     <div class="media-body">
                         <h5 class="mt-0">
                             <a asp-controller="Categories"
@@ -115,7 +113,7 @@ else
             @foreach (var category in Model.Categories)
             {
                 <div class="col-md-3 media">
-                    <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="64" height="64">
+                    <img src="@category.ImageUrl" class="mr-3" alt="@category.Name" width="75" height="75">
                     <div class="media-body">
                         <h5 class="mt-0">
                             <a asp-controller="Categories"

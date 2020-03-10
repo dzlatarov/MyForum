@@ -9,5 +9,7 @@ namespace MyForum.Services.Contracts
     public interface ICategoriesService
     {
         IQueryable<Category> GetAll();
+
+        Category GetCategoryById(string id);
     }
 }
