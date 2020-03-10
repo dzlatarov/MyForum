@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -79,6 +80,10 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = GlobalConstants.ConfirmPasswordEr)]
             public string ConfirmPassword { get; set; }
+
+            [Required]
+            [Display(Name = "Day of birth")]
+            public DateTime DayOfBirth { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
@@ -97,6 +102,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                     UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
+                    DateOfBirth = DateTime.Parse(Input.DayOfBirth.ToString("dd-mm-yyyy", CultureInfo.InvariantCulture)),
                     Gender = Input.Gender,
                     Email = Input.Email             
                 };
