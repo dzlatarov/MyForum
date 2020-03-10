@@ -69,9 +69,8 @@ namespace MyForum.Persistence.Seeds
         {
             Task.Run(SeedRoles).Wait();
             Task.Run(ApplyMigration).Wait();
-            Task.Run(SeedCategories).Wait();
-            Task.Run(SeedCategories).Wait();
-            Task.Run(SeedThreads).Wait();
+            //Task.Run(SeedCategories).Wait();           
+            //Task.Run(SeedThreads).Wait();
         }
 
         private async void SeedCategories()

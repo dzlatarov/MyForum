@@ -82,6 +82,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
+            [DataType(DataType.DateTime, ErrorMessage = GlobalConstants.DateTimeFormatError)]
             [Display(Name = "Day of birth")]
             public DateTime DayOfBirth { get; set; }
         }
@@ -102,7 +103,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                     UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    DateOfBirth = DateTime.Parse(Input.DayOfBirth.ToString("dd-mm-yyyy", CultureInfo.InvariantCulture)),
+                    DateOfBirth = DateTime.Parse(Input.DayOfBirth.ToString("dd.mm.yyyy", CultureInfo.InvariantCulture)),
                     Gender = Input.Gender,
                     Email = Input.Email             
                 };

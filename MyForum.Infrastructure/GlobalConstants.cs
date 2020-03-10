@@ -15,11 +15,12 @@ namespace MyForum.Infrastructure
         public const string AdminRole = "Admin";
         public const string UserRole = "User";
 
-        // Password
+        // Register
         public const int PasswordMinLength = 3;
         public const int PasswordMaxLength = 30;
         public const string LengthError = "The {0} must be at least {2} and at max {1} characters long.";
         public const string ConfirmPasswordEr = "The password and confirmation password do not match.";
+        public const string DateTimeFormatError = "The format should be dd.mm.yyy";
 
 
         // Identity options
