@@ -2,6 +2,7 @@
 using MyForum.Persistence;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace MyForum.Services
             return allUsers;
         }
 
-        public void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber, DateTime dayOfBirth)
+        public void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {
             var userFromDb = this.GetUserById(id);
             userFromDb.UserName = username;
@@ -32,7 +33,7 @@ namespace MyForum.Services
             userFromDb.LastName = lastName;
             userFromDb.Email = email;
             userFromDb.PhoneNumber = phoneNumber;
-            userFromDb.DateOfBirth = dayOfBirth;
+            userFromDb.DateOfBirth = DateTime.Parse(dayOfBirth, CultureInfo.InvariantCulture);
 
             this.db.Update(userFromDb);
             this.db.SaveChanges();

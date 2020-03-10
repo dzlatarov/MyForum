@@ -57,7 +57,7 @@ namespace MyForum.Web.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 PhoneNumber = user.PhoneNumber,
-                DateOfBirth = user.DateOfBirth
+                DateOfBirth = user.DateOfBirth.ToString("dd/MM/yyyy")
             };
 
             return this.View(viewModel);

@@ -25,7 +25,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly ILogger<RegisterModel> _logger;        
+        private readonly ILogger<RegisterModel> _logger;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
@@ -34,18 +34,18 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _logger = logger;            
+            _logger = logger;
         }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public string ReturnUrl { get; set; }       
+        public string ReturnUrl { get; set; }
 
         public class InputModel
         {
             [Required]
-            [StringLength(20, ErrorMessage = GlobalConstants.LengthError, 
+            [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
                 MinimumLength = 5)]
             [Display(Name = "Username")]
             public string Username { get; set; }
@@ -53,7 +53,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
             [Required]
             [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
                 MinimumLength = 3)]
-            [Display(Name ="First Name")]
+            [Display(Name = "First Name")]
             public string FirstName { get; set; }
 
             [Required]
@@ -82,20 +82,20 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
             public string ConfirmPassword { get; set; }
 
             [Required]
-            [DataType(DataType.DateTime, ErrorMessage = GlobalConstants.DateTimeFormatError)]
+            [RegularExpression(@"^\d{2}\.\d{2}\.\d{4}$", ErrorMessage = GlobalConstants.DateTimeFormatError)]
             [Display(Name = "Day of birth")]
-            public DateTime DayOfBirth { get; set; }
+            public string DayOfBirth { get; set; }
         }
 
         public void OnGet(string returnUrl = null)
         {
-            ReturnUrl = returnUrl;           
+            ReturnUrl = returnUrl;
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl = returnUrl ?? Url.Content(GlobalConstants.LoginPath);
-            
+
             if (this.ModelState.IsValid)
             {
                 var user = new ApplicationUser
@@ -103,20 +103,20 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                     UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    DateOfBirth = DateTime.Parse(Input.DayOfBirth.ToString("dd.mm.yyyy", CultureInfo.InvariantCulture)),
+                    DateOfBirth = DateTime.Parse(Input.DayOfBirth,CultureInfo.InvariantCulture),
                     Gender = Input.Gender,
-                    Email = Input.Email             
+                    Email = Input.Email
                 };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
                 {
-                   this._logger.LogInformation("User created a new account with password.");
+                    this._logger.LogInformation("User created a new account with password.");
 
-                    if(this._userManager.Users.Count() == 1)
+                    if (this._userManager.Users.Count() == 1)
                     {
-                       await this._userManager.AddToRoleAsync(user, GlobalConstants.AdminRole);
+                        await this._userManager.AddToRoleAsync(user, GlobalConstants.AdminRole);
                     }
                     else
                     {

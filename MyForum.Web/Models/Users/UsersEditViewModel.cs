@@ -21,8 +21,7 @@ namespace MyForum.Web.Models.Users
         [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
               MinimumLength = 3)]
         public string FirstName { get; set; }
-
-        [Required]
+        
         [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
                MinimumLength = 3)]
         public string MiddleName { get; set; }
@@ -38,6 +37,6 @@ namespace MyForum.Web.Models.Users
                 MinimumLength = 3)]
         public string PhoneNumber { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
     }    
 }

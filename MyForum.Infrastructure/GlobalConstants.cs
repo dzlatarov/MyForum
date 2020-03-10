@@ -20,7 +20,7 @@ namespace MyForum.Infrastructure
         public const int PasswordMaxLength = 30;
         public const string LengthError = "The {0} must be at least {2} and at max {1} characters long.";
         public const string ConfirmPasswordEr = "The password and confirmation password do not match.";
-        public const string DateTimeFormatError = "The format should be dd.mm.yyy";
+        public const string DateTimeFormatError = "The format should be dd.mm.yyyy";
 
 
         // Identity options
