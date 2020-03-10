@@ -12,24 +12,58 @@
 </div>
 <br />
 <br />
-<div class="container-fluid text-center">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th scope="col">Thread Content</th>
-                <th scope="col">Thread Author</th>
-                <th scope="col">Comments Count</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var thread in Model.Threads)
-            {
-                <tr>
-                    <th>@thread.Content</th>
-                    <th>@thread.Username</th>
-                    <th>@thread.CommentsCount</th>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="container-fluid">
+    @foreach (var thread in Model.Threads)
+    {
+        <div class="media-body ml-3">
+            <h4 class="media-heading">@thread.Title</h4>
+            <p class="mt-3">
+                @thread.Content
+            </p>
+            <div class="mt-4 d-flex justify-content-between">
+                <ul class="list-inline list-unstyled text-left">
+                    <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>User: @thread.Username</li>
+                    <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i> @thread.CommentsCount comments</li>
+                    <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Created on: @thread.CreatedOn</li>
+                </ul>
+                <ul class="list-inline list-unstyled text-right">
+                    <li class="list-inline-item"><a href="#">Reply</a></li>
+                    <li class="list-inline-item"><a href="#">Edit</a></li>
+                    <li class="list-inline-item"><a href="#">Delete</a></li>
+                </ul>
+            </div>
+            <ul>
+            </ul>
+        </div>
+        <br />
+        <br />
+    }
 </div>
+
+@*<li>*@
+<!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
+@*<span><i class="fa fa-facebook-square"></i></span>
+    <span><i class="fa fa-twitter-square"></i></span>
+    <span><i class="fa fa-google-plus-square"></i></span>*@
+@*</li>*@
+@*<div class="container-fluid text-center">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Thread Content</th>
+                    <th scope="col">Thread Author</th>
+                    <th scope="col">Comments Count</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var thread in Model.Threads)
+                {
+                    <tr>
+                        <th>@thread.Content</th>
+                        <th>@thread.Username</th>
+                        <th>@thread.CommentsCount</th>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>*@

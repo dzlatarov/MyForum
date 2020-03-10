@@ -11,16 +11,25 @@ namespace MyForum.Web.Models.Threads
     {
         public string Username { get; set; }
 
+        public string Title { get; set; }
+
         public string Content { get; set; }
 
         public int CommentsCount { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
 
         public static Expression<Func<Thread, ThreadsAllViewModel>> AllThreads
         {
             get => t => new ThreadsAllViewModel
             {
                 Username = t.ThreadCreator.UserName,
+                Title = t.Title,
                 Content = t.Content,
+                CreatedOn = t.CreatedOn,
+                ModifiedOn = t.ModifiedOn,
                 CommentsCount = t.Comments.Count()
             };
         }

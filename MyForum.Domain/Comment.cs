@@ -13,7 +13,11 @@ namespace MyForum.Domain
 
         public string Id { get; set; }
         
-        public string Content { get; set; }       
+        public string Content { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
 
         public string ThreadId { get; set; }
 

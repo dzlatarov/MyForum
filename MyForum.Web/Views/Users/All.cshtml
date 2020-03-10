@@ -21,8 +21,7 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Username</th>
-                <th scope="col">Threads Count</th>
-                <th scope="col">Posts Count</th>
+                <th scope="col">Threads Count</th>                
             </tr>
         </thead>
         <tbody>
@@ -31,8 +30,7 @@
                 <tr>
                     <th scope="row">@(i + 1)</th>
                     <th><a class="btn-link active" asp-controller="Users" asp-action="Profile" asp-route-id="@Model.Members[i].Id">@Model.Members[i].Username</a></th>
-                    <th>@Model.Members[i].ThreadsCount</th>
-                    <th>@Model.Members[i].PostsCount</th>
+                    <th>@Model.Members[i].ThreadsCount</th>                    
                 </tr>
             }
         </tbody>

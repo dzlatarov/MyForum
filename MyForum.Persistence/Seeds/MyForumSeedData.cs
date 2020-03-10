@@ -71,6 +71,7 @@ namespace MyForum.Persistence.Seeds
             Task.Run(ApplyMigration).Wait();
             Task.Run(SeedCategories).Wait();
             Task.Run(SeedCategories).Wait();
+            Task.Run(SeedThreads).Wait();
         }
 
         private async void SeedCategories()
@@ -107,6 +108,48 @@ namespace MyForum.Persistence.Seeds
 
             await this.context.Categories.AddRangeAsync(allCategories);
             await this.context.SaveChangesAsync();
+        }
+
+        private async void SeedThreads()
+        {
+            if (this.context.Threads.Any())
+            {
+                return;
+            }
+
+            var allThreads = new List<Thread>()
+            {
+                 new Thread
+                {
+                     Id = Guid.NewGuid().ToString(),
+                    Content = "I have problem in FIFA 2020 with my fut champion team can buy players. Has anyone deal with this bug ?",
+                    Title = "FIFA 2020",
+                    CreatedOn = DateTime.UtcNow,
+                    ThreadCreatorId = "8232a4a5-44e8-4704-8adf-0a746b712dd5",
+                    CategoryId = "3e475006-5ef0-4576-a71d-f0795d68c104"
+                },
+                 new Thread
+                 {
+                     Id = Guid.NewGuid().ToString(),
+                     Content = "I recently updated my NBA and now i cannot play the game. Do you know how to fix this ?",
+                     Title = "NBA",
+                     CreatedOn = DateTime.UtcNow,
+                    ThreadCreatorId = "ee80469d-4e2d-4445-b600-d3d275062f05",
+                    CategoryId = "3e475006-5ef0-4576-a71d-f0795d68c104"
+                },
+                  new Thread
+                 {
+                     Id = Guid.NewGuid().ToString(),
+                     Content = "I want to play Rocket League, can you tell me how to install it ?",
+                     Title = "Rocket Legue",
+                     CreatedOn = DateTime.UtcNow,
+                    ThreadCreatorId = "210d4331-e2f8-44f2-9e37-878710d04e61",
+                    CategoryId = "3e475006-5ef0-4576-a71d-f0795d68c104"
+                }
+            };
+
+            await this.context.Threads.AddRangeAsync(allThreads);
+            this.context.SaveChanges();
         }
     }
 }
