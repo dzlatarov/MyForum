@@ -10,8 +10,8 @@ namespace MyForum.Web.Models.Threads
     public class ThreadsCreateViewModel
     {
         [Required]
-        [StringLength(GlobalConstants.NameMaxLength, ErrorMessage = GlobalConstants.NameErrorMessage,
-           MinimumLength = GlobalConstants.NameMinLength)]
+        [StringLength(GlobalConstants.ContentMaxLength, ErrorMessage = GlobalConstants.ContentErrorMessage,
+           MinimumLength = GlobalConstants.ContentMinLength)]
         [Display(Name= "Thread Content")]
         public string Content { get; set; }       
     }

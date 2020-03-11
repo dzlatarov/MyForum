@@ -50,7 +50,7 @@ namespace MyForum.Web.Controllers
             return this.View(new CategoriesListAllViewModel { Categories = allCategories });
         }
 
-        public async Task<IActionResult> About()
+        public IActionResult About()
         {
             return this.View();
         }

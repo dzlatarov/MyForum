@@ -69,7 +69,7 @@ namespace MyForum.Persistence.Seeds
         {
             Task.Run(SeedRoles).Wait();
             Task.Run(ApplyMigration).Wait();
-            Task.Run(SeedCategories).Wait();           
+            Task.Run(SeedCategories).Wait();
             Task.Run(SeedThreads).Wait();
         }
 
@@ -124,6 +124,7 @@ namespace MyForum.Persistence.Seeds
                     Content = "I have problem in FIFA 2020 with my fut champion team can buy players. Has anyone deal with this bug ?",
                     Title = "FIFA 2020",
                     CreatedOn = DateTime.UtcNow,
+                    ModifiedOn = null,
                     ThreadCreatorId = "69a8478d-5260-4265-a633-9d911b71429a",
                     CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
                 },
@@ -133,8 +134,9 @@ namespace MyForum.Persistence.Seeds
                      Content = "I recently updated my NBA and now i cannot play the game. Do you know how to fix this ?",
                      Title = "NBA",
                      CreatedOn = DateTime.UtcNow,
-                    ThreadCreatorId = "4faf1cc1-b807-4fc8-b2f7-19ac09e00373",
-                    CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
+                     ModifiedOn = null,
+                     ThreadCreatorId = "4faf1cc1-b807-4fc8-b2f7-19ac09e00373",
+                     CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
                 },
                   new Thread
                  {
@@ -142,8 +144,9 @@ namespace MyForum.Persistence.Seeds
                      Content = "I want to play Rocket League, can you tell me how to install it ?",
                      Title = "Rocket Legue",
                      CreatedOn = DateTime.UtcNow,
-                    ThreadCreatorId = "f4052654-6090-4016-bcf1-3adcdff20203",
-                    CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
+                     ModifiedOn = null,
+                     ThreadCreatorId = "f4052654-6090-4016-bcf1-3adcdff20203",
+                     CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
                 }
             };
 

@@ -43,8 +43,11 @@ namespace MyForum.Infrastructure
 
         //Threads create model constraints
 
-        public const int NameMaxLength = 50;
-        public const int NameMinLength = 20;
-        public const string NameErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
+        public const int TitleMaxLength = 50;
+        public const int TitleMinLength = 20;
+        public const string TitleErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
+        public const int ContentMaxLength = 300;
+        public const int ContentMinLength = 20;
+        public const string ContentErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
     }
 }

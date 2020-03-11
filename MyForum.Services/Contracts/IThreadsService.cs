@@ -11,8 +11,11 @@ namespace MyForum.Services.Contracts
     {
         IQueryable<Thread> All();
 
+        //To do
         void Create(string name, string authorId);
 
         Thread GetThreadById(string id);
+
+        string Edit(string threadId, string title, string content, DateTime modifiedOn);
     }
 }

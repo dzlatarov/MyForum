@@ -36,8 +36,22 @@ namespace MyForum.Services
 
             var author = this.usersService.GetUserById(authorId);
 
-            author.Threads.Add(thread);            
+            author.Threads.Add(thread);
             this.db.SaveChanges();
+        }
+
+        public string Edit(string threadId, string title, string content, DateTime modifiedOn)
+        {            
+            var threadFromDb = this.db.Threads.FirstOrDefault(t => t.Id == threadId);
+
+            threadFromDb.ModifiedOn = modifiedOn;
+            threadFromDb.Title = title;
+            threadFromDb.Content = content;
+
+            this.db.Threads.Update(threadFromDb);
+            this.db.SaveChanges();
+
+            return threadFromDb.CategoryId;
         }
 
         public Thread GetThreadById(string id)

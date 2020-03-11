@@ -25,7 +25,7 @@ namespace MyForum.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize]        
+        [Authorize]
         [Route("/Threads/Create")]
         public IActionResult Create(ThreadsCreateViewModel model)
         {
@@ -60,9 +60,16 @@ namespace MyForum.Web.Controllers
 
         [HttpPost]
         [Authorize]
-        [Route("/Threads/Edit/{categoryId}")]
-        public IActionResult Edit(string categoryId, ThreadsEditViewModel viewModel)
+        [Route("/Threads/Edit/{threadId}")]
+        public IActionResult Edit(string threadId, ThreadsEditViewModel input)
         {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+            DateTime modifiedOn = DateTime.UtcNow;
+            var categoryId = this.threadsService.Edit(threadId, input.Title, input.Content, modifiedOn);
+
             return this.Redirect($"/Categories/AllThreads/{categoryId}");
         }
     }

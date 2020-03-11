@@ -21,7 +21,7 @@ namespace MyForum.Web.Models.Threads
 
         public DateTime CreatedOn { get; set; }
 
-        public DateTime ModifiedOn { get; set; }
+        public DateTime? ModifiedOn { get; set; }
 
         public static Expression<Func<Thread, ThreadsAllViewModel>> AllThreads
         {
@@ -32,7 +32,7 @@ namespace MyForum.Web.Models.Threads
                 Title = t.Title,
                 Content = t.Content,
                 CreatedOn = t.CreatedOn,
-                ModifiedOn = t.ModifiedOn,
+                ModifiedOn = t.ModifiedOn == null ? null : t.ModifiedOn,
                 CommentsCount = t.Comments.Count()
             };
         }
