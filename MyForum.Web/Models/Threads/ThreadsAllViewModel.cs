@@ -9,6 +9,8 @@ namespace MyForum.Web.Models.Threads
 {
     public class ThreadsAllViewModel
     {
+        public string Id { get; set; }
+
         public string Username { get; set; }
 
         public string Title { get; set; }
@@ -25,6 +27,7 @@ namespace MyForum.Web.Models.Threads
         {
             get => t => new ThreadsAllViewModel
             {
+                Id = t.Id,
                 Username = t.ThreadCreator.UserName,
                 Title = t.Title,
                 Content = t.Content,

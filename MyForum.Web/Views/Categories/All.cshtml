@@ -1,4 +1,5 @@
-﻿@using MyForum.Web.Models.Threads
+﻿@using MyForum.Infrastructure
+@using MyForum.Web.Models.Threads
 @model ThreadsInCategoryListViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,14 +27,31 @@
                     <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i> @thread.CommentsCount comments</li>
                     <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Created on: @thread.CreatedOn</li>
                 </ul>
-                <ul class="list-inline list-unstyled text-right">
-                    <li class="list-inline-item"><a href="#">Reply</a></li>
-                    <li class="list-inline-item"><a href="#">Edit</a></li>
-                    <li class="list-inline-item"><a href="#">Delete</a></li>
-                </ul>
+                @if (this.User.Identity.Name == thread.Username)
+                {
+                    <ul class="list-inline list-unstyled text-right">
+                        <li class="list-inline-item"><a href="#">Reply</a></li>
+                        <li class="list-inline-item"><a asp-controller="Threads" asp-action="Edit" asp-route-id="@thread.Id">Edit</a></li>
+                        <li class="list-inline-item"><a href="#">Delete</a></li>
+                    </ul>
+                }
+                else
+                {
+                    if (this.User.IsInRole(GlobalConstants.AdminRole))
+                    {
+                        <ul class="list-inline list-unstyled text-right">
+                            <li class="list-inline-item"><a href="#">Reply</a></li>
+                            <li class="list-inline-item"><a href="#">Delete</a></li>
+                        </ul>
+                    }
+                    else
+                    {
+                        <ul class="list-inline list-unstyled text-right">
+                            <li class="list-inline-item"><a href="#">Reply</a></li>
+                        </ul>
+                    }
+                }
             </div>
-            <ul>
-            </ul>
         </div>
         <br />
         <br />

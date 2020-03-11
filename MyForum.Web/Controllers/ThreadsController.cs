@@ -40,5 +40,14 @@ namespace MyForum.Web.Controllers
 
             return this.Redirect("/Home");
         }
+
+        [Authorize]
+        [Route("/Threads/Edit/{id}")]
+        public IActionResult Edit(string id)
+        {
+            var thread = this.threadsService.GetThreadById(id);
+
+            return this.Redirect($"/Categories/AllThreads{id}");
+        }
     }
 }

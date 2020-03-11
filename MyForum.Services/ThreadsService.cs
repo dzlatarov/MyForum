@@ -39,5 +39,11 @@ namespace MyForum.Services
             author.Threads.Add(thread);            
             this.db.SaveChanges();
         }
+
+        public Thread GetThreadById(string id)
+        {
+            var thread = this.db.Threads.Where(t => t.Id == id).FirstOrDefault();
+            return thread;
+        }
     }
 }

@@ -23,7 +23,9 @@
         </div>*@
     <br />
     <br />
-    <br />    
+    <br />
+
+
 
     <div class="row d-flex justify-content-center">
         @foreach (var category in Model.Categories)
@@ -71,12 +73,14 @@ else
     if (this.User.IsInRole(GlobalConstants.AdminRole))
     {
         <div class="container-fluid text-center">
-            <img src="~/images/AdminAvatar.jpg" class="img-fluid" width="50" height="50" />
+            <img src="~/images/AdminAvatar.jpg" class="img-fluid" width="60" height="60" />
             <h1 class="text-dark">Welcome, @this.User.Identity.Name - Administrator</h1>
         </div>
         <br />
         <br />
-        <br />        
+        <br />
+
+
 
         <div class="row d-flex justify-content-center">
             @foreach (var category in Model.Categories)
@@ -100,14 +104,18 @@ else
         <div class="container-fluid text-center">
             @if (user.Gender == Gender.Male)
             {
-                <img src="~/images/UserAvatar.jpg" class="img-fluid" width="100" height="100" />
+                <img src="~/images/UserAvatar.jpg" class="img-fluid" width="60" height="60" />
             }
             else
             {
-                <img src="~/images/UserFemaleAvatar.png" class="img-fluid" width="100" height="100" />
+                <img src="~/images/UserFemaleAvatar.png" class="img-fluid" width="60" height="60" />
             }
             <h1 class="text-dark">Welcome to the Game Zone!</h1>
         </div>
+        <br />
+        <br />
+        <br />
+
 
         <div class="row d-flex justify-content-center">
             @foreach (var category in Model.Categories)

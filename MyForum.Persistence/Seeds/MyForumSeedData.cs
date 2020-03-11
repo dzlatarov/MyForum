@@ -69,8 +69,8 @@ namespace MyForum.Persistence.Seeds
         {
             Task.Run(SeedRoles).Wait();
             Task.Run(ApplyMigration).Wait();
-            //Task.Run(SeedCategories).Wait();           
-            //Task.Run(SeedThreads).Wait();
+            Task.Run(SeedCategories).Wait();           
+            Task.Run(SeedThreads).Wait();
         }
 
         private async void SeedCategories()
@@ -124,8 +124,8 @@ namespace MyForum.Persistence.Seeds
                     Content = "I have problem in FIFA 2020 with my fut champion team can buy players. Has anyone deal with this bug ?",
                     Title = "FIFA 2020",
                     CreatedOn = DateTime.UtcNow,
-                    ThreadCreatorId = "8232a4a5-44e8-4704-8adf-0a746b712dd5",
-                    CategoryId = "3e475006-5ef0-4576-a71d-f0795d68c104"
+                    ThreadCreatorId = "69a8478d-5260-4265-a633-9d911b71429a",
+                    CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
                 },
                  new Thread
                  {
@@ -133,8 +133,8 @@ namespace MyForum.Persistence.Seeds
                      Content = "I recently updated my NBA and now i cannot play the game. Do you know how to fix this ?",
                      Title = "NBA",
                      CreatedOn = DateTime.UtcNow,
-                    ThreadCreatorId = "ee80469d-4e2d-4445-b600-d3d275062f05",
-                    CategoryId = "3e475006-5ef0-4576-a71d-f0795d68c104"
+                    ThreadCreatorId = "4faf1cc1-b807-4fc8-b2f7-19ac09e00373",
+                    CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
                 },
                   new Thread
                  {
@@ -142,8 +142,8 @@ namespace MyForum.Persistence.Seeds
                      Content = "I want to play Rocket League, can you tell me how to install it ?",
                      Title = "Rocket Legue",
                      CreatedOn = DateTime.UtcNow,
-                    ThreadCreatorId = "210d4331-e2f8-44f2-9e37-878710d04e61",
-                    CategoryId = "3e475006-5ef0-4576-a71d-f0795d68c104"
+                    ThreadCreatorId = "f4052654-6090-4016-bcf1-3adcdff20203",
+                    CategoryId = "dc9ff485-29fa-4091-9f0f-4d7ac9e4defc"
                 }
             };
 

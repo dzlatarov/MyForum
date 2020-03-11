@@ -20,6 +20,7 @@ namespace MyForum.Web.Controllers
             this.threadsService = threadsService;
         }
 
+        [Authorize]
         [Route("/Categories/AllThreads/{id}")]
         public IActionResult All(string id)
         {
