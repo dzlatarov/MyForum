@@ -47,7 +47,23 @@ namespace MyForum.Web.Controllers
         {
             var thread = this.threadsService.GetThreadById(id);
 
-            return this.Redirect($"/Categories/AllThreads{id}");
+            var model = new ThreadsEditViewModel
+            {
+                Id = thread.Id,
+                Title = thread.Title,
+                Content = thread.Content,
+                CategoryId = thread.CategoryId
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("/Threads/Edit/{categoryId}")]
+        public IActionResult Edit(string categoryId, ThreadsEditViewModel viewModel)
+        {
+            return this.Redirect($"/Categories/AllThreads/{categoryId}");
         }
     }
 }

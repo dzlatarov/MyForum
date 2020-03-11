@@ -81,3 +81,7 @@ body {
 .hr {
     width: 4px;
 }
+
+.threadEdit {
+    width: 450px;
+}

@@ -1,7 +1,31 @@
-﻿@*
+﻿@using MyForum.Web.Models.Threads
+@model ThreadsEditViewModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "Edit thread";
 }
+<div class="container-fluid bg-light d-flex justify-content-center text-center w-100 mx-auto mt-5">
+    <form asp-controller="Threads"
+          asp-action="Edit"
+          asp-route-categoryId="@Model.CategoryId"
+          method="post">
 
-    <p>Edit thread</p>
+        <div class="form-group">
+            <label asp-for="@Model.Title"></label>
+            <input asp-for="@Model.Title" type="text" value="@Model.Title" class="form-control threadEdit"/>
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <label asp-for="@Model.Content"></label>
+            <textarea asp-for="@Model.Content" type="text" rows="3" value="@Model.Content" class="form-control threadEdit"></textarea>
+            <span asp-validation-for="@Model.Content" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Edit</button>
+        </div>
+    </form>
+</div>
