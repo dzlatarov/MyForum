@@ -25,23 +25,24 @@ namespace MyForum.Services
             return allTreads;
         }
 
-        public void Create(string content, string authorId)
+        public void Create(string title, string content, string authorId, string categoryId)
         {
             var thread = new Thread
             {
                 Id = Guid.NewGuid().ToString(),
+                Title = title,
                 Content = content,
-                ThreadCreatorId = authorId
+                CreatedOn = DateTime.UtcNow,
+                ThreadCreatorId = authorId,
+                CategoryId = categoryId
             };
 
-            var author = this.usersService.GetUserById(authorId);
-
-            author.Threads.Add(thread);
+            this.db.Threads.Add(thread);
             this.db.SaveChanges();
         }
 
         public string Edit(string threadId, string title, string content, DateTime modifiedOn)
-        {            
+        {
             var threadFromDb = this.db.Threads.FirstOrDefault(t => t.Id == threadId);
 
             threadFromDb.ModifiedOn = modifiedOn;

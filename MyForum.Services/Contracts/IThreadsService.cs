@@ -12,7 +12,7 @@ namespace MyForum.Services.Contracts
         IQueryable<Thread> All();
 
         //To do
-        void Create(string name, string authorId);
+        void Create(string title, string content, string authorId, string categoryId);
 
         Thread GetThreadById(string id);
 

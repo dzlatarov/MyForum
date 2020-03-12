@@ -1,22 +1,42 @@
-﻿@using MyForum.Web.Models.Threads
+﻿@using MyForum.Domain
+@using MyForum.Web.Models.Threads
 @model ThreadsCreateViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var allCategories = (List<Category>)ViewData["AllCategories"];
 }
 
 <div class="container-fluid text-center w-25 mx-auto">
-    <h1>Create new thread</h1>   
-    <hr /> 
+    <h1>Create new thread</h1>
+    <hr />
     <form asp-controller="Threads" asp-action="Create" method="post">
+        <div class="form-group">
+            <label asp-for="@Model.Title"></label>
+            <input asp-for="@Model.Title" type="text" class="form-control" placeholder="Title..." />
+            <span asp-validation-for="@Model.Title" class="text-danger"></span>
+        </div>
+        <br />
         <div class="form-group">
             <label asp-for="@Model.Content"></label>
             <input asp-for="@Model.Content" type="text" class="form-control" placeholder="Content..." />
             <span asp-validation-for="@Model.Content" class="text-danger"></span>
         </div>
         <br />
-        <hr />        
+        <div class="form-group">
+            <label>Category</label>
+            <br />
+            <select class="form-control w-100" asp-for="@Model.CategoryId">
+                <option>Choose category</option>
+                @foreach (var category in allCategories)
+                {
+                    <option value="@category.Id">@category.Name</option>
+                }
+            </select>
+        </div>
+        <br />
+        <hr />
         <div class="form-group">
             <button type="submit" class="btn btn-danger">Create</button>
         </div>

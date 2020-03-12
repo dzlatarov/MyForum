@@ -13,14 +13,19 @@ namespace MyForum.Web.Controllers
     public class ThreadsController : Controller
     {
         private readonly IThreadsService threadsService;
+        private readonly ICategoriesService categoriesService;
 
-        public ThreadsController(IThreadsService threadsService)
+        public ThreadsController(IThreadsService threadsService, ICategoriesService categoriesService)
         {
             this.threadsService = threadsService;
+            this.categoriesService = categoriesService;
         }
 
+        [Authorize]
         public IActionResult Create()
         {
+            ViewData["AllCategories"] = this.categoriesService.GetAll().ToList();
+
             return this.View();
         }
 
@@ -36,9 +41,9 @@ namespace MyForum.Web.Controllers
 
             var authorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            this.threadsService.Create(model.Content, authorId);
+            this.threadsService.Create(model.Title, model.Content, authorId, model.CategoryId);
 
-            return this.Redirect("/Home");
+            return this.Redirect($"/Categories/AllThreads/{model.CategoryId}");
         }
 
         [Authorize]
