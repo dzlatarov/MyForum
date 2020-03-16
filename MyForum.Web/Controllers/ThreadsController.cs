@@ -50,17 +50,20 @@ namespace MyForum.Web.Controllers
         [Route("/Threads/Edit/{id}")]
         public IActionResult Edit(string id)
         {
-            var thread = this.threadsService.GetThreadById(id);
+            var thread = this.threadsService.All()
+                .Where(t => t.Id == id)
+                .Select(ThreadsEditViewModel.EditThread)
+                .FirstOrDefault();
 
-            var model = new ThreadsEditViewModel
-            {
-                Id = thread.Id,
-                Title = thread.Title,
-                Content = thread.Content,
-                CategoryId = thread.CategoryId
-            };
+            //var model = new ThreadsEditViewModel
+            //{
+            //    Id = thread.Id,
+            //    Title = thread.Title,
+            //    Content = thread.Content,
+            //    CategoryId = thread.CategoryId
+            //};
 
-            return this.View(model);
+            return this.View(thread);
         }
 
         [HttpPost]
