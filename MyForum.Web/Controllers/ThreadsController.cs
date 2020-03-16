@@ -80,5 +80,14 @@ namespace MyForum.Web.Controllers
 
             return this.Redirect($"/Categories/AllThreads/{categoryId}");
         }
+
+        [Authorize]
+        [Route("")]
+        public IActionResult Delete(string threadId)
+        {
+            var categoryId = this.threadsService.GetThreadById(threadId).CategoryId;
+
+            return this.Redirect($"/Categories/AllThreads/{categoryId}");
+        }
     }
 }

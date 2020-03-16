@@ -14,13 +14,13 @@
     <form asp-controller="Threads" asp-action="Create" method="post">
         <div class="form-group">
             <label asp-for="@Model.Title"></label>
-            <input asp-for="@Model.Title" type="text" class="form-control" placeholder="Title..." />
+            <textarea asp-for="@Model.Title" type="text" rows="2" class="form-control" placeholder="Title..."></textarea>
             <span asp-validation-for="@Model.Title" class="text-danger"></span>
         </div>
         <br />
         <div class="form-group">
             <label asp-for="@Model.Content"></label>
-            <input asp-for="@Model.Content" type="text" class="form-control" placeholder="Content..." />
+            <textarea asp-for="@Model.Content" type="text" rows="3" class="form-control" placeholder="Content..."></textarea>
             <span asp-validation-for="@Model.Content" class="text-danger"></span>
         </div>
         <br />
