@@ -17,5 +17,7 @@ namespace MyForum.Services.Contracts
         Thread GetThreadById(string id);
 
         string Edit(string threadId, string title, string content, DateTime modifiedOn);
+
+        void Delete(string threadId);
     }
 }

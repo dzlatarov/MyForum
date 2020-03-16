@@ -41,6 +41,13 @@ namespace MyForum.Services
             this.db.SaveChanges();
         }
 
+        public void Delete(string threadId)
+        {
+            var thread = this.db.Threads.FirstOrDefault(t => t.Id == threadId);
+            this.db.Threads.Remove(thread);
+            this.db.SaveChanges();
+        }
+
         public string Edit(string threadId, string title, string content, DateTime modifiedOn)
         {
             var threadFromDb = this.db.Threads.FirstOrDefault(t => t.Id == threadId);
