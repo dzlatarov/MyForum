@@ -11,6 +11,7 @@
     <div class="container-fluid col-md-3 w-75 align-items-md-center flex-column">
 
         <form class="mx-auto input-width" method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Input.Username"></label>
                 <input type="text" class="form-control" asp-for="Input.Username" placeholder="Username...">
@@ -23,7 +24,7 @@
             </div>
             <div class="form-group justify-content-center">
                 <button type="submit" class="btn btn-danger">Login</button>
-            </div>            
+            </div>
             <br />
         </form>
     </div>

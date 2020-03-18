@@ -8,12 +8,7 @@
 }
 <div class="jumbotron-fluid bg-light justify-content-center text-center w-50 mx-auto">
     <form class="mt-5 mx-auto" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id" method="post">
-        @*<div asp-validation-summary="All" class="text-danger"></div>*@
-        <div class="form-group">
-            <label asp-for="@Model.Username"></label>
-            <input asp-for="@Model.Username" type="text" value="@Model.Username" class="form-group" />
-            <span asp-validation-for="@Model.Username" class="text-danger"></span>
-        </div>
+        @*<div asp-validation-summary="All" class="text-danger"></div>*@       
         <label asp-for="@Model.FirstName"></label>
         <div class="form-group">
             <input asp-for="@Model.FirstName" type="text" value="@Model.FirstName" class="form-group" />
@@ -29,6 +24,7 @@
             <input asp-for="@Model.LastName" type="text" value="@Model.LastName" class="form-group" />
             <span asp-validation-for="@Model.LastName" class="text-danger"></span>
         </div>
+        <label asp-for="@Model.DateOfBirth"></label>
         <div class="form-group">
             <input asp-for="@Model.DateOfBirth" type="text" value="@Model.DateOfBirth" class="form-group" />
             <span asp-validation-for="@Model.DateOfBirth" class="text-danger"></span>

@@ -15,19 +15,18 @@ namespace MyForum.Web.Models.Users
         public string Id { get; set; }
 
         [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
-               MinimumLength = 5)]
-        public string Username { get; set; }
-
-        [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
               MinimumLength = 3)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
         
         [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
                MinimumLength = 3)]
+        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
 
         [StringLength(20, ErrorMessage = GlobalConstants.LengthError,
                 MinimumLength = 3)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [EmailAddress]
@@ -35,8 +34,10 @@ namespace MyForum.Web.Models.Users
 
         [StringLength(15, ErrorMessage = GlobalConstants.LengthError,
                 MinimumLength = 3)]
+        [Display(Name = "Phone Number")]
         public string PhoneNumber { get; set; }
 
+        [Display(Name = "Date Of Birth")]
         public string DateOfBirth { get; set; }
     }    
 }

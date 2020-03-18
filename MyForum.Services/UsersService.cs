@@ -24,10 +24,9 @@ namespace MyForum.Services
             return allUsers;
         }
 
-        public void Edit(string id, string username, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
+        public void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {
-            var userFromDb = this.GetUserById(id);
-            userFromDb.UserName = username;
+            var userFromDb = this.GetUserById(id);           
             userFromDb.FirstName = firstName;
             userFromDb.MiddleName = middleName;
             userFromDb.LastName = lastName;

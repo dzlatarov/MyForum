@@ -22,6 +22,9 @@ namespace MyForum.Infrastructure
         public const string ConfirmPasswordEr = "The password and confirmation password do not match.";
         public const string DateTimeFormatError = "The format should be dd.mm.yyyy";
 
+        // Login
+        public const string LoginError = "Invalid Username or password";
+
 
         // Identity options
         public const string AllowedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";

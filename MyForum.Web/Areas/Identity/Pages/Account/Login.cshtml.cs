@@ -83,7 +83,9 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                 {
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
-                }                              
+                }
+
+                this.ModelState.AddModelError(string.Empty, GlobalConstants.LoginError);
             }
 
             // If we got this far, something failed, redisplay form

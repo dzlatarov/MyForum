@@ -50,8 +50,7 @@ namespace MyForum.Web.Controllers
             var user = this.usersService.GetUserById(id);            
             var viewModel = new UsersEditViewModel
             {
-                Id = id,
-                Username = user.UserName,
+                Id = id,                
                 FirstName = user.FirstName,
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
@@ -73,7 +72,7 @@ namespace MyForum.Web.Controllers
                 return this.View(input);
             }
 
-            this.usersService.Edit(id, input.Username, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber, input.DateOfBirth);
+            this.usersService.Edit(id, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber, input.DateOfBirth);
 
             return this.RedirectToAction(nameof(Profile), new { id = this.User.FindFirstValue(ClaimTypes.NameIdentifier) });
         }
