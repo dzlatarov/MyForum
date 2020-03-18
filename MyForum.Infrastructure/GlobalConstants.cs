@@ -33,12 +33,9 @@ namespace MyForum.Infrastructure
         //Connection configure
         public const string ConnectionName = "DefaultConnection";
 
-        //MVC routing config
-        public const string RouteName = "default";
-        public const string template = "{controller=Home}/{action=Index}/{id?}";
-
         //Exeptions
-        public const string ExeptionHandlerErr = "/Home/Error";
+        public const string ForumBaseExceptionMessage = @"Something went wrong during the process! /n Please try again!";
+        public const string CreateThreadExceptionMessage = @"Something went wrong during creating a new thread! /n Please try again!";
 
         //Coockie paths
         public const string LoginPath = "/Identity/Account/Login";
@@ -53,7 +50,10 @@ namespace MyForum.Infrastructure
         public const int ContentMinLength = 20;
         public const string ContentErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
 
-        //Status code with reExecute template
+        //Configure
         public const string statusCodeWithReExecuteTemplate = "/Error/{0}";
+        public const string RouteName = "default";
+        public const string template = "{controller=Home}/{action=Index}/{id?}";
+        public const string ExeptionHandlerErr = "/Home/Error";
     }
 }
