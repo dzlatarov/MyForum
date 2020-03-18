@@ -1,4 +1,5 @@
 ﻿using MyForum.Domain;
+using MyForum.Infrastructure.Exceptions;
 using MyForum.Persistence;
 using MyForum.Services.Contracts;
 using System;
@@ -27,18 +28,29 @@ namespace MyForum.Services
 
         public void Create(string title, string content, string authorId, string categoryId)
         {
-            var thread = new Thread
-            {
-                Id = Guid.NewGuid().ToString(),
-                Title = title,
-                Content = content,
-                CreatedOn = DateTime.UtcNow,
-                ThreadCreatorId = authorId,
-                CategoryId = categoryId
-            };
+            var errorMessage = "";
 
-            this.db.Threads.Add(thread);
-            this.db.SaveChanges();
+            try
+            {
+                var thread = new Thread
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Title = title,
+                    Content = content,
+                    CreatedOn = DateTime.UtcNow,
+                    ThreadCreatorId = authorId,
+                    CategoryId = categoryId
+                };
+
+
+                this.db.Threads.Add(thread);
+                this.db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                errorMessage = ex.Message;
+                throw new CreateThreadException();
+            }            
         }
 
         public void Delete(string threadId)
