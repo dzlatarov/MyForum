@@ -24,18 +24,27 @@ namespace MyForum.Web.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            ViewData["AllCategories"] = this.categoriesService.GetAll().ToList();
+            var model = new ThreadsCreateViewModel()
+            {
+                Categories = this.categoriesService.GetAll()
+                .Select(ThreadCategoryViewModel.FromCategory)
+                .ToList()
+            };
 
-            return this.View();
+            return this.View(model);
         }
 
         [HttpPost]
         [Authorize]
         [Route("/Threads/Create")]
         public IActionResult Create(ThreadsCreateViewModel model)
-        {
+        {           
             if (!this.ModelState.IsValid)
             {
+                model.Categories = this.categoriesService.GetAll()
+                    .Select(ThreadCategoryViewModel.FromCategory)
+                    .ToList();
+
                 return this.View(model);
             }
 

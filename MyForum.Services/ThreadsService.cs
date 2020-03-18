@@ -42,7 +42,6 @@ namespace MyForum.Services
                     CategoryId = categoryId
                 };
 
-
                 this.db.Threads.Add(thread);
                 this.db.SaveChanges();
             }

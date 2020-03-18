@@ -19,8 +19,10 @@ namespace MyForum.Web.Models.Threads
            MinimumLength = GlobalConstants.ContentMinLength)]
         [Display(Name = "Content")]
         public string Content { get; set; }
-
+       
         [Required]
         public string CategoryId { get; set; }
+
+        public List<ThreadCategoryViewModel> Categories { get; set; }
     }
 }
