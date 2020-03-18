@@ -80,7 +80,7 @@ namespace MyForum.Web.Controllers
         [Authorize]
         [Route("/Users/Search")]
         public IActionResult Search(UsersSearchViewModel model)
-        {
+        {            
             if (!this.ModelState.IsValid)
             {
                 return this.View();

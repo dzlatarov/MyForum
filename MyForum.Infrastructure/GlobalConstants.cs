@@ -52,5 +52,8 @@ namespace MyForum.Infrastructure
         public const int ContentMaxLength = 300;
         public const int ContentMinLength = 20;
         public const string ContentErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
+
+        //Status code with reExecute template
+        public const string statusCodeWithReExecuteTemplate = "/Error/{0}";
     }
 }

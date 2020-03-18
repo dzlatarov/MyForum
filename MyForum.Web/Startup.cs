@@ -99,7 +99,9 @@ namespace MyForum.Web
 
             if (env.IsDevelopment())
             {                
-                app.UseDeveloperExceptionPage();                   
+                //middleware for ex: page not found
+                app.UseStatusCodePagesWithReExecute(GlobalConstants.statusCodeWithReExecuteTemplate);
+                app.UseDeveloperExceptionPage();
             }
             else
             {
@@ -113,7 +115,7 @@ namespace MyForum.Web
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthorization();          
 
             app.UseEndpoints(endpoints =>
             {
