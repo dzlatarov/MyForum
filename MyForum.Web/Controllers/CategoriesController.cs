@@ -26,10 +26,16 @@ namespace MyForum.Web.Controllers
         {
             var category = this.categoriesService.GetCategoryById(id);
 
+            if(category == null)
+            {
+                return NotFound();
+            }
+
             var allThreadsInCategory = this.threadsService.All()
                 .Where(t => t.CategoryId == id)
                 .Select(ThreadsAllViewModel.AllThreads)                
                 .ToList();
+
             return this.View(new ThreadsInCategoryListViewModel { Name = category.Name, Threads = allThreadsInCategory });
         }
     }

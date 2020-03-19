@@ -96,12 +96,12 @@ namespace MyForum.Web
         {
             MyForumSeedData seeder = new MyForumSeedData(context, app, env);
             seeder.SeedAllData().Wait();
-            
+
+            //middleware for ex: page not found
+            app.UseStatusCodePagesWithReExecute(GlobalConstants.statusCodeWithReExecuteTemplate);
 
             if (env.IsDevelopment())
-            {                
-                //middleware for ex: page not found
-                app.UseStatusCodePagesWithReExecute(GlobalConstants.statusCodeWithReExecuteTemplate);
+            {                                
                 app.UseDeveloperExceptionPage();
             }
             else

@@ -6,12 +6,34 @@
 @{
     ViewData["Title"] = "Create comment";
 }
-<form asp-controller="Comments" asp-action="Reply" method="post">
-    <div class="media">
-        @*<img src="..." class="mr-3" alt="...">*@
+
+
+<div class="container-fluid d-flex justify-content-center">
+    <div class="media w-50 text-center">
+        <div class="media-body">
+            <label asp-for="@Model.ThreadContent"></label>
+            <textarea readonly
+                      asp-for="@Model.ThreadContent"
+                      type="text"
+                      rows="4"
+                      class="form-control">@Model.ThreadContent</textarea>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<br />
+<form asp-controller="Comments"
+      asp-action="Reply"
+      asp-route-threadId="@Model.ThreadId"
+      method="post" class="d-flex justify-content-center">
+    <div class="media w-50 text-center">        
         <div class="media-body">
             <label asp-for="@Model.Content"></label>
-            <textarea asp-for="@Model.Content"></textarea>
+            <textarea asp-for="@Model.Content" type="text" rows="5" class="form-control"></textarea>
+            <br />
+            <span asp-validation-for="@Model.Content" class="text-danger"></span>
         </div>
+        <button type="submit" class="btn btn-danger replybtn mt-4">Reply</button>
     </div>
 </form>

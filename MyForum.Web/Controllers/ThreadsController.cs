@@ -86,7 +86,7 @@ namespace MyForum.Web.Controllers
         [Route("/Threads/Delete{threadId}")]
         public IActionResult Delete(string threadId)
         {
-            var categoryId = this.threadsService.GetThreadById(threadId).CategoryId;
+            var categoryId = this.threadsService.GetThreadById(threadId)?.CategoryId;
 
             this.threadsService.Delete(threadId);
 

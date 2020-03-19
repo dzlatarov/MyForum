@@ -65,6 +65,7 @@ html {
 
 body {
     margin-bottom: 60px;
+    /*background-color: #808080;*/    
 }
 
 .footer {
@@ -84,4 +85,8 @@ body {
 
 .threadEdit {
     width: 450px;
+}
+
+.replybtn {
+    height: 140px;
 }
