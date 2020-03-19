@@ -31,7 +31,11 @@
                 @if (this.User.Identity.Name == thread.Username)
                 {
                     <ul class="list-inline list-unstyled text-right">
-                        <li class="list-inline-item"><a href="#">Reply</a></li>
+                        <li class="list-inline-item">
+                            <a asp-controller="Threads"
+                               asp-action="Reply"
+                               asp-route-threadId="@thread.Id">Reply</a>
+                        </li>
                         <li class="list-inline-item">
                             <a asp-controller="Threads"
                                asp-action="Edit"
@@ -49,7 +53,11 @@
                     if (this.User.IsInRole(GlobalConstants.AdminRole))
                     {
                         <ul class="list-inline list-unstyled text-right">
-                            <li class="list-inline-item"><a href="#">Reply</a></li>
+                            <li class="list-inline-item">
+                                <a asp-controller="Comments"
+                                   asp-action="Reply"
+                                   asp-route-threadId="@thread.Id">Reply</a>
+                            </li>
                             <li class="list-inline-item">
                                 <a asp-controller="Threads"
                                    asp-action="Delete"
@@ -60,7 +68,11 @@
                     else
                     {
                         <ul class="list-inline list-unstyled text-right">
-                            <li class="list-inline-item"><a href="#">Reply</a></li>
+                            <li class="list-inline-item">
+                                <a asp-controller="Threads"
+                                   asp-action="Reply"
+                                   asp-route-threadId="@thread.Id">Reply</a>
+                            </li>
                         </ul>
                     }
                 }

@@ -64,14 +64,6 @@ namespace MyForum.Web.Controllers
                 .Select(ThreadsEditViewModel.EditThread)
                 .FirstOrDefault();
 
-            //var model = new ThreadsEditViewModel
-            //{
-            //    Id = thread.Id,
-            //    Title = thread.Title,
-            //    Content = thread.Content,
-            //    CategoryId = thread.CategoryId
-            //};
-
             return this.View(thread);
         }
 
@@ -99,6 +91,6 @@ namespace MyForum.Web.Controllers
             this.threadsService.Delete(threadId);
 
             return this.Redirect($"/Categories/AllThreads/{categoryId}");
-        }
+        }       
     }
 }
