@@ -41,7 +41,7 @@ namespace MyForum.Infrastructure
         public const string LoginPath = "/Identity/Account/Login";
         public const string LogoutPath = "/Identity/Account/Logout";
 
-        //Threads create model constraints
+        //Create model constraints
 
         public const int TitleMaxLength = 50;
         public const int TitleMinLength = 20;
@@ -49,6 +49,8 @@ namespace MyForum.Infrastructure
         public const int ContentMaxLength = 300;
         public const int ContentMinLength = 20;
         public const string ContentErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
+        public const int CommentContentMaxLength = 500;
+        public const string CommentErrorMessage = "The {0} must be at least {2} and max {1} characters long.";        
 
         //Configure
         public const string statusCodeWithReExecuteTemplate = "/Error/{0}";

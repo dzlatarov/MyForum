@@ -18,7 +18,7 @@ namespace MyForum.Web.Controllers
         }
 
         [Authorize]
-        [Route("/Comments/Reply{threadId}")]
+        [Route("/Comments/Reply/{threadId}")]
         public IActionResult Reply(string threadId)
         {
             return this.View();

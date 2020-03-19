@@ -1,0 +1,17 @@
+﻿@using MyForum.Web.Models.Comments
+@model CommentsCreateViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Create comment";
+}
+<form asp-controller="Comments" asp-action="Reply" method="post">
+    <div class="media">
+        @*<img src="..." class="mr-3" alt="...">*@
+        <div class="media-body">
+            <label asp-for="@Model.Content"></label>
+            <textarea asp-for="@Model.Content"></textarea>
+        </div>
+    </div>
+</form>
