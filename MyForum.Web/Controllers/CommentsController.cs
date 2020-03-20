@@ -56,5 +56,29 @@ namespace MyForum.Web.Controllers
 
             return this.Redirect($"/Categories/AllThreads/{thread.CategoryId}");
         }
+
+        [Authorize]
+        [Route("/Comments/All/{threadId}")]
+        public IActionResult All(string threadId)
+        {
+            var thread = this.threadsService.GetThreadById(threadId);
+
+            if (thread == null)
+            {
+                return NotFound();
+            }           
+
+            var allComments = this.commentsService.GetAllComments()
+                .Select(CommentsInfoViewModel.FromComment)
+                .ToList();
+
+            var model = new CommentsAllViewModel
+            {
+                ThreadContent = thread.Content,
+                Comments = allComments
+            };
+
+            return this.View(model);
+        }
     }
 }

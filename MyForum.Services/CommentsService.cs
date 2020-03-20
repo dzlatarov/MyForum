@@ -3,6 +3,7 @@ using MyForum.Persistence;
 using MyForum.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace MyForum.Services
@@ -28,6 +29,11 @@ namespace MyForum.Services
 
             this.db.Comments.Add(comment);
             this.db.SaveChanges();
+        }
+
+        public IQueryable<Comment> GetAllComments()
+        {
+            return this.db.Comments;
         }
     }
 }
