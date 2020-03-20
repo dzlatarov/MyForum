@@ -86,11 +86,16 @@ namespace MyForum.Web.Controllers
         [Route("/Threads/Delete{threadId}")]
         public IActionResult Delete(string threadId)
         {
-            var categoryId = this.threadsService.GetThreadById(threadId)?.CategoryId;
+            var thread = this.threadsService.GetThreadById(threadId);
+
+            if(thread == null)
+            {
+                return NotFound();
+            }
 
             this.threadsService.Delete(threadId);
 
-            return this.Redirect($"/Categories/AllThreads/{categoryId}");
+            return this.Redirect($"/Categories/AllThreads/{thread.CategoryId}");
         }       
     }
 }
