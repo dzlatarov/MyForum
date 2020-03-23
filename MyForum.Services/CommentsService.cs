@@ -11,10 +11,14 @@ namespace MyForum.Services
     public class CommentsService : ICommentsService
     {
         private readonly MyForumDbContext db;
+        private readonly IThreadsService threadsService;
+        private readonly IUsersService usersService;
 
-        public CommentsService(MyForumDbContext db)
+        public CommentsService(MyForumDbContext db, IThreadsService threadsService, IUsersService usersService)
         {
             this.db = db;
+            this.threadsService = threadsService;
+            this.usersService = usersService;
         }
 
         public void CreateComment(string content, string threadId, string creatorId)

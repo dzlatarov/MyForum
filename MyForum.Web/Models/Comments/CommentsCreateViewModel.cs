@@ -17,21 +17,9 @@ namespace MyForum.Web.Models.Comments
         public string Content { get; set; }
 
         public string ThreadId { get; set; }
-
-        public string CreatorId { get; set; }
+        
 
         [Display(Name = "Thread")]
-        public string ThreadContent { get; set; }
-
-        public static Expression<Func<Comment, CommentsCreateViewModel>> FromComment
-        {
-            get => c => new CommentsCreateViewModel
-            {
-                Content = c.Content,
-                ThreadId = c.ThreadId,
-                CreatorId = c.CommentCreatorId,
-                ThreadContent = c.Thread.Content
-            };
-        }
+        public string ThreadContent { get; set; }        
     }
 }

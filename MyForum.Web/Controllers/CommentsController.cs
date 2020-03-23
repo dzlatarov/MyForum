@@ -5,6 +5,7 @@ using MyForum.Web.Models.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MyForum.Web.Controllers
@@ -45,6 +46,8 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Reply/{threadId}")]
         public IActionResult Reply(CommentsCreateViewModel model)
         {
+            var creatorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -52,7 +55,7 @@ namespace MyForum.Web.Controllers
 
             var thread = this.threadsService.GetThreadById(model.ThreadId);
 
-            this.commentsService.CreateComment(model.Content, model.ThreadId, model.CreatorId);
+            this.commentsService.CreateComment(model.Content, model.ThreadId, creatorId);
 
             return this.Redirect($"/Categories/AllThreads/{thread.CategoryId}");
         }
@@ -66,7 +69,7 @@ namespace MyForum.Web.Controllers
             if (thread == null)
             {
                 return NotFound();
-            }           
+            }
 
             var allComments = this.commentsService.GetAllComments()
                 .Select(CommentsInfoViewModel.FromComment)

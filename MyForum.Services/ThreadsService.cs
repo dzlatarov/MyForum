@@ -13,11 +13,13 @@ namespace MyForum.Services
     {
         private readonly MyForumDbContext db;
         private readonly IUsersService usersService;
+        private readonly ICategoriesService categoriesService;
 
-        public ThreadsService(MyForumDbContext db, IUsersService usersService)
+        public ThreadsService(MyForumDbContext db, IUsersService usersService, ICategoriesService categoriesService)
         {
             this.db = db;
             this.usersService = usersService;
+            this.categoriesService = categoriesService;
         }
 
         public IQueryable<Thread> All()
@@ -27,7 +29,7 @@ namespace MyForum.Services
         }
 
         public void Create(string title, string content, string authorId, string categoryId)
-        {
+        {            
             var errorMessage = "";
 
             try

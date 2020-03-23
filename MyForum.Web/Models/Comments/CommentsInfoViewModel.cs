@@ -11,6 +11,8 @@ namespace MyForum.Web.Models.Comments
     {
         public string Id { get; set; }
 
+        public string CommentCreator { get; set; }
+
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }
@@ -21,7 +23,8 @@ namespace MyForum.Web.Models.Comments
         {
             get => c => new CommentsInfoViewModel
             {
-                Id = c.Id,
+                Id = c.Id,  
+                CommentCreator = c.CommentCreator.FirstName,
                 Content = c.Content,
                 CreatedOn = c.CreatedOn,
                 ModifiedOn = c.ModifiedOn == null ? null : c.ModifiedOn

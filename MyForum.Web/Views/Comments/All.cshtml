@@ -22,21 +22,27 @@
     <br />
 </div>
 
-<div class="container-fluid w-100 d-flex align-items-end flex-column">
-    @foreach (var comment in Model.Comments)
-    {
+
+@foreach (var comment in Model.Comments)
+{
+    <div class="container-fluid w-100 d-flex align-items-end flex-column">
+        <ul class="list-inline list-unstyled text-left">
+            <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>User: @comment.CommentCreator</li>
+            <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Created on: @comment.CreatedOn</li>
+            @*<li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Modified on: @comment.ModifiedOn</li>*@
+        </ul>
         <div class="media p-2">
             <div class="media-body">
                 <textarea asp-for="@comment.Content"
                           rows="4"
                           class="form-control comment"></textarea>
             </div>
-            @*<ul class="form-group">
-                    <li>Edit</li>
-                    <li>Delete</li>
-                </ul>*@           
+        </div>
+        <div class="form-group mr-2">
+            <a asp-controller="Comments" asp-action="Edit" class="mr-2">Edit</a>
+            <a asp-controller="Comments" asp-action="Delete">Delete</a>
         </div>
         <br />
         <br />
-    }
-</div>
+    </div>
+}
