@@ -11,6 +11,6 @@ namespace MyForum.Web.Models.Comments
         [Display(Name = "Thread Content")]
         public string ThreadContent { get; set; }
 
-        public List<CommentsInfoViewModel> Comments { get; set; }
+        public List<CommentsInfoViewModel> Comments { get; set; }        
     }
 }
