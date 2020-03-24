@@ -11,5 +11,9 @@ namespace MyForum.Services.Contracts
         void CreateComment(string content, string threadId, string creatorId);
 
         IQueryable<Comment> GetAllComments();
+
+        Comment GetCommentById(string commentId);
+
+        void Delete(string commentId);
     }
 }

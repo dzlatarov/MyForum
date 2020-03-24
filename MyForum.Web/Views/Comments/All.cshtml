@@ -1,4 +1,5 @@
-﻿@using MyForum.Web.Models.Comments
+﻿@using MyForum.Infrastructure
+@using MyForum.Web.Models.Comments
 @model CommentsAllViewModel
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -26,7 +27,7 @@
 @foreach (var comment in Model.Comments)
 {
     <div class="container-fluid w-100 d-flex align-items-end flex-column">
-        <ul class="list-inline list-unstyled text-left">
+        <ul class="list-inline list-unstyled text-left mr-2">
             <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>User: @comment.CommentCreator</li>
             <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Created on: @comment.CreatedOn</li>
             @*<li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Modified on: @comment.ModifiedOn</li>*@
@@ -38,10 +39,30 @@
                           class="form-control comment"></textarea>
             </div>
         </div>
-        <div class="form-group mr-2">
-            <a asp-controller="Comments" asp-action="Edit" class="mr-2">Edit</a>
-            <a asp-controller="Comments" asp-action="Delete">Delete</a>
-        </div>
+        @if (this.User.Identity.Name == comment.CommentCreator)
+        {
+            <div class="form-group mr-2">
+                <a href="#" class="mr-2">Reply</a>
+                <a asp-controller="Comments" asp-action="Edit" class="mr-2">Edit</a>
+                <a asp-controller="Comments" asp-action="Delete">Delete</a>
+            </div>
+        }
+        else
+        {
+            if (this.User.IsInRole(GlobalConstants.AdminRole))
+            {
+                <div class="form-group mr-2">
+                    <a href="#" class="mr-2">Reply</a>
+                    <a asp-controller="Comments" asp-action="Delete" asp-route-commentId="@comment.Id">Delete</a>
+                </div>
+            }
+            else
+            {
+                <div class="form-group mr-2">
+                    <a href="#">Reply</a>
+                </div>
+            }
+        }
         <br />
         <br />
     </div>

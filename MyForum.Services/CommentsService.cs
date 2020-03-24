@@ -35,9 +35,22 @@ namespace MyForum.Services
             this.db.SaveChanges();
         }
 
+        public void Delete(string commentId)
+        {
+            var comment = this.db.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            this.db.Comments.Remove(comment);
+            this.db.SaveChanges();
+        }
+
         public IQueryable<Comment> GetAllComments()
         {
             return this.db.Comments;
+        }
+
+        public Comment GetCommentById(string commentId)
+        {
+            return this.db.Comments.FirstOrDefault(c => c.Id == commentId);
         }
     }
 }

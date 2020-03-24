@@ -83,5 +83,21 @@ namespace MyForum.Web.Controllers
 
             return this.View(model);
         }
+
+        [Authorize]
+        [Route("/Comments/Delete/{commentId}")]
+        public IActionResult Delete(string commentId)
+        {
+            var comment = this.commentsService.GetCommentById(commentId);
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            this.commentsService.Delete(commentId);
+
+            return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
+        }
     }
 }
