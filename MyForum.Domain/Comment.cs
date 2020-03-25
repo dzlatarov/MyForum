@@ -26,9 +26,5 @@ namespace MyForum.Domain
         public string CommentCreatorId { get; set; }
 
         public ApplicationUser CommentCreator { get; set; }
-
-
-        //To do
-        //public ICollection<CommentReply> Replies { get; set; }
     }
 }

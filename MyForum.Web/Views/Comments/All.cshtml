@@ -30,7 +30,7 @@
         <ul class="list-inline list-unstyled text-left mr-2">
             <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>User: @comment.CommentCreator</li>
             <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Created on: @comment.CreatedOn</li>
-            @*<li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Modified on: @comment.ModifiedOn</li>*@
+            <li class="list-inline-item"><i class="glyphicon glyphicon-calendar"></i>Modified on: @comment.ModifiedOn</li>
         </ul>
         <div class="media p-2">
             <div class="media-body">
@@ -42,9 +42,8 @@
         @if (this.User.Identity.Name == comment.CommentCreator)
         {
             <div class="form-group mr-2">
-                <a href="#" class="mr-2">Reply</a>
-                <a asp-controller="Comments" asp-action="Edit" class="mr-2">Edit</a>
-                <a asp-controller="Comments" asp-action="Delete">Delete</a>
+                <a asp-controller="Comments" asp-action="Edit" asp-route-commentId="@comment.Id" class="mr-2">Edit</a>
+                <a asp-controller="Comments" asp-action="Delete" asp-route-commentId="@comment.Id">Delete</a>
             </div>
         }
         else
@@ -52,14 +51,14 @@
             if (this.User.IsInRole(GlobalConstants.AdminRole))
             {
                 <div class="form-group mr-2">
-                    <a href="#" class="mr-2">Reply</a>
+                    <a href="#" class="mr-2">Quote</a>
                     <a asp-controller="Comments" asp-action="Delete" asp-route-commentId="@comment.Id">Delete</a>
                 </div>
             }
             else
             {
                 <div class="form-group mr-2">
-                    <a href="#">Reply</a>
+                    <a href="#">Quote</a>
                 </div>
             }
         }

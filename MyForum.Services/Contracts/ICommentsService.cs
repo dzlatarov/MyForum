@@ -15,5 +15,7 @@ namespace MyForum.Services.Contracts
         Comment GetCommentById(string commentId);
 
         void Delete(string commentId);
+
+        void Edit(string commentId, string content, DateTime modifiedOn);
     }
 }

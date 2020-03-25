@@ -99,5 +99,43 @@ namespace MyForum.Web.Controllers
 
             return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
         }
+
+        [Authorize]
+        [Route("/Comments/Edit/{commentId}")]
+        public IActionResult Edit(string commentId)
+        {
+            var comment = this.commentsService.GetCommentById(commentId);
+
+            if(comment == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CommentsEditViewModel()
+            {
+                Id = comment.Id,
+                Content = comment.Content,
+                ThreadId = comment.ThreadId
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("/Comments/Edit/{commentId}")]
+        public IActionResult Edit(string commentId, CommentsEditViewModel model)
+        {
+            var comment = this.commentsService.GetCommentById(commentId);
+
+            if(!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+            var modifiedOn = DateTime.UtcNow;
+            this.commentsService.Edit(comment.Id, model.Content, modifiedOn);
+
+            return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
+        }
     }
 }

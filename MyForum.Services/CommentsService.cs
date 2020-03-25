@@ -2,9 +2,7 @@
 using MyForum.Persistence;
 using MyForum.Services.Contracts;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace MyForum.Services
 {
@@ -40,6 +38,17 @@ namespace MyForum.Services
             var comment = this.db.Comments.FirstOrDefault(c => c.Id == commentId);
 
             this.db.Comments.Remove(comment);
+            this.db.SaveChanges();
+        }
+
+        public void Edit(string commentId, string content, DateTime modifiedOn)
+        {
+            var commentFromDb = this.db.Comments.FirstOrDefault(c => c.Id == commentId);
+
+            commentFromDb.Content = content;
+            commentFromDb.ModifiedOn = modifiedOn;
+
+            this.db.Comments.Update(commentFromDb);
             this.db.SaveChanges();
         }
 

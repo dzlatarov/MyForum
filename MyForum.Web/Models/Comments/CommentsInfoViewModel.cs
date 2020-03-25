@@ -24,7 +24,7 @@ namespace MyForum.Web.Models.Comments
             get => c => new CommentsInfoViewModel
             {
                 Id = c.Id,  
-                CommentCreator = c.CommentCreator.FirstName,
+                CommentCreator = c.CommentCreator.UserName,
                 Content = c.Content,
                 CreatedOn = c.CreatedOn,
                 ModifiedOn = c.ModifiedOn == null ? null : c.ModifiedOn
