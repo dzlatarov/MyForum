@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using MyForum.Infrastructure;
 using MyForum.Services;
 using MyForum.Web.Models;
 using MyForum.Web.Models.Users;
@@ -95,5 +96,21 @@ namespace MyForum.Web.Controllers
 
             return this.RedirectToAction(nameof(Profile), new { id = user.Id });
         }
+
+        //[Authorize(Roles = GlobalConstants.AdminRole)]
+        //[Route("/Users/Delete/{id}")]
+        //public IActionResult Delete(string id)
+        //{
+        //    var user = this.usersService.GetUserById(id);
+
+        //    if(user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    this.usersService.Delete(user.Id);
+
+        //    return this.RedirectToAction(nameof(All));
+        //}
     }
 }

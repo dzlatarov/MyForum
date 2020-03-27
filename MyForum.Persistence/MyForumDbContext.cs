@@ -30,6 +30,15 @@ namespace MyForum.Persistence
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Thread>()
+                .HasKey(t => t.Id);
+
+            modelBuilder.Entity<Thread>()
+                .HasMany(t => t.Comments)
+                .WithOne(c => c.Thread)
+                .HasForeignKey(t => t.ThreadId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

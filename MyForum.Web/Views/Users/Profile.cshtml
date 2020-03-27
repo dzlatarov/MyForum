@@ -48,7 +48,7 @@
                             if (this.User.IsInRole(GlobalConstants.AdminRole))
                             {
                                 <div class="d-flex justify-content-end">
-                                    <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id">Edit</a>
+                                    <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="Delete" asp-route-id="@Model.Id">Delete</a>
                                 </div>
                             }
                         }

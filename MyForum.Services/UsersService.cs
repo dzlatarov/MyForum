@@ -22,7 +22,7 @@ namespace MyForum.Services
         {
             var allUsers = this.db.Users;                
             return allUsers;
-        }
+        }        
 
         public void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {

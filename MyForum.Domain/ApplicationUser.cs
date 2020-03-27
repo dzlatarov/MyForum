@@ -26,9 +26,7 @@ namespace MyForum.Domain
         public DateTime DateOfBirth { get; set; }
        
         public ICollection<Thread> Threads { get; set; }
-
-        //public ICollection<Post> Posts { get; set; }
-
+    
         public ICollection<Comment> Comments { get; set; }
     }
 }
