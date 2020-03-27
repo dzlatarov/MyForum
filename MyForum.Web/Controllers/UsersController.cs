@@ -36,12 +36,19 @@ namespace MyForum.Web.Controllers
         [Route("/Users/Profile/{id}")]
         public IActionResult Profile(string id)
         {
-            var user = this.usersService.All()
+            var user = this.usersService.GetUserById(id);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+           var userModel = this.usersService.All()
                 .Where(u => u.Id == id)
                 .Select(UsersProfileViewModel.FromUser)
                .FirstOrDefault();
 
-            return this.View(user);
+            return this.View(userModel);
         }
 
         [Authorize]
