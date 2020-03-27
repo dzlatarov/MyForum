@@ -20,14 +20,14 @@ namespace MyForum.Web.Controllers
 
         public UsersController(IUsersService usersService)
         {
-            this.usersService = usersService;           
+            this.usersService = usersService;
         }
 
         public IActionResult All()
         {
             var allUsers = this.usersService.All()
                 .Select(AllUsersViewModel.AllUser)
-                .ToList();                
+                .ToList();
 
             return this.View(new AllUserListViewModel { Members = allUsers });
         }
@@ -48,10 +48,16 @@ namespace MyForum.Web.Controllers
         [Route("/Users/Profile/Edit/{id}")]
         public IActionResult EditProfile(string id)
         {
-            var user = this.usersService.GetUserById(id);            
+            var user = this.usersService.GetUserById(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
             var viewModel = new UsersEditViewModel
             {
-                Id = id,                
+                Id = id,
                 FirstName = user.FirstName,
                 MiddleName = user.MiddleName,
                 LastName = user.LastName,
@@ -81,7 +87,7 @@ namespace MyForum.Web.Controllers
         [Authorize]
         [Route("/Users/Search")]
         public IActionResult Search(UsersSearchViewModel model)
-        {            
+        {
             if (!this.ModelState.IsValid)
             {
                 return this.View();
