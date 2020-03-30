@@ -1,4 +1,5 @@
 ﻿using MyForum.Domain;
+using MyForum.Infrastructure.Exceptions;
 using MyForum.Persistence;
 using System;
 using System.Collections.Generic;
@@ -25,22 +26,32 @@ namespace MyForum.Services
 
         public IQueryable<ApplicationUser> All()
         {
-            var allUsers = this.db.Users;                
+            var allUsers = this.db.Users;
             return allUsers;
         }
 
         public void Deactivate(string userId)
         {
-            var user = this.db.Users.FirstOrDefault(u => u.Id == userId && u.IsDeactivate == false);
-            user.IsDeactivate = true;
+            string errorMessage = "";
 
-            this.db.Users.Update(user);
-            this.db.SaveChanges();
+            try
+            {
+                var user = this.db.Users.FirstOrDefault(u => u.Id == userId && u.IsDeactivate == false);
+                user.IsDeactivate = true;
+
+                this.db.Users.Update(user);
+                this.db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = ex.Message;
+                throw new DeactivateDbException();
+            }
         }
 
         public void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {
-            var userFromDb = this.GetUserById(id);           
+            var userFromDb = this.GetUserById(id);
             userFromDb.FirstName = firstName;
             userFromDb.MiddleName = middleName;
             userFromDb.LastName = lastName;

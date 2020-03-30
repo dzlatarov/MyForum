@@ -32,7 +32,7 @@ namespace MyForum.Web.Controllers
 
             if (user.IsDeactivate == true)
             {
-                throw new DeactivatedException();
+                throw new DeactivateUserException();
             }
 
             var model = new ThreadsCreateViewModel()

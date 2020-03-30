@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyForum.Infrastructure.Exceptions;
+using MyForum.Services;
 using MyForum.Services.Contracts;
 using MyForum.Web.Models.Comments;
 using System;
@@ -14,17 +16,26 @@ namespace MyForum.Web.Controllers
     {
         private readonly ICommentsService commentsService;
         private readonly IThreadsService threadsService;
+        private readonly IUsersService usersService;
 
-        public CommentsController(ICommentsService commentsService, IThreadsService threadsService)
+        public CommentsController(ICommentsService commentsService, IThreadsService threadsService, IUsersService usersService)
         {
             this.commentsService = commentsService;
             this.threadsService = threadsService;
+            this.usersService = usersService;
         }
 
         [Authorize]
         [Route("/Comments/Reply/{threadId}")]
         public IActionResult Reply(string threadId)
         {
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user.IsDeactivate == true)
+            {
+                throw new DeactivateUserException();
+            }
+
             var thread = this.threadsService.GetThreadById(threadId);
 
             if (thread == null)
@@ -64,6 +75,13 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/All/{threadId}")]
         public IActionResult All(string threadId)
         {
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user.IsDeactivate == true)
+            {
+                throw new DeactivateUserException();
+            }
+
             var thread = this.threadsService.GetThreadById(threadId);
 
             if (thread == null)
@@ -88,6 +106,13 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Delete/{commentId}")]
         public IActionResult Delete(string commentId)
         {
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user.IsDeactivate == true)
+            {
+                throw new DeactivateUserException();
+            }
+
             var comment = this.commentsService.GetCommentById(commentId);
 
             if (comment == null)
@@ -104,9 +129,16 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Edit/{commentId}")]
         public IActionResult Edit(string commentId)
         {
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user.IsDeactivate == true)
+            {
+                throw new DeactivateUserException();
+            }
+
             var comment = this.commentsService.GetCommentById(commentId);
 
-            if(comment == null)
+            if (comment == null)
             {
                 return NotFound();
             }
@@ -128,7 +160,7 @@ namespace MyForum.Web.Controllers
         {
             var comment = this.commentsService.GetCommentById(commentId);
 
-            if(!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
