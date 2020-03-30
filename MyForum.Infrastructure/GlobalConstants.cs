@@ -38,6 +38,7 @@ namespace MyForum.Infrastructure
         public const string CreateThreadExceptionMessage = @"Something went wrong during creating a new thread! /n Please try again!";
         public const string DeactivatedExceptionMessage = @"Sorry u are deactivated!";
         public const string DeactivateDbExceptionMessage = @"Somethin went wrong during deactivating the user! /n Please try again!";
+        public const string ActivateUserExceptionMessage = @"Somethin went wrong during activating the user! /n Please try again!";
 
         //Coockie paths
         public const string LoginPath = "/Identity/Account/Login";

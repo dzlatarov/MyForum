@@ -21,7 +21,21 @@ namespace MyForum.Services
 
         public void Activate(string userId)
         {
-            throw new NotImplementedException();
+            string errorMessage = "";
+
+            try
+            {
+                var user = this.db.Users.FirstOrDefault(u => u.Id == userId && u.IsDeactivate == true);
+                user.IsDeactivate = false;
+
+                this.db.Users.Update(user);
+                this.db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                errorMessage = ex.Message;
+                throw new ActivateUserException();
+            }
         }
 
         public IQueryable<ApplicationUser> All()

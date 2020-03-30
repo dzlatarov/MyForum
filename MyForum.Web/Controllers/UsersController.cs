@@ -125,5 +125,19 @@ namespace MyForum.Web.Controllers
 
             return this.RedirectToAction(nameof(All));
         }
+
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        public IActionResult Activate(string id)
+        {
+            var user = this.usersService.GetUserById(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            this.usersService.Activate(id);
+            return this.RedirectToAction(nameof(All));
+        }
     }
 }
