@@ -42,3 +42,14 @@ $(document).ready(function () {
         // }
     });
 });
+
+function showPassword() {
+    let x = document.getElementById("loginPass");
+
+    if (x.type === "password") {
+        x.type = "text";
+    }
+    else {
+        x.type = "password";
+    }
+}
