@@ -39,17 +39,35 @@
                         </div>
                         @if (Model.Id == this.User.FindFirstValue(ClaimTypes.NameIdentifier))
                         {
-                            <div class="d-flex justify-content-end">
-                                <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id">Edit</a>
-                            </div>
+                            if (Model.IsDeactivate == true)
+                            {
+                                <div class="d-flex justify-content-end">
+                                    <h1 class="btn btn-primary">Deactivated</h1>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="d-flex justify-content-end">
+                                    <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id">Edit</a>
+                                </div>
+                            }
                         }
                         else
                         {
                             if (this.User.IsInRole(GlobalConstants.AdminRole))
                             {
-                                <div class="d-flex justify-content-end">
-                                    <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="EditProfile" asp-route-id="@Model.Id">Edit</a>
-                                </div>
+                                if (Model.IsDeactivate == true)
+                                {
+                                    <div class="d-flex justify-content-end">
+                                        <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="Activate" asp-route-id="@Model.Id">Activate</a>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="d-flex justify-content-end">
+                                        <a class="btn btn-primary btn-lg" type="button" asp-controller="Users" asp-action="Deactivate" asp-route-id="@Model.Id">Deactivate</a>
+                                    </div>
+                                }
                             }
                         }
                     </div>

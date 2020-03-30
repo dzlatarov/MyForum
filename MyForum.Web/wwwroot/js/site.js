@@ -43,6 +43,7 @@ $(document).ready(function () {
     });
 });
 
+// funcion is showing the password when login
 function showPassword() {
     let x = document.getElementById("loginPass");
 

@@ -24,6 +24,8 @@ namespace MyForum.Web.Models.Users
 
         public string PhoneNumber { get; set; }
 
+        public bool IsDeactivate { get; set; }
+
         public int ThreadsCount { get; set; }
         
         public static Expression<Func<ApplicationUser, UsersProfileViewModel>> FromUser
@@ -37,6 +39,7 @@ namespace MyForum.Web.Models.Users
                 LastName = u.LastName,
                 Gender = u.Gender.ToString(),
                 PhoneNumber = u.PhoneNumber ?? string.Empty,
+                IsDeactivate = u.IsDeactivate,
                 Email = u.Email,
                 ThreadsCount = u.Threads.Count,
                 DateOfBirth = u.DateOfBirth

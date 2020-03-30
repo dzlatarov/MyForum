@@ -38,15 +38,15 @@ namespace MyForum.Web.Controllers
         {
             var user = this.usersService.GetUserById(id);
 
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
 
-           var userModel = this.usersService.All()
-                .Where(u => u.Id == id)
-                .Select(UsersProfileViewModel.FromUser)
-               .FirstOrDefault();
+            var userModel = this.usersService.All()
+                 .Where(u => u.Id == id)
+                 .Select(UsersProfileViewModel.FromUser)
+                .FirstOrDefault();
 
             return this.View(userModel);
         }
@@ -110,20 +110,20 @@ namespace MyForum.Web.Controllers
             return this.RedirectToAction(nameof(Profile), new { id = user.Id });
         }
 
-        //[Authorize(Roles = GlobalConstants.AdminRole)]
-        //[Route("/Users/Delete/{id}")]
-        //public IActionResult Delete(string id)
-        //{
-        //    var user = this.usersService.GetUserById(id);
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [Route("/Users/Deactivate/{id}")]
+        public IActionResult Deactivate(string id)
+        {
+            var user = this.usersService.GetUserById(id);
 
-        //    if(user == null)
-        //    {
-        //        return NotFound();
-        //    }
+            if (user == null)
+            {
+                return NotFound();
+            }
 
-        //    this.usersService.Delete(user.Id);
+            this.usersService.Deactivate(id);
 
-        //    return this.RedirectToAction(nameof(All));
-        //}
+            return this.RedirectToAction(nameof(All));
+        }
     }
 }

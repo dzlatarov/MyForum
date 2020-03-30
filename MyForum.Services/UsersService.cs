@@ -18,11 +18,25 @@ namespace MyForum.Services
             this.db = db;
         }
 
+        public void Activate(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
         public IQueryable<ApplicationUser> All()
         {
             var allUsers = this.db.Users;                
             return allUsers;
-        }        
+        }
+
+        public void Deactivate(string userId)
+        {
+            var user = this.db.Users.FirstOrDefault(u => u.Id == userId && u.IsDeactivate == false);
+            user.IsDeactivate = true;
+
+            this.db.Users.Update(user);
+            this.db.SaveChanges();
+        }
 
         public void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {

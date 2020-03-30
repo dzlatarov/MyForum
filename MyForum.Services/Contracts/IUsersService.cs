@@ -15,6 +15,10 @@ namespace MyForum.Services
 
         ApplicationUser GetUserById(string id);
 
-        void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth);       
+        void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth);
+
+        void Deactivate(string userId);
+
+        void Activate(string userId);
     }
 }

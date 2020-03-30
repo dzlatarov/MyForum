@@ -36,6 +36,7 @@ namespace MyForum.Infrastructure
         //Exeptions
         public const string ForumBaseExceptionMessage = @"Something went wrong during the process! /n Please try again!";
         public const string CreateThreadExceptionMessage = @"Something went wrong during creating a new thread! /n Please try again!";
+        public const string DeactivatedExceptionMessage = @"Sorry u are deactivated!";
 
         //Coockie paths
         public const string LoginPath = "/Identity/Account/Login";

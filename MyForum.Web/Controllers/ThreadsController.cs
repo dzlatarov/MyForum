@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyForum.Infrastructure.Exceptions;
+using MyForum.Services;
 using MyForum.Services.Contracts;
 using MyForum.Web.Models.Threads;
 using System;
@@ -14,16 +16,25 @@ namespace MyForum.Web.Controllers
     {
         private readonly IThreadsService threadsService;
         private readonly ICategoriesService categoriesService;
+        private readonly IUsersService usersService;
 
-        public ThreadsController(IThreadsService threadsService, ICategoriesService categoriesService)
+        public ThreadsController(IThreadsService threadsService, ICategoriesService categoriesService, IUsersService usersService)
         {
             this.threadsService = threadsService;
             this.categoriesService = categoriesService;
+            this.usersService = usersService;
         }
 
         [Authorize]
         public IActionResult Create()
         {
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+
+            if (user.IsDeactivate == true)
+            {
+                throw new DeactivatedException();
+            }
+
             var model = new ThreadsCreateViewModel()
             {
                 Categories = this.categoriesService.GetAll()
@@ -38,7 +49,7 @@ namespace MyForum.Web.Controllers
         [Authorize]
         [Route("/Threads/Create")]
         public IActionResult Create(ThreadsCreateViewModel model)
-        {           
+        {
             if (!this.ModelState.IsValid)
             {
                 model.Categories = this.categoriesService.GetAll()
@@ -88,7 +99,7 @@ namespace MyForum.Web.Controllers
         {
             var thread = this.threadsService.GetThreadById(threadId);
 
-            if(thread == null)
+            if (thread == null)
             {
                 return NotFound();
             }
@@ -96,6 +107,6 @@ namespace MyForum.Web.Controllers
             this.threadsService.Delete(threadId);
 
             return this.Redirect($"/Categories/AllThreads/{thread.CategoryId}");
-        }       
+        }
     }
 }
