@@ -14,7 +14,7 @@ namespace MyForum.Domain
             this.Comments = new HashSet<Comment>();
             //this.Posts = new HashSet<Post>();
         }
-       
+
         public string FirstName { get; set; }
 
         public string MiddleName { get; set; }
@@ -24,9 +24,11 @@ namespace MyForum.Domain
         public Gender Gender { get; set; }
 
         public DateTime DateOfBirth { get; set; }
-       
+
+        public bool IsDeactivate { get; set; }
+
         public ICollection<Thread> Threads { get; set; }
-    
+
         public ICollection<Comment> Comments { get; set; }
     }
 }

@@ -103,7 +103,8 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
                     UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
-                    DateOfBirth = DateTime.Parse(Input.DayOfBirth,CultureInfo.InvariantCulture),
+                    IsDeactivate = false,
+                    DateOfBirth = DateTime.Parse(Input.DayOfBirth, CultureInfo.InvariantCulture),
                     Gender = Input.Gender,
                     Email = Input.Email
                 };
