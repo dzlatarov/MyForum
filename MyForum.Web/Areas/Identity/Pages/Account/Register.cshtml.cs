@@ -98,13 +98,15 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
 
             if (this.ModelState.IsValid)
             {
+                var dateOfBirth = DateTime.ParseExact(Input.DayOfBirth, "dd.mm.yyyy", CultureInfo.InvariantCulture);
+
                 var user = new ApplicationUser
                 {
                     UserName = Input.Username,
                     FirstName = Input.FirstName,
                     LastName = Input.LastName,
                     IsDeactivate = false,
-                    DateOfBirth = DateTime.Parse(Input.DayOfBirth, CultureInfo.InvariantCulture),
+                    DateOfBirth = dateOfBirth,
                     Gender = Input.Gender,
                     Email = Input.Email
                 };
