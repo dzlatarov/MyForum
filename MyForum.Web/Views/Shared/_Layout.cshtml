@@ -9,8 +9,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - @GlobalConstants.ProjectName</title>
-    <link href="~/css/all.min.css" rel="stylesheet">   
-    <link href="~/css/fontawesome.min.css" rel="stylesheet">   
+    <link href="~/css/all.min.css" rel="stylesheet">
+    <link href="~/css/fontawesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -54,9 +54,11 @@
                         @if (!this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
+                                <i class="fas fa-home fa-2x ml-2"></i>
                                 <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
+                                <i class="fas fa-smile-wink fa-2x ml-3"></i>
                                 <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
                             </li>
                             <li class="nav-item">
@@ -66,26 +68,30 @@
                         else
                         {
                             <li class="nav-item">
+                                <i class="fas fa-id-card fa-2x ml-5"></i>
                                 <a class="nav-link" asp-controller="Users" asp-action="Profile" asp-route-id="@this.User.FindFirstValue(ClaimTypes.NameIdentifier)">Hello there, @User.Identity.Name!</a>
                             </li>
                             <li class="nav-item">
+                                <i class="fas fa-home fa-2x ml-2"></i>
                                 <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
                             <li class="nav-item">
+                                <i class="fas fa-smile-wink fa-2x ml-3"></i>
                                 <a class="nav-link" asp-controller="Home" asp-action="About">About</a>
                             </li>
                             <li class="nav-item">
+                                <i class="fas fa-sign-out-alt fa-2x ml-3"></i>
                                 <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout">Logout</a>
                             </li>
                         }
                     </ul>
                     <form class="form-inline my-2 my-lg-0" asp-controller="Users" asp-action="Search" method="get">
-                        <input  class="form-control mr-sm-2" type="text" name="username" placeholder="Search by Username">
+                        <input class="form-control mr-sm-2" type="text" name="username" placeholder="Search by Username">
                         <input class="btn btn-danger my-2 my-sm-0" type="submit" value="Search" />
                     </form>
                 </div>
             </nav>
-        </header> 
+        </header>
         <main class="my-4 myForum">
             <partial name="_CookieConsentPartial" />
             <main role="main" class="pb-3">
