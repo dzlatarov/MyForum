@@ -48,7 +48,7 @@ namespace MyForum.Web.Controllers
         [HttpPost]
         [Authorize]
         [Route("/Threads/Create")]
-        public IActionResult Create(ThreadsCreateViewModel model)
+        public async Task<IActionResult> Create(ThreadsCreateViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -61,7 +61,7 @@ namespace MyForum.Web.Controllers
 
             var authorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            this.threadsService.Create(model.Title, model.Content, authorId, model.CategoryId);
+            await this.threadsService.Create(model.Title, model.Content, authorId, model.CategoryId);
 
             return this.Redirect($"/Categories/AllThreads/{model.CategoryId}");
         }
@@ -81,21 +81,21 @@ namespace MyForum.Web.Controllers
         [HttpPost]
         [Authorize]
         [Route("/Threads/Edit/{threadId}")]
-        public IActionResult Edit(string threadId, ThreadsEditViewModel input)
+        public async Task<IActionResult> Edit(string threadId, ThreadsEditViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
             DateTime modifiedOn = DateTime.UtcNow;
-            var categoryId = this.threadsService.Edit(threadId, input.Title, input.Content, modifiedOn);
+            var categoryId = await this.threadsService.Edit(threadId, input.Title, input.Content, modifiedOn);
 
             return this.Redirect($"/Categories/AllThreads/{categoryId}");
         }
 
         [Authorize]
         [Route("/Threads/Delete{threadId}")]
-        public IActionResult Delete(string threadId)
+        public async Task<IActionResult> Delete(string threadId)
         {
             var thread = this.threadsService.GetThreadById(threadId);
 
@@ -104,7 +104,7 @@ namespace MyForum.Web.Controllers
                 return NotFound();
             }
 
-            this.threadsService.Delete(threadId);
+            await this.threadsService.Delete(threadId);
 
             return this.Redirect($"/Categories/AllThreads/{thread.CategoryId}");
         }

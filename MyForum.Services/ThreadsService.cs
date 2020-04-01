@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyForum.Services
 {
@@ -28,8 +29,8 @@ namespace MyForum.Services
             return allTreads;
         }
 
-        public void Create(string title, string content, string authorId, string categoryId)
-        {            
+        public async Task Create(string title, string content, string authorId, string categoryId)
+        {
             var errorMessage = "";
 
             try
@@ -45,23 +46,23 @@ namespace MyForum.Services
                 };
 
                 this.db.Threads.Add(thread);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 errorMessage = ex.Message;
                 throw new CreateThreadException();
-            }            
+            }
         }
 
-        public void Delete(string threadId)
+        public async Task Delete(string threadId)
         {
             var thread = this.db.Threads.FirstOrDefault(t => t.Id == threadId);
             this.db.Threads.Remove(thread);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        public string Edit(string threadId, string title, string content, DateTime modifiedOn)
+        public async Task<string> Edit(string threadId, string title, string content, DateTime modifiedOn)
         {
             var threadFromDb = this.db.Threads.FirstOrDefault(t => t.Id == threadId);
 
@@ -70,7 +71,7 @@ namespace MyForum.Services
             threadFromDb.Content = content;
 
             this.db.Threads.Update(threadFromDb);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
 
             return threadFromDb.CategoryId;
         }

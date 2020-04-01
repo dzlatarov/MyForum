@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyForum.Services.Contracts
 {
@@ -12,12 +13,12 @@ namespace MyForum.Services.Contracts
         IQueryable<Thread> All();
 
         //To do
-        void Create(string title, string content, string authorId, string categoryId);
+        Task Create(string title, string content, string authorId, string categoryId);
 
         Thread GetThreadById(string id);
 
-        string Edit(string threadId, string title, string content, DateTime modifiedOn);
+        Task<string> Edit(string threadId, string title, string content, DateTime modifiedOn);
 
-        void Delete(string threadId);
+        Task Delete(string threadId);
     }
 }
