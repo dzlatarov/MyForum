@@ -112,7 +112,7 @@ namespace MyForum.Web.Controllers
 
         [Authorize(Roles = GlobalConstants.AdminRole)]
         [Route("/Users/Deactivate/{id}")]
-        public IActionResult Deactivate(string id)
+        public async Task<IActionResult> Deactivate(string id)
         {
             var user = this.usersService.GetUserById(id);
 
@@ -121,13 +121,13 @@ namespace MyForum.Web.Controllers
                 return NotFound();
             }
 
-            this.usersService.Deactivate(id);
+            await this.usersService.Deactivate(id);
 
             return this.RedirectToAction(nameof(All));
         }
 
         [Authorize(Roles = GlobalConstants.AdminRole)]
-        public IActionResult Activate(string id)
+        public async Task<IActionResult> Activate(string id)
         {
             var user = this.usersService.GetUserById(id);
 
@@ -136,7 +136,7 @@ namespace MyForum.Web.Controllers
                 return NotFound();
             }
 
-            this.usersService.Activate(id);
+            await this.usersService.Activate(id);
             return this.RedirectToAction(nameof(All));
         }
     }
