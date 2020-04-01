@@ -19,7 +19,7 @@ namespace MyForum.Services
             this.db = db;
         }
 
-        public void Activate(string userId)
+        public async Task Activate(string userId)
         {
             string errorMessage = "";
 
@@ -29,9 +29,9 @@ namespace MyForum.Services
                 user.IsDeactivate = false;
 
                 this.db.Users.Update(user);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 errorMessage = ex.Message;
                 throw new ActivateUserException();
@@ -44,7 +44,7 @@ namespace MyForum.Services
             return allUsers;
         }
 
-        public void Deactivate(string userId)
+        public async Task Deactivate(string userId)
         {
             string errorMessage = "";
 
@@ -54,7 +54,7 @@ namespace MyForum.Services
                 user.IsDeactivate = true;
 
                 this.db.Users.Update(user);
-                this.db.SaveChanges();
+                await this.db.SaveChangesAsync();
             }
             catch (Exception ex)
             {
@@ -63,7 +63,7 @@ namespace MyForum.Services
             }
         }
 
-        public void Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
+        public async Task Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {
             var userFromDb = this.GetUserById(id);
             userFromDb.FirstName = firstName;
@@ -74,7 +74,7 @@ namespace MyForum.Services
             userFromDb.DateOfBirth = DateTime.Parse(dayOfBirth, CultureInfo.InvariantCulture);
 
             this.db.Update(userFromDb);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public ApplicationUser GetUserById(string id)
