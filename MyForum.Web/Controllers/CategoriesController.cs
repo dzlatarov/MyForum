@@ -24,7 +24,7 @@ namespace MyForum.Web.Controllers
         [Route("/Categories/AllThreads/{id}")]
         public IActionResult All(string id)
         {
-            var category = this.categoriesService.GetCategoryById(id);
+            var category = this.categoriesService.GetCategoryById(id).Result;
 
             if(category == null)
             {

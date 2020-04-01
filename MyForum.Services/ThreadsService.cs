@@ -76,7 +76,7 @@ namespace MyForum.Services
             return threadFromDb.CategoryId;
         }
 
-        public Thread GetThreadById(string id)
+        public async Task<Thread> GetThreadById(string id)
         {
             var thread = this.db.Threads.Where(t => t.Id == id).FirstOrDefault();
             return thread;

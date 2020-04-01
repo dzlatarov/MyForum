@@ -15,7 +15,7 @@ namespace MyForum.Services.Contracts
         //To do
         Task Create(string title, string content, string authorId, string categoryId);
 
-        Thread GetThreadById(string id);
+        Task<Thread> GetThreadById(string id);
 
         Task<string> Edit(string threadId, string title, string content, DateTime modifiedOn);
 

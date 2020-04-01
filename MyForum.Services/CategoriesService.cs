@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyForum.Services
 {
@@ -23,7 +24,7 @@ namespace MyForum.Services
             return categories;
         }
 
-        public Category GetCategoryById(string id)
+        public async Task<Category> GetCategoryById(string id)
         {
             var category = this.db.Categories.FirstOrDefault(c => c.Id == id);
             return category;

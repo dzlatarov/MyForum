@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyForum.Services.Contracts
 {
@@ -10,6 +11,6 @@ namespace MyForum.Services.Contracts
     {
         IQueryable<Category> GetAll();
 
-        Category GetCategoryById(string id);
+        Task<Category> GetCategoryById(string id);
     }
 }

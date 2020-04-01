@@ -3,6 +3,7 @@ using MyForum.Persistence;
 using MyForum.Services.Contracts;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace MyForum.Services
 {
@@ -19,7 +20,7 @@ namespace MyForum.Services
             this.usersService = usersService;
         }
 
-        public void CreateComment(string content, string threadId, string creatorId)
+        public async Task CreateComment(string content, string threadId, string creatorId)
         {
             var comment = new Comment
             {
@@ -30,18 +31,18 @@ namespace MyForum.Services
             };
 
             this.db.Comments.Add(comment);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        public void Delete(string commentId)
+        public async Task Delete(string commentId)
         {
             var comment = this.db.Comments.FirstOrDefault(c => c.Id == commentId);
 
             this.db.Comments.Remove(comment);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
-        public void Edit(string commentId, string content, DateTime modifiedOn)
+        public async Task Edit(string commentId, string content, DateTime modifiedOn)
         {
             var commentFromDb = this.db.Comments.FirstOrDefault(c => c.Id == commentId);
 
@@ -49,7 +50,7 @@ namespace MyForum.Services
             commentFromDb.ModifiedOn = modifiedOn;
 
             this.db.Comments.Update(commentFromDb);
-            this.db.SaveChanges();
+            await this.db.SaveChangesAsync();
         }
 
         public IQueryable<Comment> GetAllComments()
@@ -57,7 +58,7 @@ namespace MyForum.Services
             return this.db.Comments;
         }
 
-        public Comment GetCommentById(string commentId)
+        public async Task<Comment> GetCommentById(string commentId)
         {
             return this.db.Comments.FirstOrDefault(c => c.Id == commentId);
         }

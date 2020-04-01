@@ -28,7 +28,7 @@ namespace MyForum.Web.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
 
             if (user.IsDeactivate == true)
             {
@@ -97,7 +97,7 @@ namespace MyForum.Web.Controllers
         [Route("/Threads/Delete{threadId}")]
         public async Task<IActionResult> Delete(string threadId)
         {
-            var thread = this.threadsService.GetThreadById(threadId);
+            var thread = this.threadsService.GetThreadById(threadId).Result;
 
             if (thread == null)
             {

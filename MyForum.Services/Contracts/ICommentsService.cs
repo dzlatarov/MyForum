@@ -3,19 +3,20 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace MyForum.Services.Contracts
 {
     public interface ICommentsService
     {
-        void CreateComment(string content, string threadId, string creatorId);
+        Task CreateComment(string content, string threadId, string creatorId);
 
         IQueryable<Comment> GetAllComments();
 
-        Comment GetCommentById(string commentId);
+        Task<Comment> GetCommentById(string commentId);
 
-        void Delete(string commentId);
+        Task Delete(string commentId);
 
-        void Edit(string commentId, string content, DateTime modifiedOn);
+        Task Edit(string commentId, string content, DateTime modifiedOn);
     }
 }

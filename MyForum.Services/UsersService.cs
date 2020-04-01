@@ -65,7 +65,7 @@ namespace MyForum.Services
 
         public async Task Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth)
         {
-            var userFromDb = this.GetUserById(id);
+            var userFromDb = this.GetUserById(id).Result;
             userFromDb.FirstName = firstName;
             userFromDb.MiddleName = middleName;
             userFromDb.LastName = lastName;
@@ -77,12 +77,12 @@ namespace MyForum.Services
             await this.db.SaveChangesAsync();
         }
 
-        public ApplicationUser GetUserById(string id)
+        public async Task<ApplicationUser> GetUserById(string id)
         {
             return this.db.Users.FirstOrDefault(u => u.Id == id);
         }
 
-        public ApplicationUser GetUserByUsername(string username)
+        public async Task<ApplicationUser> GetUserByUsername(string username)
         {
             return this.db.Users.FirstOrDefault(u => u.UserName == username);
         }

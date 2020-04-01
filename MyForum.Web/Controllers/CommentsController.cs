@@ -29,14 +29,14 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Reply/{threadId}")]
         public IActionResult Reply(string threadId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
 
             if (user.IsDeactivate == true)
             {
                 throw new DeactivateUserException();
             }
 
-            var thread = this.threadsService.GetThreadById(threadId);
+            var thread = this.threadsService.GetThreadById(threadId).Result;
 
             if (thread == null)
             {
@@ -64,7 +64,7 @@ namespace MyForum.Web.Controllers
                 return this.View(model);
             }
 
-            var thread = this.threadsService.GetThreadById(model.ThreadId);
+            var thread = this.threadsService.GetThreadById(model.ThreadId).Result;
 
             this.commentsService.CreateComment(model.Content, model.ThreadId, creatorId);
 
@@ -75,14 +75,14 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/All/{threadId}")]
         public IActionResult All(string threadId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
 
             if (user.IsDeactivate == true)
             {
                 throw new DeactivateUserException();
             }
 
-            var thread = this.threadsService.GetThreadById(threadId);
+            var thread = this.threadsService.GetThreadById(threadId).Result;
 
             if (thread == null)
             {
@@ -106,14 +106,14 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Delete/{commentId}")]
         public IActionResult Delete(string commentId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
 
             if (user.IsDeactivate == true)
             {
                 throw new DeactivateUserException();
             }
 
-            var comment = this.commentsService.GetCommentById(commentId);
+            var comment = this.commentsService.GetCommentById(commentId).Result;
 
             if (comment == null)
             {
@@ -129,14 +129,14 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Edit/{commentId}")]
         public IActionResult Edit(string commentId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
 
             if (user.IsDeactivate == true)
             {
                 throw new DeactivateUserException();
             }
 
-            var comment = this.commentsService.GetCommentById(commentId);
+            var comment = this.commentsService.GetCommentById(commentId).Result;
 
             if (comment == null)
             {
@@ -156,16 +156,16 @@ namespace MyForum.Web.Controllers
         [HttpPost]
         [Authorize]
         [Route("/Comments/Edit/{commentId}")]
-        public IActionResult Edit(string commentId, CommentsEditViewModel model)
+        public async Task<IActionResult> Edit(string commentId, CommentsEditViewModel model)
         {
-            var comment = this.commentsService.GetCommentById(commentId);
+            var comment = this.commentsService.GetCommentById(commentId).Result;
 
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
             var modifiedOn = DateTime.UtcNow;
-            this.commentsService.Edit(comment.Id, model.Content, modifiedOn);
+            await this.commentsService.Edit(comment.Id, model.Content, modifiedOn);
 
             return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
         }
