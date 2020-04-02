@@ -18,5 +18,9 @@ namespace MyForum.Domain
         public string Content { get; set; }
 
         public DateTime CreatedOn { get; set; }
+
+        public string CreatorId { get; set; }
+
+        public ApplicationUser Creator { get; set; }
     }
 }

@@ -12,10 +12,11 @@ namespace MyForum.Domain
         {
             this.Threads = new HashSet<Thread>();
             this.Comments = new HashSet<Comment>();
-            //this.Posts = new HashSet<Post>();
+            this.News = new HashSet<News>();
         }
 
         public string FirstName { get; set; }
+
 
         public string MiddleName { get; set; }
 
@@ -28,6 +29,8 @@ namespace MyForum.Domain
         public bool IsDeactivate { get; set; }
 
         public ICollection<Thread> Threads { get; set; }
+
+        public ICollection<News> News { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }
