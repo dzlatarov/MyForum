@@ -35,7 +35,7 @@
         <div class="media p-2">
             <div class="media-body">
                 <textarea asp-for="@comment.Content"
-                          rows="4"
+                          rows="6"
                           class="form-control comment"></textarea>
             </div>
         </div>
@@ -51,14 +51,20 @@
             if (this.User.IsInRole(GlobalConstants.AdminRole))
             {
                 <div class="form-group mr-2">
-                    <a href="#" class="mr-2">Quote</a>
-                    <a asp-controller="Comments" asp-action="Delete" asp-route-commentId="@comment.Id">Delete</a>
+                    <a asp-controller="Comments"
+                       asp-action="Quote"
+                       asp-route-commentId="@comment.Id" class="mr-2">Quote</a>
+                    <a asp-controller="Comments"
+                       asp-action="Delete"
+                       asp-route-commentId="@comment.Id">Delete</a>
                 </div>
             }
             else
             {
                 <div class="form-group mr-2">
-                    <a href="#">Quote</a>
+                    <a asp-controller="Comments"
+                       asp-action="Quote"
+                       asp-route-commentId="@comment.Id" class="mr-2">Quote</a>
                 </div>
             }
         }

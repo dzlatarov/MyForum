@@ -28,7 +28,7 @@ namespace MyForum.Web.Controllers
         [Authorize]
         public IActionResult Create()
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user.IsDeactivate == true)
             {

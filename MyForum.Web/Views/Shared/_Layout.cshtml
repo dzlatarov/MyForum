@@ -32,8 +32,16 @@
                                    asp-action="All">
                                     <i class="fas fa-users fa-1x mr-2"></i> Members
                                 </a>
-                                <a class="dropdown-item text-danger" asp-controller="Threads" asp-action="Create">Create Thread</a>
-                                @*<a class="dropdown-item text-danger" asp-controller="News" asp-action="Create">Create News</a>*@
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="Threads"
+                                   asp-action="Create">
+                                    <i class="fas fa-exclamation fa-1x mr-2"></i> Create Thread
+                                </a>
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="News"
+                                   asp-action="Create">
+                                    <i class="far fa-newspaper fa-1x mr-2"></i> Create News
+                                </a>
                             }
                             else
                             {
@@ -42,7 +50,11 @@
                                    asp-action="All">
                                     <i class="fas fa-users fa-1x mr-2"></i> Members
                                 </a>
-                                <a class="dropdown-item text-danger" asp-controller="Threads" asp-action="Create">Create Thread</a>
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="Threads"
+                                   asp-action="Create">
+                                    <i class="fas fa-exclamation fa-1x mr-2"></i>Create Thread
+                                </a>
                             }
                         }
                         else

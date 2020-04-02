@@ -6,6 +6,11 @@ namespace MyForum.Domain
 {
     public class News
     {
+        public News()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
+
         public string Id { get; set; }
 
         public string Name { get; set; }

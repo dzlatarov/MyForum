@@ -29,7 +29,7 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Reply/{threadId}")]
         public IActionResult Reply(string threadId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user.IsDeactivate == true)
             {
@@ -75,7 +75,7 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/All/{threadId}")]
         public IActionResult All(string threadId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user.IsDeactivate == true)
             {
@@ -104,9 +104,9 @@ namespace MyForum.Web.Controllers
 
         [Authorize]
         [Route("/Comments/Delete/{commentId}")]
-        public IActionResult Delete(string commentId)
+        public async Task<IActionResult> Delete(string commentId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user.IsDeactivate == true)
             {
@@ -120,7 +120,7 @@ namespace MyForum.Web.Controllers
                 return NotFound();
             }
 
-            this.commentsService.Delete(commentId);
+            await this.commentsService.Delete(commentId);
 
             return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
         }
@@ -129,7 +129,7 @@ namespace MyForum.Web.Controllers
         [Route("/Comments/Edit/{commentId}")]
         public IActionResult Edit(string commentId)
         {
-            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier)).Result;
+            var user = this.usersService.GetUserById(this.User.FindFirstValue(ClaimTypes.NameIdentifier));
 
             if (user.IsDeactivate == true)
             {
@@ -142,6 +142,7 @@ namespace MyForum.Web.Controllers
             {
                 return NotFound();
             }
+
 
             var model = new CommentsEditViewModel()
             {
@@ -166,6 +167,52 @@ namespace MyForum.Web.Controllers
             }
             var modifiedOn = DateTime.UtcNow;
             await this.commentsService.Edit(comment.Id, model.Content, modifiedOn);
+
+            return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
+        }
+
+        [Authorize]
+        [Route("/Comments/Quote/{commentId}")]
+        public IActionResult Quote(string commentId)
+        {
+            var comment = this.commentsService.GetCommentById(commentId).Result;
+
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            var user = this.usersService.GetUserById(comment.CommentCreatorId);
+
+            var model = new CommentsQuoteViewModel
+            {
+                QuotedCommentId = comment.Id,
+                QuotedCommentContent = comment.Content,
+                QuotedCommentCreator = user.UserName,
+                QuotedCommentCreatedOn = comment.CreatedOn
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        [Route("/Comments/Quote/{commentId}")]
+        public async Task<IActionResult> Quote(string commentId, CommentsQuoteViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var creatorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var newCommentUsername = this.usersService.GetUserById(creatorId).UserName;
+            var comment = this.commentsService.GetCommentById(commentId).Result;
+            var quotedCommentUsername = this.usersService.GetUserById(comment.CommentCreatorId).UserName;
+            var content = "On " + comment.CreatedOn.Date + " at " + comment.CreatedOn.Hour + ":" + comment.CreatedOn.Minute + ", " + quotedCommentUsername + " wrote:" + "\n" + comment.Content + "\n" + "And " + newCommentUsername + " said:" + "\n" + model.NewCommentContent;
+
+
+            await this.commentsService.CreateComment(content, comment.ThreadId, creatorId);
 
             return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
         }

@@ -11,9 +11,9 @@ namespace MyForum.Services
     {
         IQueryable<ApplicationUser> All();
 
-        Task<ApplicationUser> GetUserByUsername(string username);
+        ApplicationUser GetUserByUsername(string username);
 
-        Task<ApplicationUser> GetUserById(string id);
+        ApplicationUser GetUserById(string id);
 
         Task Edit(string id, string firstName, string middleName, string lastName, string email, string phoneNumber, string dayOfBirth);
 

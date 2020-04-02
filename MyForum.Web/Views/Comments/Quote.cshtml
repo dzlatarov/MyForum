@@ -1,0 +1,44 @@
+﻿@using MyForum.Web.Models.Comments
+@model CommentsQuoteViewModel
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Quote";
+}
+
+<div class="d-flex justify-content-center w-100 mx-auto">
+    <form asp-controller="Comments"
+          asp-action="Quote"
+          asp-route-commentId="@Model.QuotedCommentId"
+          method="post">
+        <div class="container-fluid">
+            <div class="media w-100">
+                <div class="media-body">
+                    <ul class="list-inline list-unstyled text-left mr-2">
+                        <li class="list-inline-item"><i class="fas fa-user"></i> User: @Model.QuotedCommentCreator has created this comment on:</li>
+                        <li class="list-inline-item">
+                            @Model.QuotedCommentCreatedOn <i class="fas fa-calendar-alt"></i>
+                        </li>
+                    </ul>
+                    <textarea readonly
+                              asp-for="@Model.QuotedCommentContent"
+                              type="text"
+                              rows="4"
+                              class="form-control"></textarea>
+                </div>
+            </div>
+            <br />
+            <hr class="bg-dark"/>
+            <br />
+            <div class="media w-100">
+                <div class="media-body">
+                    <textarea asp-for="@Model.NewCommentContent" type="text" rows="5" class="form-control"></textarea>
+                    <br />
+                    <span asp-validation-for="@Model.NewCommentContent" class="text-danger"></span>
+                </div>
+                <button type="submit" class="btn btn-danger replybtn @*mb-4*@ replybtn">Quote</button>
+            </div>
+        </div>
+    </form>
+</div>

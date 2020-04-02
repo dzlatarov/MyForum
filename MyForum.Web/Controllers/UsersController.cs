@@ -55,7 +55,7 @@ namespace MyForum.Web.Controllers
         [Route("/Users/Profile/Edit/{id}")]
         public IActionResult EditProfile(string id)
         {
-            var user = this.usersService.GetUserById(id).Result;
+            var user = this.usersService.GetUserById(id);
 
             if (user == null)
             {
