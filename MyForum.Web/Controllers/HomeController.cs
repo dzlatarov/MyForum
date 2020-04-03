@@ -50,9 +50,9 @@ namespace MyForum.Web.Controllers
             return this.View(new CategoriesListAllViewModel { Categories = allCategories });
         }
 
-        public IActionResult About()
-        {
-            return this.View();
-        }
+        //public IActionResult About()
+        //{
+        //    return this.View();
+        //}
     }
 }
