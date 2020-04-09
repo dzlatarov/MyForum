@@ -47,6 +47,11 @@
                                    asp-action="All">
                                     <i class="far fa-newspaper fa-1x mr-2"></i> All News
                                 </a>
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="Categories"
+                                   asp-action="Create">
+                                    <i class="fas fa-book-open fa-1x mr-2"></i> Create Category
+                                </a>
                             }
                             else
                             {
@@ -101,7 +106,8 @@
                                    asp-action="Index">
                                     <i class="fas fa-home fa-1x ml-2"></i> Home
                                 </a>
-                            </li>                          
+                            </li>
+
                             <li class="nav-item">
                                 <span class="nav-link active">
                                     <i class="fas fa-user fa-1x ml-3"></i> Hello there, Guest!
@@ -124,7 +130,8 @@
                                    asp-action="Index">
                                     <i class="fas fa-home fa-1x ml-2"></i> Home
                                 </a>
-                            </li>                           
+                            </li>
+
                             <li class="nav-item">
                                 <a class="nav-link"
                                    asp-area="Identity"

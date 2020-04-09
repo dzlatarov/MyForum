@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MyForum.Infrastructure;
 using MyForum.Services.Contracts;
 using MyForum.Web.Models.Threads;
 using System;
@@ -26,17 +27,24 @@ namespace MyForum.Web.Controllers
         {
             var category = this.categoriesService.GetCategoryById(id).Result;
 
-            if(category == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
             var allThreadsInCategory = this.threadsService.All()
                 .Where(t => t.CategoryId == id)
-                .Select(ThreadsAllViewModel.AllThreads)                
+                .Select(ThreadsAllViewModel.AllThreads)
                 .ToList();
 
             return this.View(new ThreadsInCategoryListViewModel { Name = category.Name, Threads = allThreadsInCategory });
+        }
+
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [Route("/Categories/Create")]
+        public async Task<IActionResult> Create()
+        {
+            return this.View();
         }
     }
 }
