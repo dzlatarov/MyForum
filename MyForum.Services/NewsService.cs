@@ -17,13 +17,14 @@ namespace MyForum.Services
             this.db = db;
         }
 
-        public async Task Create(string name, string content, string creatorId)
+        public async Task Create(string name, string content, string imageUrl, string creatorId)
         {
             var news = new News()
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = name,
                 Content = content,
+                ImageUrl = imageUrl,
                 CreatedOn = DateTime.UtcNow,
                 CreatorId = creatorId
             };

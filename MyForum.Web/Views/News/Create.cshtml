@@ -1,8 +1,34 @@
-﻿@*
+﻿@using MyForum.Web.Models.News
+@model NewsCreateViewModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewData["Title"] = "Create news";
 }
 
-    <p>Create news</p>
+<div class="container-fluid d-flex justify-content-center text-center w-100">
+    <form asp-controller="News" asp-action="Create" method="post">
+        <h1>Create News</h1>
+        <br />
+        <label asp-for="@Model.Name" class="font-weight-bold"></label>
+        <div class="form-group">
+            <textarea asp-for="@Model.Name" rows="4" class="form-control newsWidth"></textarea>
+            <span asp-validation-for="@Model.Name"></span>
+        </div>
+        <label asp-for="@Model.Content" class="font-weight-bold"></label>
+        <div class="form-group">
+            <textarea asp-for="@Model.Content" rows="5" class="form-control"></textarea>
+            <span asp-validation-for="@Model.Content"></span>
+        </div>
+        <label asp-for="@Model.ImageUrl" class="font-weight-bold"></label>
+        <div class="form-group">
+            <textarea asp-for="@Model.ImageUrl" rows="2" class="form-control"></textarea>
+            <span asp-validation-for="@Model.ImageUrl"></span>
+        </div>
+        <br />
+        <button class="bg-danger w-50 font-weight-bold" type="button">Create</button>
+        <br />
+        <br />
+    </form>
+</div>

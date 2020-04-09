@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using MyForum.Infrastructure;
 using MyForum.Services.Contracts;
+using MyForum.Web.Models.News;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MyForum.Web.Controllers
@@ -18,11 +20,35 @@ namespace MyForum.Web.Controllers
             this.newsService = newsService;
         }
 
+        [Authorize]
+        [Route("/News/All")]
+        public IActionResult All()
+        {
+            return this.View();
+        }
+
         [Authorize(Roles = GlobalConstants.AdminRole)]
         [Route("/News/Create")]
         public async Task<IActionResult> Create()
         {
             return this.View();
+        }
+
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [HttpPost]
+        [Route("/News/Create")]
+        public async Task<IActionResult> Create(NewsCreateViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var creatorId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            await this.newsService.Create(model.Name, model.Content, model.ImageUrl, creatorId);
+
+            return this.RedirectToAction(nameof(All));
         }
     }
 }

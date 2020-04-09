@@ -53,7 +53,13 @@ namespace MyForum.Infrastructure
         public const int ContentMinLength = 20;
         public const string ContentErrorMessage = "The {0} must be at least {2} and at max {1} characters long.";
         public const int CommentContentMaxLength = 500;
-        public const string CommentErrorMessage = "The {0} must be at least {2} and max {1} characters long.";        
+        public const string CommentErrorMessage = "The {0} must be at least {2} and max {1} characters long.";
+        public const string NewsTitleErrorMessage = "The {0} must be at least {2} and max {1} characters long!";
+        public const int NewsTitleMaxLength = 30;
+        public const int NewsTitleMinLength = 10;
+        public const string NewsContentErrorMessage = "The {0} must be at least {2} and max {1} characters long!";
+        public const int NewsContentMaxLength = 200;
+        public const int NewsContentMinLength = 50;
 
         //Configure
         public const string statusCodeWithReExecuteTemplate = "/Error/{0}";

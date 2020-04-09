@@ -42,6 +42,11 @@
                                    asp-action="Create">
                                     <i class="far fa-newspaper fa-1x mr-2"></i> Create News
                                 </a>
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="News"
+                                   asp-action="All">
+                                    <i class="far fa-newspaper fa-1x mr-2"></i> All News
+                                </a>
                             }
                             else
                             {
@@ -54,6 +59,11 @@
                                    asp-controller="Threads"
                                    asp-action="Create">
                                     <i class="fas fa-exclamation fa-1x mr-2"></i>Create Thread
+                                </a>
+                                <a class="dropdown-item text-danger"
+                                   asp-controller="News"
+                                   asp-action="All">
+                                    <i class="far fa-newspaper fa-1x mr-2"></i> All News
                                 </a>
                             }
                         }
@@ -91,14 +101,7 @@
                                    asp-action="Index">
                                     <i class="fas fa-home fa-1x ml-2"></i> Home
                                 </a>
-                            </li>
-                            @*<li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="Home"
-                                   asp-action="About">
-                                    <i class="fas fa-smile-wink fa-1x ml-3"></i> About
-                                </a>
-                            </li>*@
+                            </li>                          
                             <li class="nav-item">
                                 <span class="nav-link active">
                                     <i class="fas fa-user fa-1x ml-3"></i> Hello there, Guest!
@@ -121,14 +124,7 @@
                                    asp-action="Index">
                                     <i class="fas fa-home fa-1x ml-2"></i> Home
                                 </a>
-                            </li>
-                            @*<li class="nav-item">
-                                <a class="nav-link"
-                                   asp-controller="Home"
-                                   asp-action="About">
-                                    <i class="fas fa-smile-wink fa-1x ml-3"></i> About
-                                </a>
-                            </li>*@
+                            </li>                           
                             <li class="nav-item">
                                 <a class="nav-link"
                                    asp-area="Identity"

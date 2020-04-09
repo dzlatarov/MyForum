@@ -7,6 +7,6 @@ namespace MyForum.Services.Contracts
 {
     public interface INewsService
     {
-        Task Create(string name, string content, string creatorId);
+        Task Create(string name, string content, string imageUrl, string creatorId);
     }
 }
