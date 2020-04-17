@@ -24,6 +24,7 @@ namespace MyForum.Web.Controllers
         [Route("/News/All")]
         public IActionResult All()
         {
+
             return this.View();
         }
 

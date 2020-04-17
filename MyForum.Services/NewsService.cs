@@ -3,6 +3,7 @@ using MyForum.Persistence;
 using MyForum.Services.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,12 @@ namespace MyForum.Services
 
             this.db.News.Add(news);
             await this.db.SaveChangesAsync();
+        }
+
+        public IQueryable<News> GetAll()
+        {
+            var allNews = this.db.News;
+            return allNews;
         }
     }
 }
