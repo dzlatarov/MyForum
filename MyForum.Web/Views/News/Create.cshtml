@@ -13,7 +13,7 @@
         <br />
         <label asp-for="@Model.Name" class="font-weight-bold"></label>
         <div class="form-group">
-            <textarea asp-for="@Model.Name" rows="4" class="form-control newsWidth"></textarea>
+            <textarea asp-for="@Model.Name" rows="4" class="form-control"></textarea>
             <span asp-validation-for="@Model.Name"></span>
         </div>
         <label asp-for="@Model.Content" class="font-weight-bold"></label>
@@ -27,7 +27,7 @@
             <span asp-validation-for="@Model.ImageUrl"></span>
         </div>
         <br />
-        <button class="bg-danger w-50 font-weight-bold" type="button">Create</button>
+        <button class="bg-danger w-50 font-weight-bold" type="submit">Create</button>
         <br />
         <br />
     </form>

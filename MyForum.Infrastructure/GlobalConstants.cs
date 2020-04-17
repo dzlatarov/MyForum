@@ -59,7 +59,7 @@ namespace MyForum.Infrastructure
         public const int NewsTitleMinLength = 10;
         public const string NewsContentErrorMessage = "The {0} must be at least {2} and max {1} characters long!";
         public const int NewsContentMaxLength = 200;
-        public const int NewsContentMinLength = 50;
+        public const int NewsContentMinLength = 30;
 
         //Configure
         public const string statusCodeWithReExecuteTemplate = "/Error/{0}";

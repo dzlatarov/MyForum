@@ -34,8 +34,8 @@ namespace MyForum.Web.Controllers
             return this.View();
         }
 
-        [Authorize(Roles = GlobalConstants.AdminRole)]
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdminRole)]
         [Route("/News/Create")]
         public async Task<IActionResult> Create(NewsCreateViewModel model)
         {
