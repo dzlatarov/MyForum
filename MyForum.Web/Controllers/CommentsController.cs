@@ -89,6 +89,8 @@ namespace MyForum.Web.Controllers
                 return NotFound();
             }
 
+            var threadCreator = this.usersService.GetUserById(thread.ThreadCreatorId).UserName;
+            
             var allComments = this.commentsService.GetAllComments()
                 .Select(CommentsInfoViewModel.FromComment)
                 .ToList();
@@ -96,6 +98,9 @@ namespace MyForum.Web.Controllers
             var model = new CommentsAllViewModel
             {
                 ThreadContent = thread.Content,
+                CreatorName = threadCreator,
+                CreatedOn = thread.CreatedOn,
+                ModifiedOn = thread.ModifiedOn,
                 Comments = allComments
             };
 

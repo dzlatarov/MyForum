@@ -24,8 +24,19 @@ namespace MyForum.Web.Controllers
         [Route("/News/All")]
         public IActionResult All()
         {
+            var allNews = this.newsService.GetAll()
+                .Select(n => new NewsAllInfoViewModel()
+                {
+                    Id = n.Id,
+                    Name = n.Name,
+                    Content = n.Content,
+                    CreatedOn = n.CreatedOn,
+                    CreatorName = n.Creator.UserName,
+                    ImageUrl = n.ImageUrl
+                })
+                .ToList();
 
-            return this.View();
+            return this.View(new NewsAllInfoListViewModel { News = allNews });
         }
 
         [Authorize(Roles = GlobalConstants.AdminRole)]

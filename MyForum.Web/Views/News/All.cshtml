@@ -6,16 +6,17 @@
 @{
     ViewData["Title"] = "All News";
 }
-
-<div class="row d-flex justify-content-center">
+<br />
+<br />
+<div class="row">
     @foreach (var news in Model.News)
     {
         <div class="col-md-3 media">
-            <img src="@news.ImageUrl" class="mr-3" alt="@news.Name" width="75" height="75">
+            <img src="@news.ImageUrl" class="mr-3" alt="@news.Name" width="100" height="100">
             <div class="media-body">
                 <h5 class="mt-0">
-                    <a asp-controller="Categories"
-                       asp-action="AllThreads"
+                    <a asp-controller="News"
+                       asp-action="Edit"
                        asp-route-id="@news.Id">@news.Name</a>
                 </h5>
                 @news.Content

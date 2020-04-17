@@ -17,6 +17,8 @@ namespace MyForum.Web.Models.Comments
 
         public DateTime CreatedOn { get; set; }
 
+        //header to do
+
         public DateTime? ModifiedOn { get; set; }
 
         public static Expression<Func<Comment, CommentsInfoViewModel>> FromComment

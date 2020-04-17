@@ -8,14 +8,28 @@
     ViewData["Title"] = "All Comments";
 }
 
-<div class="container-fluid w-100">
-    <div class="media w-50">
-        <div class="media-body text-center">
-            <label asp-for="@Model.ThreadContent"></label>
-            <textarea readonly
-                      asp-for="@Model.ThreadContent"
-                      rows="4"
-                      class="form-control"></textarea>
+<div class="container-fluid">
+    @*<div class="media w-50">
+            <div class="media-body text-center">
+                <label asp-for="@Model.ThreadContent"></label>
+                <textarea readonly
+                          asp-for="@Model.ThreadContent"
+                          rows="4"
+                          class="form-control"></textarea>
+            </div>
+        </div>*@
+    <div class="card border-light w-50">
+        <div class="card-header">Thread Content</div>
+        <div class="card-body">
+            <h6 class="card-title">
+                <i class="fas fa-calendar-alt"></i> Created on: @Model.CreatedOn
+                @if (Model.ModifiedOn.HasValue)
+                {
+                    <i class="fas fa-calendar-alt"></i>@($"Modified on: {Model.ModifiedOn}");
+                }
+            </h6>
+            <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-user"></i>&nbsp;@Model.CreatorName</h6>
+            <p class="card-text">@Model.ThreadContent</p>
         </div>
     </div>
     <br />
@@ -24,51 +38,50 @@
 </div>
 
 
-@foreach (var comment in Model.Comments)
-{
-    <div class="container-fluid w-100 d-flex align-items-end flex-column">
-        <ul class="list-inline list-unstyled text-left mr-2">
-            <li class="list-inline-item"><i class="fas fa-user"></i> User: @comment.CommentCreator</li>
-            <li class="list-inline-item"><i class="fas fa-calendar-alt"></i> Created on: @comment.CreatedOn</li>
-            <li class="list-inline-item"><i class="fas fa-calendar-alt"></i> Modified on: @comment.ModifiedOn</li>
-        </ul>
-        <div class="media p-2">
-            <div class="media-body">
-                <textarea asp-for="@comment.Content"
-                          rows="6"
-                          class="form-control comment"></textarea>
+<div class="container-fluid">
+    @foreach (var comment in Model.Comments)
+    {
+        <div class="row">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title">
+                            <i class="fas fa-calendar-alt"></i> Created on: @comment.CreatedOn
+                            @if (comment.ModifiedOn.HasValue)
+                            {
+                                <i class="fas fa-calendar-alt"></i>@($"Modified on: {comment.ModifiedOn}");
+                            }
+                        </h6>
+                        <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-user"></i>&nbsp;@comment.CommentCreator</h6>
+                        <p class="card-text">@comment.Content</p>
+                        @if (this.User.Identity.Name == comment.CommentCreator)
+                        {
+                            <a asp-controller="Comments" asp-action="Edit" asp-route-commentId="@comment.Id" class="mr-2">Edit</a>
+                            <a asp-controller="Comments" asp-action="Delete" asp-route-commentId="@comment.Id">Delete</a>
+                        }
+                        else
+                        {
+                            if (this.User.IsInRole(GlobalConstants.AdminRole))
+                            {
+                                <a asp-controller="Comments"
+                                   asp-action="Quote"
+                                   asp-route-commentId="@comment.Id" class="mr-2">Quote</a>
+                                <a asp-controller="Comments"
+                                   asp-action="Delete"
+                                   asp-route-commentId="@comment.Id">Delete</a>
+                            }
+                            else
+                            {
+                                <a asp-controller="Comments"
+                                   asp-action="Quote"
+                                   asp-route-commentId="@comment.Id" class="mr-2">Quote</a>
+                            }
+                        }
+                    </div>
+                </div>
+                <br />
             </div>
         </div>
-        @if (this.User.Identity.Name == comment.CommentCreator)
-        {
-            <div class="form-group mr-2">
-                <a asp-controller="Comments" asp-action="Edit" asp-route-commentId="@comment.Id" class="mr-2">Edit</a>
-                <a asp-controller="Comments" asp-action="Delete" asp-route-commentId="@comment.Id">Delete</a>
-            </div>
-        }
-        else
-        {
-            if (this.User.IsInRole(GlobalConstants.AdminRole))
-            {
-                <div class="form-group mr-2">
-                    <a asp-controller="Comments"
-                       asp-action="Quote"
-                       asp-route-commentId="@comment.Id" class="mr-2">Quote</a>
-                    <a asp-controller="Comments"
-                       asp-action="Delete"
-                       asp-route-commentId="@comment.Id">Delete</a>
-                </div>
-            }
-            else
-            {
-                <div class="form-group mr-2">
-                    <a asp-controller="Comments"
-                       asp-action="Quote"
-                       asp-route-commentId="@comment.Id" class="mr-2">Quote</a>
-                </div>
-            }
-        }
-        <br />
-        <br />
-    </div>
-}
+    }
+</div>

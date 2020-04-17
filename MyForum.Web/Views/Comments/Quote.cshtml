@@ -13,23 +13,35 @@
           asp-route-commentId="@Model.QuotedCommentId"
           method="post">
         <div class="container-fluid">
-            <div class="media w-100">
-                <div class="media-body">
-                    <ul class="list-inline list-unstyled text-left mr-2">
-                        <li class="list-inline-item"><i class="fas fa-user"></i> User: @Model.QuotedCommentCreator has created this comment on:</li>
-                        <li class="list-inline-item">
-                            @Model.QuotedCommentCreatedOn <i class="fas fa-calendar-alt"></i>
-                        </li>
-                    </ul>
-                    <textarea readonly
-                              asp-for="@Model.QuotedCommentContent"
-                              type="text"
-                              rows="4"
-                              class="form-control"></textarea>
+            <div class="card border-light">
+                <div class="card-header">
+                    <h6 class="card-title">
+                        <i class="fas fa-user"></i>&nbsp;@Model.QuotedCommentCreator has created this comment on:
+                        <i class="fas fa-calendar-alt"></i>&nbsp;@Model.QuotedCommentCreatedOn
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@Model.QuotedCommentContent</p>
                 </div>
             </div>
+            @*<div class="media w-100">
+                    <div class="media-body">
+                        <ul class="list-inline list-unstyled text-left mr-2">
+                            <li class="list-inline-item"><i class="fas fa-user"></i>&nbsp;@Model.QuotedCommentCreator has created this comment on:</li>
+                            <li class="list-inline-item">
+                                <i class="fas fa-calendar-alt"></i>&nbsp;@Model.QuotedCommentCreatedOn
+                            </li>
+                        </ul>
+                        <textarea readonly
+                                  asp-for="@Model.QuotedCommentContent"
+                                  type="text"
+                                  rows="4"
+                                  class="form-control"></textarea>
+                        <p class="card-text">@Model.QuotedCommentContent</p>
+                    </div>
+                </div>*@
             <br />
-            <hr class="bg-dark"/>
+            <hr class="bg-dark" />
             <br />
             <div class="media w-100">
                 <div class="media-body">
