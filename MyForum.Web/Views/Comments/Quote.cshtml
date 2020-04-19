@@ -12,6 +12,7 @@
           asp-action="Quote"
           asp-route-commentId="@Model.QuotedCommentId"
           method="post">
+        @Html.HiddenFor(m => m.QuotedCommentContent)
         <div class="container-fluid">
             <div class="card border-light">
                 <div class="card-header">

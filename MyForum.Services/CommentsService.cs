@@ -20,7 +20,7 @@ namespace MyForum.Services
             this.usersService = usersService;
         }
 
-        public async Task CreateComment(string content, string threadId, string creatorId)
+        public void CreateComment(string content, string threadId, string creatorId)
         {
             var comment = new Comment
             {
@@ -31,7 +31,22 @@ namespace MyForum.Services
             };
 
             this.db.Comments.Add(comment);
-            await this.db.SaveChangesAsync();
+            this.db.SaveChanges();
+        }
+
+        public void CreateCommentQuote(string content, string threadId, string creatorId, string quote)
+        {
+            var comment = new Comment
+            {
+                Content = content,
+                ThreadId = threadId,
+                CommentCreatorId = creatorId,
+                CreatedOn = DateTime.UtcNow,
+                Quote = quote
+            };
+
+            this.db.Comments.Add(comment);
+            this.db.SaveChanges();
         }
 
         public async Task Delete(string commentId)

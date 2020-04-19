@@ -90,7 +90,7 @@ namespace MyForum.Web.Controllers
             }
 
             var threadCreator = this.usersService.GetUserById(thread.ThreadCreatorId).UserName;
-            
+
             var allComments = this.commentsService.GetAllComments()
                 .Select(CommentsInfoViewModel.FromComment)
                 .ToList();
@@ -203,7 +203,7 @@ namespace MyForum.Web.Controllers
         [HttpPost]
         [Authorize]
         [Route("/Comments/Quote/{commentId}")]
-        public async Task<IActionResult> Quote(string commentId, CommentsQuoteViewModel model)
+        public IActionResult Quote(string commentId, CommentsQuoteViewModel model)
         {
             if (!this.ModelState.IsValid)
             {
@@ -214,10 +214,12 @@ namespace MyForum.Web.Controllers
             var newCommentUsername = this.usersService.GetUserById(creatorId).UserName;
             var comment = this.commentsService.GetCommentById(commentId).Result;
             var quotedCommentUsername = this.usersService.GetUserById(comment.CommentCreatorId).UserName;
-            var content = "On " + comment.CreatedOn.Date + " at " + comment.CreatedOn.Hour + ":" + comment.CreatedOn.Minute + ", " + quotedCommentUsername + " wrote:" + "\n" + comment.Content + "\n" + "And " + newCommentUsername + " said:" + "\n" + model.NewCommentContent;
+            //var content = "On " + comment.CreatedOn.Date + " at " + comment.CreatedOn.Hour + ":" + comment.CreatedOn.Minute + ", " + quotedCommentUsername + " wrote:" + "\n" + comment.Content + "\n" + "And " + newCommentUsername + " said:" + "\n" + model.NewCommentContent;
+            var content = model.NewCommentContent;
+            var quote = comment.Content;
 
 
-            await this.commentsService.CreateComment(content, comment.ThreadId, creatorId);
+            this.commentsService.CreateCommentQuote(content, comment.ThreadId, creatorId, quote);
 
             return this.RedirectToAction(nameof(All), new { threadId = comment.ThreadId });
         }

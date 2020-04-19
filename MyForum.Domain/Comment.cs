@@ -12,8 +12,10 @@ namespace MyForum.Domain
         }
 
         public string Id { get; set; }
-        
+
         public string Content { get; set; }
+
+        public string Quote { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -25,7 +25,7 @@ namespace MyForum.Web.Areas.Identity.Pages.Account
         {
             await _signInManager.SignOutAsync();
 
-            return this.Page();          
+            return this.LocalRedirect("~/");
         }
     }
 }

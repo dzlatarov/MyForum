@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyForum.Persistence;
 
 namespace MyForum.Persistence.Migrations
 {
     [DbContext(typeof(MyForumDbContext))]
-    partial class MyForumDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200419073704_AddQuotePropertyToComment")]
+    partial class AddQuotePropertyToComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

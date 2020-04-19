@@ -17,7 +17,7 @@ namespace MyForum.Web.Models.Comments
 
         public DateTime CreatedOn { get; set; }
 
-        //header to do
+        public string Quote { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
 
@@ -28,6 +28,7 @@ namespace MyForum.Web.Models.Comments
                 Id = c.Id,  
                 CommentCreator = c.CommentCreator.UserName,
                 Content = c.Content,
+                Quote = c.Quote,
                 CreatedOn = c.CreatedOn,
                 ModifiedOn = c.ModifiedOn == null ? null : c.ModifiedOn
             };

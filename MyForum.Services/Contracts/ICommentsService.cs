@@ -9,7 +9,9 @@ namespace MyForum.Services.Contracts
 {
     public interface ICommentsService
     {
-        Task CreateComment(string content, string threadId, string creatorId);
+        void CreateComment(string content, string threadId, string creatorId);
+
+        void CreateCommentQuote(string content, string threadId, string creatorId, string quote);
 
         IQueryable<Comment> GetAllComments();
 
