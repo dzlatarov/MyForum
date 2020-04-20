@@ -1,22 +1,23 @@
 ﻿@using MyForum.Infrastructure
 @using MyForum.Web.Models.Threads
-@model ThreadsInCategoryListViewModel
+@model cloudscribe.Pagination.Models.PagedResult<ThreadsAllViewModel>
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     ViewData["Title"] = "All Threads";
+    var categoryName = ViewData["CategoryName"];
 }
 
+
 <div class="text-center">
-    <h1>@Model.Name</h1>
+    <h1>@categoryName</h1>
 </div>
 <br />
 <br />
 <div class="container-fluid">
-    @foreach (var thread in Model.Threads)
+    @foreach (var thread in Model.Data)
     {
-
         <div class="card w-75">
             <div class="card-body">
                 <h6 class="card-subtitle mb-2 text-muted">
@@ -66,6 +67,8 @@
             </div>
         </div>
         <br />
+
+
 
         @*<div class="media-body ml-3">
                 <h4 class="media-heading">@thread.Title</h4>
@@ -132,6 +135,17 @@
             <br />
             <br />*@
     }
+    <cs-pager cs-paging-pagenumber=(int)Model.PageNumber
+              cs-paging-totalitems=(int)Model.TotalItems
+              cs-paging-pagesize=(int)Model.PageSize
+              cs-pagenumber-param="pagenumber"
+              asp-controller="Categories"
+              asp-action="All"
+              cs-pager-li-current-class="page-item active"
+              cs-pager-li-other-class="page-item"
+              cs-pager-li-non-active-class="page-item disabled"
+              cs-pager-link-current-class="page-link"
+              cs-pager-link-other-class="page-link"></cs-pager>
 </div>
 
 @*<li>*@

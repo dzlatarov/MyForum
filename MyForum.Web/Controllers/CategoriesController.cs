@@ -3,10 +3,13 @@ using Microsoft.AspNetCore.Mvc;
 using MyForum.Infrastructure;
 using MyForum.Services.Contracts;
 using MyForum.Web.Models.Threads;
+using ReflectionIT.Mvc.Paging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using cloudscribe.Pagination.Models;
+using MyForum.Domain;
 
 namespace MyForum.Web.Controllers
 {
@@ -23,7 +26,7 @@ namespace MyForum.Web.Controllers
 
         [Authorize]
         [Route("/Categories/AllThreads/{id}")]
-        public IActionResult All(string id)
+        public IActionResult All(string id, int pageNumber = 1, int pageSize = 2)
         {
             var category = this.categoriesService.GetCategoryById(id).Result;
 
@@ -32,12 +35,29 @@ namespace MyForum.Web.Controllers
                 return NotFound();
             }
 
+            ViewData["CategoryName"] = category.Name;
+
+            var excludeRecords = (pageSize * pageNumber) - pageSize;
+
             var allThreadsInCategory = this.threadsService.All()
                 .Where(t => t.CategoryId == id)
-                .Select(ThreadsAllViewModel.AllThreads)
+                .Skip(excludeRecords)
+                .Take(pageSize)
+                .Select(ThreadsAllViewModel.AllThreads)                
                 .ToList();
 
-            return this.View(new ThreadsInCategoryListViewModel { Name = category.Name, Threads = allThreadsInCategory });
+
+            var model = new ThreadsInCategoryListViewModel { Name = category.Name, Threads = allThreadsInCategory };
+
+            var resultModel = new PagedResult<ThreadsAllViewModel>
+            {
+                Data = allThreadsInCategory.ToList(),
+                TotalItems = this.threadsService.All().Where(t => t.CategoryId == id).ToList().Count(),
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            return this.View(resultModel);
         }
 
         [Authorize(Roles = GlobalConstants.AdminRole)]

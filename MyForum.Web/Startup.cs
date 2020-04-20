@@ -18,6 +18,7 @@ using MyForum.Persistence.Seeds;
 using Microsoft.AspNetCore.Hosting;
 using MyForum.Services;
 using MyForum.Services.Contracts;
+using ReflectionIT.Mvc.Paging;
 
 namespace MyForum.Web
 {
@@ -82,7 +83,8 @@ namespace MyForum.Web
 
 
             services.AddControllersWithViews();
-            services.AddRazorPages();            
+            services.AddRazorPages();
+            services.AddCloudscribePagination();
            
             services.AddTransient<MyForumDbContext>();
             services.AddTransient<IUsersService, UsersService>();
