@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net.Http;
 using Xunit;
 using MyForum.Web;
+using MyForum.Infrastructure;
+using System.Threading.Tasks;
 
 namespace MyForum.Tests
 {
@@ -27,6 +29,15 @@ namespace MyForum.Tests
             var actual = requestUrl.IsSuccessStatusCode;
 
             Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task CheckIfTheTitleOfThePageDoesNotContainIndex()
+        {
+            var expected = "Index";
+            var actualTitle = await requestUrl.Content.ReadAsStringAsync();
+
+            Assert.DoesNotContain(expected, actualTitle);
         }
     }
 }
