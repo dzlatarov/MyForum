@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Persistence", "MyFo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Infrastructure", "MyForum.Infrastructure\MyForum.Infrastructure.csproj", "{7F565EA1-9108-4ADB-AEF9-AC7159669A65}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Services", "MyForum.Services\MyForum.Services.csproj", "{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyForum.Services", "MyForum.Services\MyForum.Services.csproj", "{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyForum.Tests", "MyForum.Tests\MyForum.Tests.csproj", "{7E74D047-85C5-44F9-9BA6-C246D15DF424}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16DCBB56-ED99-42FF-8B69-AC3122BD50DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7E74D047-85C5-44F9-9BA6-C246D15DF424}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7E74D047-85C5-44F9-9BA6-C246D15DF424}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7E74D047-85C5-44F9-9BA6-C246D15DF424}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7E74D047-85C5-44F9-9BA6-C246D15DF424}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
