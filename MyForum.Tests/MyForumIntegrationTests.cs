@@ -39,5 +39,14 @@ namespace MyForum.Tests
 
             Assert.DoesNotContain(expected, actualTitle);
         }
+
+        [Fact]
+        public async Task CheckIfTheTitleOfTheIndexPageIsCorrect()
+        {
+            var expected = GlobalConstants.ProjectName;
+            var actual = await requestUrl.Content.ReadAsStringAsync();
+
+            Assert.Contains(expected, actual);
+        }
     }
 }
