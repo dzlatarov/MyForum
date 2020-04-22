@@ -79,14 +79,14 @@ namespace MyForum.Web.Controllers
         [HttpPost]
         [Authorize]
         [Route("/Users/Profile/Edit/{id}")]
-        public IActionResult EditProfile(string id, UsersEditViewModel input)
+        public async Task<IActionResult> EditProfile(string id, UsersEditViewModel input)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.View(input);
             }
 
-            this.usersService.Edit(id, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber, input.DateOfBirth);
+           await this.usersService.Edit(id, input.FirstName, input.MiddleName, input.LastName, input.Email, input.PhoneNumber, input.DateOfBirth);
 
             return this.RedirectToAction(nameof(Profile), new { id = this.User.FindFirstValue(ClaimTypes.NameIdentifier) });
         }
