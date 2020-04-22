@@ -5,6 +5,7 @@ using Xunit;
 using MyForum.Web;
 using MyForum.Infrastructure;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace MyForum.Tests
 {
@@ -47,6 +48,22 @@ namespace MyForum.Tests
             var actual = await requestUrl.Content.ReadAsStringAsync();
 
             Assert.Contains(expected, actual);
+        }
+
+        [Fact]
+        public async Task CheckIfIndexPageContainsTagStructure()
+        {
+            var actual = await requestUrl.Content.ReadAsStringAsync();
+
+            var expected = new List<string>
+            {
+                "<header", "<nav", "</nav>", "</header>", "<main", "</main>", "<footer", "</footer>"
+            };
+
+            foreach (var tag in expected)
+            {
+                Assert.Contains(tag, actual);
+            }
         }
     }
 }

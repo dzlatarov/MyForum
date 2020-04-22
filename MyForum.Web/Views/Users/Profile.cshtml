@@ -22,18 +22,7 @@
                 <div class="card-body">
                     <div class="card-title mb-4">
                         <div class="d-flex justify-content-start">
-                            @if (this.User.IsInRole(GlobalConstants.AdminRole))
-                            {
-                                <div class="image-container">
-                                    <img src="~/images/AdminAvatar.jpg" id="imgProfile" style="width: 150px; height: 150px" class="img-thumbnail" />
-
-                                    @*<div class="middle">
-                                            <input type="button" class="btn btn-secondary" id="btnChangePicture" value="Change" />
-                                            <input type="file" style="display: none;" id="profilePicture" name="file" />
-                                        </div>*@
-                                </div>
-                            }
-                            else
+                            @if (this.User.Identity.IsAuthenticated)
                             {
                                 if (@Model.Gender == "Male")
                                 {
