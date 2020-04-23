@@ -4,6 +4,7 @@ using MyForum.Persistence;
 using MyForum.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -47,6 +48,40 @@ namespace MyForum.Tests
             var expected = category;
 
             Assert.Equal(expected, actualUser);
+        }
+
+        [Fact]
+        public void CheckIfCategoryGetAllReturnCorrectAllCategories()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var categoryService = new CategoriesService(context);
+
+            var appCategories = new List<Category>
+            {
+                new Category
+                {
+                    Id = "1122",
+                    Name = "Action",
+                    Description = "Description......"
+                },
+                new Category
+                {
+                    Id = "1123",
+                    Name = "Adventure",
+                    Description = "Description......"
+                }
+            };
+
+            context.Categories.AddRange(appCategories);
+            context.SaveChanges();
+
+            var expected = appCategories.AsQueryable();
+            var actual = categoryService.GetAll();
+
+            Assert.Equal(expected, actual);
         }
     }
 }
