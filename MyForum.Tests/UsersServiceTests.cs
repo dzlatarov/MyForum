@@ -95,5 +95,20 @@ namespace MyForum.Tests
             Assert.True(user.UserName == "Petar");
             Assert.True(user.PasswordHash == "123");
         }
+
+        [Fact]
+        public void MethodGetUserById_ReturnsCorrectUser()
+        {
+            var repo = new Mock<IUsersService>();
+            repo.Setup(r => r.GetUserById("5566")).Returns(GetApplicationUsers().Where(u => u.Id == "5566").FirstOrDefault());
+
+
+            var user = repo.Object.GetUserById("5566");
+
+            Assert.True(user.UserName == "Ivancho");
+            Assert.True(user.FirstName == "Ivan");
+            Assert.True(user.MiddleName == "Ivanov");
+            Assert.True(user.LastName == "Ivanov");
+        }
     }
 }
