@@ -16,7 +16,7 @@ namespace MyForum.Tests
     public class UsersServiceTests
     {
         public IQueryable<ApplicationUser> GetApplicationUsers()
-        {    
+        {
             var users = new List<ApplicationUser>()
             {
                 new ApplicationUser
@@ -147,6 +147,48 @@ namespace MyForum.Tests
             await userService.Deactivate(userId);
 
             var expected = true;
+            var actual = context.Users.FirstOrDefault(x => x.UserName == user.UserName).IsDeactivate;
+
+
+            Assert.Equal(expected, actual);
+        }
+
+        [Fact]
+        public async Task CheckIfActiveMethodChangeIsDeactiveStatusCorrectly()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var userService = new UsersService(context);
+
+            var appUser = new ApplicationUser
+            {
+                Id = "1516",
+                UserName = "pesho",
+                NormalizedUserName = "pesho".ToUpper(),
+                Email = "pesho@abv.bg",
+                NormalizedEmail = "pesho@abv.bg".ToUpper(),
+                PasswordHash = "123",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                LockoutEnabled = true,
+                FirstName = "Ivan",
+                MiddleName = "Ivanov",
+                LastName = "Ivanov",
+                Gender = Gender.Male,
+                IsDeactivate = true
+            };
+
+            await context.Users.AddAsync(appUser);
+            await context.SaveChangesAsync();
+
+
+            var user = appUser;
+            var userId = user.Id;
+
+            await userService.Activate(userId);
+
+            var expected = false;
             var actual = context.Users.FirstOrDefault(x => x.UserName == user.UserName).IsDeactivate;
 
 
