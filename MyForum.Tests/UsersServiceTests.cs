@@ -110,5 +110,47 @@ namespace MyForum.Tests
             Assert.True(user.MiddleName == "Ivanov");
             Assert.True(user.LastName == "Ivanov");
         }
+
+        [Fact]
+        public async Task CheckIfDeactivateChangeIsDeactivateStatusCorrectly()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var userService = new UsersService(context);
+
+            var appUser = new ApplicationUser
+            {
+                Id = "1516",
+                UserName = "pesho",
+                NormalizedUserName = "pesho".ToUpper(),
+                Email = "pesho@abv.bg",
+                NormalizedEmail = "pesho@abv.bg".ToUpper(),
+                PasswordHash = "123",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                LockoutEnabled = true,
+                FirstName = "Ivan",
+                MiddleName = "Ivanov",
+                LastName = "Ivanov",
+                Gender = Gender.Male,
+                IsDeactivate = false
+            };
+
+            await context.Users.AddAsync(appUser);
+            await context.SaveChangesAsync();
+
+
+            var user = appUser;
+            var userId = user.Id;
+
+            await userService.Deactivate(userId);
+
+            var expected = true;
+            var actual = context.Users.FirstOrDefault(x => x.UserName == user.UserName).IsDeactivate;
+
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
