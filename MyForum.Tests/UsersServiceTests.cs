@@ -194,5 +194,58 @@ namespace MyForum.Tests
 
             Assert.Equal(expected, actual);
         }
+
+
+        [Fact]
+        public async Task CheckIfEditMethodWorksFine()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var userService = new UsersService(context);
+
+            var appUser = new ApplicationUser
+            {
+                Id = "1516",
+                UserName = "pesho",
+                NormalizedUserName = "pesho".ToUpper(),
+                Email = "pesho@abv.bg",
+                PhoneNumber = "0888999333",
+                NormalizedEmail = "pesho@abv.bg".ToUpper(),
+                PasswordHash = "123",
+                SecurityStamp = Guid.NewGuid().ToString(),
+                LockoutEnabled = true,
+                DateOfBirth = DateTime.UtcNow,
+                FirstName = "Ivan",
+                MiddleName = "Ivanov",
+                LastName = "Ivanov",
+                Gender = Gender.Male,
+                IsDeactivate = false
+            };
+
+            await context.Users.AddAsync(appUser);
+            await context.SaveChangesAsync();
+
+            var user = appUser;
+            var userId = user.Id;
+
+            var firstName = "Ivan";
+            var middleName = "Ivanov";
+            var lastName = "Ivanov";
+            var phoneNumber = "0888999333";
+            var email = "pesho@abv.bg";
+            var dayOfBirth = DateTime.UtcNow;
+
+            await userService.Edit(userId, "petar", "petrov", "petrov", "petar@abg.bg", "0888999999", new DateTime(1994, 05, 04).ToString());
+
+
+            Assert.True(firstName != user.FirstName);
+            Assert.True(middleName != user.MiddleName);
+            Assert.True(lastName != user.LastName);
+            Assert.True(phoneNumber != user.PhoneNumber);
+            Assert.True(email != user.Email);
+            Assert.True(dayOfBirth != user.DateOfBirth);
+        }
     }
 }
