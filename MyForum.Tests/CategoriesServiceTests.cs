@@ -83,5 +83,43 @@ namespace MyForum.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public async Task CheckIfAfterDeleteReturnsTheCorrectCountOfCategories()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+               .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var categoryService = new CategoriesService(context);
+
+            var appCategories = new List<Category>
+            {
+                new Category
+                {
+                    Id = "1122",
+                    Name = "Action",
+                    Description = "Description......"
+                },
+                new Category
+                {
+                    Id = "1123",
+                    Name = "Adventure",
+                    Description = "Description......"
+                }
+            };
+
+            context.Categories.AddRange(appCategories);
+            context.SaveChanges();
+
+            var category = appCategories[0];
+            var categoryId = category.Id;
+
+            var expectedCount = 1;
+            await categoryService.Delete(categoryId);
+            var actual = categoryService.GetAll().Count();
+
+            Assert.Equal(expectedCount, actual);
+        }
     }
 }
