@@ -41,5 +41,37 @@ namespace MyForum.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public async Task CheckIfDeleteMethodWorksCorrectly()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+              .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var usersService = new UsersService(context);
+            var categoriesService = new CategoriesService(context);
+            var threadsService = new ThreadsService(context, usersService, categoriesService);
+
+            var thread = new Thread
+            {
+                Id = "112233",
+                Title = "some title",
+                Content = "some content",
+                CreatedOn = DateTime.UtcNow,
+                ThreadCreatorId = "1122",
+                CategoryId = "2211"
+            };
+
+            await context.Threads.AddAsync(thread);
+            await context.SaveChangesAsync();
+
+            await threadsService.Delete(thread.Id);
+
+            var expected = 0;
+            var actual = await threadsService.All().CountAsync();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
