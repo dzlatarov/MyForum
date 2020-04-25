@@ -167,5 +167,26 @@ namespace MyForum.Tests
             Assert.True(description != category.Description);
             Assert.True(imageUrl != category.ImageUrl);
         }
+
+        [Fact]
+        public async Task CheckIfCreateMethodWorksCorrectly()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+              .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var categoryService = new CategoriesService(context);
+
+            await categoryService.Create("Action", "Some Description", "https://cdn.clipart.email/7bad7f269d0261c39d848eaeefa0d83c_filesports-and-gamessvg-wikimedia-commons_1102-1024.png");
+
+            var expectedCount = 1;
+            var actualCount = categoryService.GetAll().Count();
+
+            var expectedCategory = categoryService.GetCategoryByName("Action");
+            var actualCategory = await categoryService.GetAll().FirstOrDefaultAsync();
+
+            Assert.Equal(expectedCount, actualCount);
+            Assert.Equal(expectedCategory, actualCategory);
+        }
     }
 }
