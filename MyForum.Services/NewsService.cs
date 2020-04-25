@@ -44,7 +44,7 @@ namespace MyForum.Services
 
         public async Task Edit(string newsId, string name, string content, string imageUrl)
         {
-            var newsFromDb = this.db.News.FirstOrDefault(n => n.Id == newsId);
+            var newsFromDb = this.GetNewsById(newsId);
 
             newsFromDb.Name = name;
             newsFromDb.Content = content;

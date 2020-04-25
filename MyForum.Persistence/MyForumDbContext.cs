@@ -39,6 +39,15 @@ namespace MyForum.Persistence
                 .WithOne(c => c.Thread)
                 .HasForeignKey(t => t.ThreadId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Category>()
+                .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Category>()
+                .HasMany(c => c.Threads)
+                .WithOne(t => t.Category)
+                .HasForeignKey(t => t.CategoryId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

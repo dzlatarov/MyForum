@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using cloudscribe.Pagination.Models;
 using MyForum.Domain;
+using MyForum.Web.Models.Categories;
 
 namespace MyForum.Web.Controllers
 {
@@ -43,7 +44,7 @@ namespace MyForum.Web.Controllers
                 .Where(t => t.CategoryId == id)
                 .Skip(excludeRecords)
                 .Take(pageSize)
-                .Select(ThreadsAllViewModel.AllThreads)                
+                .Select(ThreadsAllViewModel.AllThreads)
                 .ToList();
 
 
@@ -65,6 +66,75 @@ namespace MyForum.Web.Controllers
         public async Task<IActionResult> Create()
         {
             return this.View();
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [Route("/Categories/Create")]
+        public async Task<IActionResult> Create(CategoriesCreateViewModel model)
+        {
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.categoriesService.Create(model.Name, model.Description, model.ImageUrl);
+
+            return this.Redirect("/");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [Route("/Categories/Delete{categoryId}")]
+        public async Task<IActionResult> Delete(string categoryId)
+        {
+            var category = this.categoriesService.GetCategoryById(categoryId);
+
+            if (category == null)
+            {
+                return this.NotFound();
+            }
+
+            await this.categoriesService.Delete(categoryId);
+
+            return this.Redirect("/");
+        }
+
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [Route("/Categories/Edit/{categoryId}")]
+        public IActionResult Edit(string categoryId)
+        {
+            var category = this.categoriesService.GetCategoryById(categoryId).Result;
+
+            if (category == null)
+            {
+                return this.NotFound();
+            }
+
+            var model = new CategoriesEditViewModel
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Name,
+                ImageUrl = category.ImageUrl
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdminRole)]
+        [Route("/Categories/Edit/{categoryId}")]
+        public async Task<IActionResult> Edit(string categoryId, CategoriesEditViewModel model)
+        {
+            if(!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            await this.categoriesService.Edit(categoryId, model.Name, model.Description, model.ImageUrl);
+
+            return this.Redirect("/");
         }
     }
 }

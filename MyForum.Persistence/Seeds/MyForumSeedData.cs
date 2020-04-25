@@ -85,23 +85,37 @@ namespace MyForum.Persistence.Seeds
                 new Category
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Name = "Sports",
-                    Description = "Here you can find and discuss problems linked to all sports.",
-                    ImageUrl = "https://code.org/images/sports/all_sports.png"
+                    Name = "Sport",
+                    Description = "Sport game bugs and fixes.",
+                    ImageUrl = GlobalConstants.SportsImg
                 },
                 new Category
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "Action",
-                    Description = "Here you can find interesting action games problems and you can find the answer to your need.",
-                    ImageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn"
+                    Description = "Action games bugs and fixes",
+                    ImageUrl = GlobalConstants.ActionImg
                 },
                 new Category
                 {
                     Id = Guid.NewGuid().ToString(),
                     Name = "Adventure",
                     Description = "Adventure games bugs and fixes",
-                    ImageUrl = "https://i.ytimg.com/vi/YGy32f86fbI/maxresdefault.jpg"
+                    ImageUrl = GlobalConstants.AdventureImg
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Strategy",
+                    Description = "Strategy games bugs and fixes",
+                    ImageUrl = GlobalConstants.StrategyImg
+                },
+                new Category
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Name = "Simulation",
+                    Description = "Simulation games bugs and fixes",
+                    ImageUrl = GlobalConstants.SimulationImg
                 }
             };
 

@@ -66,5 +66,12 @@ namespace MyForum.Infrastructure
         public const string RouteName = "default";
         public const string template = "{controller=Home}/{action=Index}/{id?}";
         public const string ExeptionHandlerErr = "/Home/Error";
+
+        //categories IMG
+        public const string ActionImg = "https://cdn.idcgames.com/img/home/zula-slider2.png";
+        public const string SportsImg = "https://code.org/images/sports/all_sports.png";
+        public const string AdventureImg = "https://i.ytimg.com/vi/YGy32f86fbI/maxresdefault.jpg";
+        public const string StrategyImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQa5vvjQavj3TGLiMhp8XCzXcoEFitL_aHrG-8uTO9c84Vv767H&usqp=CAU";
+        public const string SimulationImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRO2fCEyjZd4mkkO5m1bnd8Zk5t7pXlRXXmY_msSbLf6QQhy89q&usqp=CAU";
     }
 }
