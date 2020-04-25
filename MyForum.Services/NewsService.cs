@@ -34,10 +34,38 @@ namespace MyForum.Services
             await this.db.SaveChangesAsync();
         }
 
+        public async Task Delete(string newsId)
+        {
+            var news = this.GetNewsById(newsId);
+
+            this.db.News.Remove(news);
+            await this.db.SaveChangesAsync();
+        }
+
+        public async Task Edit(string newsId, string name, string content, string imageUrl)
+        {
+            var newsFromDb = this.db.News.FirstOrDefault(n => n.Id == newsId);
+
+            newsFromDb.Name = name;
+            newsFromDb.Content = content;
+            newsFromDb.ImageUrl = imageUrl;
+
+
+            this.db.Update(newsFromDb);
+            await this.db.SaveChangesAsync();
+        }
+
         public IQueryable<News> GetAll()
         {
             var allNews = this.db.News;
             return allNews;
+        }
+
+        public News GetNewsById(string newsId)
+        {
+            var news = this.db.News.FirstOrDefault(n => n.Id == newsId);
+
+            return news;
         }
     }
 }

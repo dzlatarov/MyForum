@@ -51,7 +51,7 @@ namespace MyForum.Services
 
         public async Task Delete(string commentId)
         {
-            var comment = this.db.Comments.FirstOrDefault(c => c.Id == commentId);
+            var comment = this.GetCommentById(commentId).Result;
 
             this.db.Comments.Remove(comment);
             await this.db.SaveChangesAsync();

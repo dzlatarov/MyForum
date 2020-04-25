@@ -12,5 +12,11 @@ namespace MyForum.Services.Contracts
         Task Create(string name, string content, string imageUrl, string creatorId);
 
         IQueryable<News> GetAll();
+
+        News GetNewsById(string newsId);
+
+        Task Edit(string newsId, string name, string content, string imageUrl);
+
+        Task Delete(string newsId);
     }
 }

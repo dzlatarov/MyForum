@@ -1,7 +1,26 @@
-﻿@*
+﻿@using MyForum.Web.Models.News
+@model NewsDetailsInfoViewModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "News Details";
 }
 
-    <p>Only admins can edit and delete the news</p>
+<div class="card mb-3">
+    <h3 class="card-header">@Model.Name</h3>
+    <img style="height: 200px; width: 70%; display: block;" src="@Model.ImageUrl" alt="news image">
+    <div class="card-body">
+        <p class="card-text">@Model.Content</p>
+    </div>
+    <div class="card-body">
+        <a asp-controller="News"
+           asp-action="Edit"
+           asp-route-newsId="@Model.Id"
+           class="card-link">Edit</a>
+        <a asp-controller="News"
+           asp-action="Delete"
+           asp-route-newsId="@Model.Id"
+           class="card-link">Delete</a>
+    </div>
+</div>

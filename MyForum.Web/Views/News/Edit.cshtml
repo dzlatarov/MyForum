@@ -1,7 +1,36 @@
-﻿@*
+﻿@using MyForum.Web.Models.News
+@model NewsEditViewModel
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    ViewData["Title"] = "News Edit";
 }
 
-    <p>Edit News</p>
+<div class="container-fluid bg-light d-flex justify-content-center text-center w-100 mx-auto mt-5">
+    <form asp-controller="News"
+          asp-action="Edit"
+          asp-route-commentId="@Model.Id"
+          method="post">
+
+        <div class="form-group">
+            <label asp-for="@Model.Name"></label>
+            <textarea asp-for="@Model.Name" type="text" rows="3" value="@Model.Name" class="form-control threadEdit"></textarea>
+            <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Content"></label>
+            <textarea asp-for="@Model.Content" type="text" rows="3" value="@Model.Content" class="form-control threadEdit"></textarea>
+            <span asp-validation-for="@Model.Content" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.ImageUrl"></label>
+            <textarea asp-for="@Model.ImageUrl" type="text" rows="3" value="@Model.ImageUrl" class="form-control threadEdit"></textarea>
+            <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
+        </div>
+        <br />
+        <div class="form-group">
+            <button type="submit" class="btn btn-danger">Edit</button>
+        </div>
+    </form>
+</div>
