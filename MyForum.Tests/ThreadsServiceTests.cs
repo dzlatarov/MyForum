@@ -84,6 +84,7 @@ namespace MyForum.Tests
             var usersService = new UsersService(context);
             var categoriesService = new CategoriesService(context);
             var threadsService = new ThreadsService(context, usersService, categoriesService);
+            
 
             var thread = new Thread
             {
