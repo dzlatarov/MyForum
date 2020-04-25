@@ -42,5 +42,38 @@ namespace MyForum.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public async Task CheckIfDeleteMethodReturnsTheCorrectCountOfComments()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+             .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var usersService = new UsersService(context);
+            var categoriesService = new CategoriesService(context);
+            var threadsService = new ThreadsService(context, usersService, categoriesService);
+            var commentsService = new CommentsService(context, threadsService, usersService);
+
+            var comment = new Comment
+            {
+                Id = "123456",
+                Content = "some content",
+                ThreadId = "1122",
+                CommentCreatorId = "3344",
+                CreatedOn = DateTime.UtcNow,
+                Quote = "some quote"
+            };
+
+            context.Comments.Add(comment);
+            context.SaveChanges();
+
+            await commentsService.Delete("123456");
+
+            var expected = 0;
+            var actual = await commentsService.GetAllComments().CountAsync();
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
