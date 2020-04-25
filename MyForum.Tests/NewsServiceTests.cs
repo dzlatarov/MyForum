@@ -41,5 +41,33 @@ namespace MyForum.Tests
 
             Assert.Equal(expected, actual);
         }
+
+        [Fact]
+        public async Task CheckIfGetNewsByIdReturnsCorrectNews()
+        {
+            var optionBuilder = new DbContextOptionsBuilder<MyForumDbContext>()
+                .UseInMemoryDatabase(Guid.NewGuid().ToString());
+
+            var context = new MyForumDbContext(optionBuilder.Options);
+            var newsService = new NewsService(context);
+
+            var news = new News
+            {
+                Id = "123456",
+                Name = "some name",
+                Content = "some content",
+                ImageUrl = "some img",
+                CreatedOn = DateTime.UtcNow,
+                CreatorId = "1122"
+            };
+
+            await context.News.AddAsync(news);
+            await context.SaveChangesAsync();
+
+            var expected = news;
+            var actual = newsService.GetNewsById("123456");
+
+            Assert.Equal(expected, actual);
+        }
     }
 }
