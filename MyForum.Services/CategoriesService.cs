@@ -20,25 +20,16 @@ namespace MyForum.Services
 
         public async Task Create(string name, string description, string imageUrl)
         {
-            var category = this.GetCategoryByName(name);
-
-            if (category == null)
+            var newCategory = new Category
             {
-                var newCategory = new Category
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Name = name,
-                    Description = description,
-                    ImageUrl = imageUrl
-                };
+                Id = Guid.NewGuid().ToString(),
+                Name = name,
+                Description = description,
+                ImageUrl = imageUrl
+            };
 
-                this.db.Categories.Add(newCategory);
-                await this.db.SaveChangesAsync();
-            }
-            else
-            {
-                return;
-            }
+            this.db.Categories.Add(newCategory);
+            await this.db.SaveChangesAsync();
         }
 
         public async Task Delete(string categoryId)

@@ -6,8 +6,9 @@ namespace MyForum.Domain
 {
     public class Thread
     {
-        public Thread()
+        public Thread()            
         {
+            this.Id = Guid.NewGuid().ToString();
             this.Comments = new HashSet<Comment>();
         }
         public string Id { get; set; }

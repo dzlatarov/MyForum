@@ -85,7 +85,7 @@ namespace MyForum.Web
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddCloudscribePagination();
-           
+
             services.AddTransient<MyForumDbContext>();
             services.AddTransient<IUsersService, UsersService>();
             services.AddTransient<IThreadsService, ThreadsService>();
@@ -97,14 +97,14 @@ namespace MyForum.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IAntiforgery antiForgery, MyForumDbContext context)
         {
-            MyForumSeedData seeder = new MyForumSeedData(context, app, env);
-            seeder.SeedAllData().Wait();
+            //MyForumSeedData seeder = new MyForumSeedData(context, app, env);
+            //seeder.SeedAllData().Wait();
 
             //middleware for ex: page not found
             app.UseStatusCodePagesWithReExecute(GlobalConstants.statusCodeWithReExecuteTemplate);
 
             if (env.IsDevelopment())
-            {                                
+            {
                 app.UseDeveloperExceptionPage();
             }
             else
@@ -119,7 +119,7 @@ namespace MyForum.Web
 
             app.UseRouting();
             app.UseAuthentication();
-            app.UseAuthorization();          
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -137,9 +137,9 @@ namespace MyForum.Web
                     string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
                 {
-                // The request token can be sent as a JavaScript-readable cookie, 
-                // and Angular uses it by default.
-                var tokens = antiForgery.GetAndStoreTokens(httpContext);
+                    // The request token can be sent as a JavaScript-readable cookie, 
+                    // and Angular uses it by default.
+                    var tokens = antiForgery.GetAndStoreTokens(httpContext);
                     httpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
                         new CookieOptions() { HttpOnly = false });
                 }
