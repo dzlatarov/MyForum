@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Hosting;
 using MyForum.Services;
 using MyForum.Services.Contracts;
 using ReflectionIT.Mvc.Paging;
+using MyForum.Web.Extensions;
 
 namespace MyForum.Web
 {
@@ -59,27 +60,27 @@ namespace MyForum.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString(GlobalConstants.ConnectionName)));
+            services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetDefaultConnectionString()));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>(options =>
-            {
-                options.Password.RequireDigit = false;
-                options.Password.RequiredLength = GlobalConstants.PasswordMinLength;
-                options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = GlobalConstants.UniqueChars;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-
-                options.SignIn.RequireConfirmedEmail = false;
-
-                options.User.AllowedUserNameCharacters = GlobalConstants.AllowedChars;
-                options.User.RequireUniqueEmail = true;
-            })
-            .AddDefaultUI()
-            .AddRoles<IdentityRole>()
-            .AddRoleManager<RoleManager<IdentityRole>>()
-            .AddDefaultTokenProviders()
-            .AddEntityFrameworkStores<MyForumDbContext>();
+            services
+                .AddIdentity<ApplicationUser, IdentityRole>(options =>
+                {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequiredLength = GlobalConstants.PasswordMinLength;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequiredUniqueChars = GlobalConstants.UniqueChars;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.SignIn.RequireConfirmedEmail = false;
+                    options.User.AllowedUserNameCharacters = GlobalConstants.AllowedChars;
+                    options.User.RequireUniqueEmail = true;
+                })
+               .AddDefaultUI()
+               .AddRoles<IdentityRole>()
+               .AddRoleManager<RoleManager<IdentityRole>>()
+               .AddDefaultTokenProviders()
+               .AddEntityFrameworkStores<MyForumDbContext>()
+               .AddEntityFrameworkStores<MyForumDbContext>();
 
 
             services.AddControllersWithViews();
