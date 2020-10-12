@@ -31,7 +31,6 @@
                .AddRoles<IdentityRole>()
                .AddRoleManager<RoleManager<IdentityRole>>()
                .AddDefaultTokenProviders()
-               .AddEntityFrameworkStores<MyForumDbContext>()
                .AddEntityFrameworkStores<MyForumDbContext>();
 
             return services;

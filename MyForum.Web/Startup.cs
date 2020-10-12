@@ -60,30 +60,10 @@ namespace MyForum.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetDefaultConnectionString()));
+            services.AddDbContextPool<MyForumDbContext>(options => options.UseSqlServer(Configuration.GetDefaultConnectionString()))
+                .AddIdentity()
+                .AddControllersWithViews();
 
-            services
-                .AddIdentity<ApplicationUser, IdentityRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequiredLength = GlobalConstants.PasswordMinLength;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequiredUniqueChars = GlobalConstants.UniqueChars;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.SignIn.RequireConfirmedEmail = false;
-                    options.User.AllowedUserNameCharacters = GlobalConstants.AllowedChars;
-                    options.User.RequireUniqueEmail = true;
-                })
-               .AddDefaultUI()
-               .AddRoles<IdentityRole>()
-               .AddRoleManager<RoleManager<IdentityRole>>()
-               .AddDefaultTokenProviders()
-               .AddEntityFrameworkStores<MyForumDbContext>()
-               .AddEntityFrameworkStores<MyForumDbContext>();
-
-
-            services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddCloudscribePagination();
 
@@ -114,39 +94,36 @@ namespace MyForum.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseCookiePolicy();
-
-            app.UseRouting();
-            app.UseAuthentication();
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                    name: GlobalConstants.RouteName,
-                    pattern: GlobalConstants.template);
-                endpoints.MapRazorPages();
-            });
-
-            app.Use(next => httpContext =>
-            {
-                string path = httpContext.Request.Path.Value;
-
-                if (
-                    string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
-                    string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+            app.UseHttpsRedirection()
+                .UseStaticFiles()
+                .UseCookiePolicy()
+                .UseRouting()
+                .UseAuthentication()
+                .UseAuthorization()
+                .UseEndpoints(endpoints =>
                 {
-                    // The request token can be sent as a JavaScript-readable cookie, 
-                    // and Angular uses it by default.
-                    var tokens = antiForgery.GetAndStoreTokens(httpContext);
-                    httpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
-                        new CookieOptions() { HttpOnly = false });
-                }
+                    endpoints.MapControllerRoute(
+                        name: GlobalConstants.RouteName,
+                        pattern: GlobalConstants.template);
+                    endpoints.MapRazorPages();
+                })
+                .Use(next => httpContext =>
+                {
+                    string path = httpContext.Request.Path.Value;
 
-                return next(httpContext);
-            });
+                    if (
+                        string.Equals(path, "/", StringComparison.OrdinalIgnoreCase) ||
+                        string.Equals(path, "/index.html", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // The request token can be sent as a JavaScript-readable cookie, 
+                        // and Angular uses it by default.
+                        var tokens = antiForgery.GetAndStoreTokens(httpContext);
+                        httpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken,
+                            new CookieOptions() { HttpOnly = false });
+                    }
+
+                    return next(httpContext);
+                });
         }
     }
 }
